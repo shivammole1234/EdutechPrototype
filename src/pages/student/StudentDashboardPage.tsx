@@ -13,6 +13,9 @@ import {
   Layers,
   ChevronRight,
   TrendingUp,
+  Radio,
+  Video,
+  Users,
 } from 'lucide-react';
 import {
   AreaChart,
@@ -30,13 +33,20 @@ import { Badge } from '@/components/ui/Badge';
 import { assessmentService } from '@/services/assessmentService';
 import { submissionService } from '@/services/submissionService';
 import { assignmentService } from '@/services/assignmentService';
+import { useLiveClassStore } from '@/stores/useLiveClassStore';
 import { Assessment, Submission, Assignment } from '@/types';
 import { formatDate } from '@/lib/utils';
+
+export { StudentLiveClassesPage as StudentClassesPage } from './StudentLiveClassesPage';
 
 export const StudentDashboardPage: React.FC = () => {
   const [assessments, setAssessments] = useState<Assessment[]>([]);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
+  const { getLiveClasses } = useLiveClassStore();
+
+  const liveClasses = getLiveClasses();
+  const activeClass = liveClasses[0];
 
   useEffect(() => {
     async function load() {
@@ -64,6 +74,44 @@ export const StudentDashboardPage: React.FC = () => {
 
   return (
     <div className="space-y-8">
+      {/* Live Class In Session Alert Banner */}
+      {activeClass && (
+        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-rose-950/60 via-slate-900 to-blue-950/60 border border-rose-800/80 shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center shrink-0">
+              <Radio className="w-6 h-6 text-rose-400 animate-pulse" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <Badge variant="danger" size="sm" className="bg-rose-950 text-rose-300 border-rose-800 font-mono">
+                  🔴 LIVE CLASS IN SESSION
+                </Badge>
+                <span className="text-xs text-slate-300 font-mono hidden sm:inline">
+                  {activeClass.batchName.split('(')[0]}
+                </span>
+              </div>
+              <h3 className="text-sm sm:text-base font-bold text-slate-100 mt-0.5">
+                {activeClass.title}
+              </h3>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Led by <span className="text-blue-400 font-semibold">{activeClass.instructorName}</span> • {activeClass.participants.length} peers connected
+              </p>
+            </div>
+          </div>
+
+          <Link to={`/student/live-class/${activeClass.id}`} className="shrink-0">
+            <Button
+              variant="primary"
+              size="md"
+              className="w-full sm:w-auto bg-rose-600 hover:bg-rose-500 font-bold text-white shadow-lg shadow-rose-950/50"
+            >
+              <Play className="w-4 h-4 mr-2 fill-white" />
+              Join Live Class Now
+            </Button>
+          </Link>
+        </div>
+      )}
+
       {/* Welcome Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-[#18181b] border border-[#27272a] rounded-2xl">
         <div className="space-y-1">
@@ -82,6 +130,12 @@ export const StudentDashboardPage: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-3">
+          <Link to="/student/classes">
+            <Button variant="outline" size="lg" className="border-slate-700 bg-slate-900 text-slate-200">
+              <Video className="w-4 h-4 mr-2 text-blue-400" />
+              Live Classes Hub
+            </Button>
+          </Link>
           <Link to="/student/assessments/asm_01/question/q_01">
             <Button variant="primary" size="lg" className="bg-blue-600 hover:bg-blue-500 shadow-blue-600/20">
               <Play className="w-4 h-4 mr-2" />
@@ -288,54 +342,6 @@ export const StudentDashboardPage: React.FC = () => {
               </div>
             ))}
           </div>
-        </Card>
-      </div>
-    </div>
-  );
-};
-
-export const StudentClassesPage: React.FC = () => {
-  return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-bold text-slate-100 tracking-tight">My Classes & Curriculum</h2>
-        <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
-          Full Stack & DSA Accelerator (Cohort 2025-A) • Led by Dr. Elena Rostova
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="p-5 space-y-4">
-          <div className="flex items-center justify-between">
-            <Badge variant="success" size="sm">Current Module: Active</Badge>
-            <span className="text-xs font-mono text-emerald-400 font-bold">68% Complete</span>
-          </div>
-          <h3 className="text-base font-bold text-slate-100">Module 4: Binary Search Trees & Heaps</h3>
-          <p className="text-xs text-slate-400">
-            Covers recursive traversals, self-balancing AVL properties, binary heap priority queues, and Dijkstra's shortest path.
-          </p>
-
-          <div className="space-y-2 pt-2 border-t border-slate-800 text-xs">
-            <div className="flex justify-between text-slate-300">
-              <span>Next Live Lecture:</span>
-              <span className="font-semibold text-slate-100">Today @ 2:00 PM</span>
-            </div>
-            <div className="flex justify-between text-slate-300">
-              <span>Classroom Attendance:</span>
-              <span className="text-emerald-400 font-mono font-bold">96% Present</span>
-            </div>
-          </div>
-        </Card>
-
-        <Card className="p-5 space-y-4">
-          <div className="flex items-center justify-between">
-            <Badge variant="primary" size="sm">Upcoming Module</Badge>
-            <span className="text-xs font-mono text-slate-400">Starts in 6 days</span>
-          </div>
-          <h3 className="text-base font-bold text-slate-100">Module 5: Dynamic Programming & Graphs</h3>
-          <p className="text-xs text-slate-400">
-            Memoization vs. Tabulation, 0/1 Knapsack, Longest Common Subsequence, and Graph Topological Sorting.
-          </p>
         </Card>
       </div>
     </div>

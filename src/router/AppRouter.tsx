@@ -48,9 +48,11 @@ import {
   InstructorNotificationsPage,
   InstructorSettingsPage,
 } from '@/pages/instructor/InstructorLiveSessionsPage';
+import { InstructorLiveClassroomPage } from '@/pages/instructor/InstructorLiveClassroomPage';
 
 // Student Pages
 import { StudentDashboardPage, StudentClassesPage } from '@/pages/student/StudentDashboardPage';
+import { StudentLiveClassroomPage } from '@/pages/student/StudentLiveClassroomPage';
 import {
   StudentAssessmentsPage,
   StudentSubmissionsPage,
@@ -133,6 +135,8 @@ export const AppRouter: React.FC = () => {
           <Route path="assignments" element={<InstructorAssignmentsPage />} />
           <Route path="attendance" element={<InstructorAttendancePage />} />
           <Route path="live-sessions" element={<InstructorLiveSessionsPage />} />
+          <Route path="live-classroom" element={<InstructorLiveClassroomPage />} />
+          <Route path="live-classroom/:id" element={<InstructorLiveClassroomPage />} />
           <Route path="analytics" element={<InstructorAnalyticsPage />} />
           <Route path="reports" element={<InstructorReportsPage />} />
           <Route path="notifications" element={<InstructorNotificationsPage />} />
@@ -151,6 +155,8 @@ export const AppRouter: React.FC = () => {
           <Route index element={<Navigate to="/student/dashboard" replace />} />
           <Route path="dashboard" element={<StudentDashboardPage />} />
           <Route path="classes" element={<StudentClassesPage />} />
+          <Route path="live-class/:id" element={<StudentLiveClassroomPage />} />
+          <Route path="live-classroom/:id" element={<StudentLiveClassroomPage />} />
           <Route path="assessments" element={<StudentAssessmentsPage />} />
           <Route path="submissions" element={<StudentSubmissionsPage />} />
           <Route path="submissions/:id" element={<StudentSubmissionDetailPage />} />

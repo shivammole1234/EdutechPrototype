@@ -331,3 +331,91 @@ export interface StudentPerformance {
   scoreTrend: { date: string; score: number; assessment: string }[];
   submissionActivity: { day: string; count: number }[];
 }
+
+export interface LiveChatMessage {
+  id: string;
+  senderId: string;
+  senderName: string;
+  senderRole: UserRole;
+  senderAvatar: string;
+  text: string;
+  time: string;
+  isInstructor?: boolean;
+  isPinned?: boolean;
+  reactions?: Record<string, number>;
+}
+
+export interface LivePollOption {
+  id: string;
+  text: string;
+  votes: number;
+}
+
+export interface LivePoll {
+  id: string;
+  question: string;
+  options: LivePollOption[];
+  status: 'ACTIVE' | 'CLOSED';
+  totalVotes: number;
+  correctOptionId?: string;
+  userVotedOptionId?: string;
+  createdAt: string;
+}
+
+export interface LiveHandRaise {
+  id: string;
+  studentId: string;
+  studentName: string;
+  studentAvatar: string;
+  raisedAt: string;
+  status: 'WAITING' | 'SPEAKING' | 'RESOLVED';
+}
+
+export interface LiveWhiteboardStroke {
+  points: { x: number; y: number }[];
+  color: string;
+  width: number;
+  tool: 'pen' | 'highlighter' | 'eraser';
+}
+
+export interface LiveParticipant {
+  id: string;
+  name: string;
+  email?: string;
+  avatar: string;
+  role: UserRole;
+  isSpeaking?: boolean;
+  micOn?: boolean;
+  camOn?: boolean;
+  handRaised?: boolean;
+  joinedAt: string;
+}
+
+export interface LiveClassRoom {
+  id: string;
+  batchId: string;
+  batchName: string;
+  title: string;
+  topic: string;
+  description: string;
+  instructorId: string;
+  instructorName: string;
+  instructorAvatar: string;
+  status: 'SCHEDULED' | 'LIVE' | 'ENDED';
+  startedAt?: string;
+  scheduledDate: string;
+  scheduledTime: string;
+  durationMinutes: number;
+  tags: string[];
+  code: string;
+  language: string;
+  instructorOutput: string;
+  notes: string;
+  chatMessages: LiveChatMessage[];
+  polls: LivePoll[];
+  raisedHands: LiveHandRaise[];
+  whiteboardStrokes: LiveWhiteboardStroke[];
+  participants: LiveParticipant[];
+  recordingUrl?: string;
+}
+

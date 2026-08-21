@@ -116,7 +116,12 @@ export const StudentLayout: React.FC = () => {
 
           <NavLink to="/student/classes" onClick={() => setSidebarOpen(false)} className={navLinkClass}>
             <GraduationCap className="w-4 h-4 text-[#71717a]" />
-            <span>My Classes</span>
+            <div className="flex items-center justify-between flex-1">
+              <span>Live Classes</span>
+              <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-rose-500/20 text-rose-300 border border-rose-500/30 font-mono font-bold animate-pulse">
+                🔴 LIVE
+              </span>
+            </div>
           </NavLink>
 
           <NavLink to="/student/assessments" onClick={() => setSidebarOpen(false)} className={navLinkClass}>
