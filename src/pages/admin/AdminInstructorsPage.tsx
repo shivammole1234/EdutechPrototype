@@ -44,8 +44,8 @@ export const AdminInstructorsPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-100 tracking-tight">Faculty & Instructors</h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+          <h2 className="text-xl font-bold text-[#fafafa] tracking-tight">Faculty & Instructors</h2>
+          <p className="text-xs sm:text-sm text-[#a1a1aa] mt-0.5">
             Manage academic instructors, assigned cohorts, and teaching allocations.
           </p>
         </div>
@@ -61,10 +61,10 @@ export const AdminInstructorsPage: React.FC = () => {
             placeholder="Search instructors..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            icon={<Search className="w-4 h-4 text-slate-500" />}
+            icon={<Search className="w-4 h-4 text-[#71717a]" />}
           />
         </div>
-        <span className="text-xs text-slate-400 font-mono">{filtered.length} Faculty Members</span>
+        <span className="text-xs text-[#71717a] font-mono">{filtered.length} Faculty Members</span>
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -76,38 +76,38 @@ export const AdminInstructorsPage: React.FC = () => {
                   <img
                     src={inst.avatar}
                     alt={inst.name}
-                    className="w-12 h-12 rounded-full object-cover border border-slate-700"
+                    className="w-12 h-12 rounded-full object-cover border border-[#27272a]"
                   />
                   <div>
-                    <h4 className="font-bold text-slate-100 text-sm">{inst.name}</h4>
-                    <p className="text-xs text-slate-400">{inst.email}</p>
+                    <h4 className="font-bold text-[#fafafa] text-sm">{inst.name}</h4>
+                    <p className="text-xs text-[#a1a1aa]">{inst.email}</p>
                   </div>
                 </div>
                 <Badge variant="success" size="sm">Active</Badge>
               </div>
 
-              <p className="text-xs text-slate-300 line-clamp-2">
+              <p className="text-xs text-[#a1a1aa] line-clamp-2">
                 {inst.bio || 'Lead Faculty & Systems Specialist.'}
               </p>
             </div>
 
-            <div className="pt-3 border-t border-slate-800 grid grid-cols-2 gap-2 text-xs">
-              <div className="p-2 bg-slate-950/60 rounded-lg border border-slate-800">
-                <span className="text-slate-400 flex items-center gap-1.5 mb-1">
+            <div className="pt-3 border-t border-[#27272a] grid grid-cols-2 gap-2 text-xs">
+              <div className="p-2.5 bg-[#09090b] rounded-xl border border-[#27272a]">
+                <span className="text-[#71717a] flex items-center gap-1.5 mb-1 text-[11px]">
                   <BookOpen className="w-3.5 h-3.5 text-blue-400" /> Batches
                 </span>
-                <span className="font-bold text-slate-200 font-mono">{inst.assignedBatchesCount || 2} Active</span>
+                <span className="font-bold text-[#fafafa] font-mono">{inst.assignedBatchesCount || 2} Active</span>
               </div>
-              <div className="p-2 bg-slate-950/60 rounded-lg border border-slate-800">
-                <span className="text-slate-400 flex items-center gap-1.5 mb-1">
+              <div className="p-2.5 bg-[#09090b] rounded-xl border border-[#27272a]">
+                <span className="text-[#71717a] flex items-center gap-1.5 mb-1 text-[11px]">
                   <Users className="w-3.5 h-3.5 text-purple-400" /> Students
                 </span>
-                <span className="font-bold text-slate-200 font-mono">{inst.totalStudentsCount || 60} Learners</span>
+                <span className="font-bold text-[#fafafa] font-mono">{inst.totalStudentsCount || 60} Learners</span>
               </div>
             </div>
 
             <div className="pt-2 flex items-center justify-between">
-              <span className="text-[11px] text-slate-400 font-mono">Joined {formatDate(inst.joinedDate)}</span>
+              <span className="text-[11px] text-[#71717a] font-mono">Joined {formatDate(inst.joinedDate)}</span>
               <Button variant="outline" size="sm" onClick={() => setSelectedInstructor(inst)}>
                 View Profile
               </Button>
@@ -123,22 +123,22 @@ export const AdminInstructorsPage: React.FC = () => {
           title="Faculty Profile & Teaching Load"
         >
           <div className="space-y-4 text-xs">
-            <div className="flex items-center gap-4 pb-4 border-b border-slate-800">
+            <div className="flex items-center gap-4 pb-4 border-b border-[#27272a]">
               <img
                 src={selectedInstructor.avatar}
                 alt={selectedInstructor.name}
-                className="w-14 h-14 rounded-full object-cover border border-slate-700"
+                className="w-14 h-14 rounded-full object-cover border border-[#27272a]"
               />
               <div>
-                <h4 className="text-base font-bold text-slate-100">{selectedInstructor.name}</h4>
-                <p className="text-slate-400">{selectedInstructor.email}</p>
-                <p className="text-slate-400">{selectedInstructor.phone}</p>
+                <h4 className="text-base font-bold text-[#fafafa]">{selectedInstructor.name}</h4>
+                <p className="text-[#a1a1aa]">{selectedInstructor.email}</p>
+                <p className="text-[#71717a]">{selectedInstructor.phone}</p>
               </div>
             </div>
-            <p className="text-slate-300 text-sm">{selectedInstructor.bio}</p>
-            <div className="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
-              <span className="font-semibold text-slate-200">Permissions & Access:</span>
-              <p className="text-slate-400">Full authoring rights for Question Bank, Live Coding Rooms, and Assessment Grading.</p>
+            <p className="text-[#a1a1aa] text-sm">{selectedInstructor.bio}</p>
+            <div className="p-3 bg-[#09090b] rounded-xl border border-[#27272a] space-y-1">
+              <span className="font-semibold text-[#fafafa]">Permissions & Access:</span>
+              <p className="text-[#71717a]">Full authoring rights for Question Bank, Live Coding Rooms, and Assessment Grading.</p>
             </div>
           </div>
         </Modal>
@@ -177,7 +177,7 @@ export const AdminInstructorsPage: React.FC = () => {
             value={newInst.bio}
             onChange={(e) => setNewInst({ ...newInst, bio: e.target.value })}
           />
-          <div className="pt-3 flex justify-end gap-2 border-t border-slate-800">
+          <div className="pt-3 flex justify-end gap-2 border-t border-[#27272a]">
             <Button variant="outline" type="button" onClick={() => setIsAddModalOpen(false)}>
               Cancel
             </Button>

@@ -99,6 +99,8 @@ export const AppRouter: React.FC = () => {
         >
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashboardPage />} />
+          <Route path="users/students" element={<AdminStudentsPage />} />
+          <Route path="users/instructors" element={<AdminInstructorsPage />} />
           <Route path="students" element={<AdminStudentsPage />} />
           <Route path="instructors" element={<AdminInstructorsPage />} />
           <Route path="batches" element={<AdminBatchesPage />} />
