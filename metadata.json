@@ -1,0 +1,6 @@
+{
+  "name": "CodePulse Academy & Assessment Platform",
+  "description": "Enterprise coding education, live assessment engine, and LMS platform with dedicated Admin, Instructor, and Student portals.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
