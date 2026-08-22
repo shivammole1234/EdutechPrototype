@@ -54,7 +54,7 @@ export const AdminLayout: React.FC = () => {
       {/* Mobile Sidebar Toggle Button */}
       <div className="md:hidden flex items-center justify-between p-4 bg-[#09090b] border-b border-[#27272a]">
         <div className="flex items-center gap-2 font-bold text-[#fafafa]">
-          <div className="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center font-bold text-white shadow-xs">
+          <div className="w-8 h-8 bg-[#27272a] border border-[#3f3f46] rounded-md flex items-center justify-center font-bold text-[#fafafa] shadow-xs">
             <CodeXml className="w-4 h-4" />
           </div>
           <span className="font-bold tracking-tight text-sm">AI STUDIO <span className="text-purple-400 text-xs font-mono">ADMIN</span></span>
@@ -76,7 +76,7 @@ export const AdminLayout: React.FC = () => {
       >
         {/* Brand */}
         <div className="h-16 px-6 border-b border-[#27272a] flex items-center gap-3">
-          <div className="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center font-bold text-white shadow-sm shadow-blue-600/20">
+          <div className="w-8 h-8 bg-[#fafafa] rounded-md flex items-center justify-center font-bold text-[#09090b] shadow-sm">
             A
           </div>
           <div>

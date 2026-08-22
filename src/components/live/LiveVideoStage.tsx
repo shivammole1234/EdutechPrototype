@@ -114,28 +114,28 @@ export const LiveVideoStage: React.FC<LiveVideoStageProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col group min-h-[300px] lg:min-h-[340px]"
+      className="relative w-full bg-[#09090b] border border-[#27272a] rounded-2xl overflow-hidden shadow-sm flex flex-col group min-h-[300px] lg:min-h-[340px]"
     >
       {/* Top Header Overlay */}
-      <div className="absolute top-0 inset-x-0 z-20 p-3 bg-gradient-to-b from-slate-950/90 via-slate-950/50 to-transparent flex items-center justify-between pointer-events-auto">
+      <div className="absolute top-0 inset-x-0 z-20 p-3 bg-gradient-to-b from-[#09090b]/90 via-[#09090b]/50 to-transparent flex items-center justify-between pointer-events-auto">
         <div className="flex items-center gap-2.5">
           <Badge variant="danger" size="sm" className="animate-pulse bg-rose-950/80 text-rose-300 border-rose-800/60 font-mono">
             <Radio className="w-3 h-3 mr-1 animate-ping text-rose-400" />
             LIVE
           </Badge>
-          <span className="text-xs font-semibold text-slate-200 truncate max-w-[200px] sm:max-w-xs">
+          <span className="text-xs font-semibold text-[#fafafa] truncate max-w-[200px] sm:max-w-xs">
             {room.title}
           </span>
         </div>
 
         <div className="flex items-center gap-2">
-          <Badge variant="outline" size="sm" className="bg-slate-900/80 border-slate-700 text-slate-300">
-            <Users className="w-3 h-3 mr-1 text-blue-400" />
+          <Badge variant="outline" size="sm" className="bg-[#18181b]/80 border-[#27272a] text-[#a1a1aa]">
+            <Users className="w-3 h-3 mr-1 text-[#fafafa]" />
             {activeParticipantsCount} Connected
           </Badge>
           <button
             onClick={toggleFullscreen}
-            className="p-1.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 transition cursor-pointer"
+            className="p-1.5 rounded-lg bg-[#18181b]/80 hover:bg-[#27272a] text-[#a1a1aa] hover:text-[#fafafa] border border-[#27272a] transition cursor-pointer"
             title="Toggle Fullscreen"
           >
             {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
@@ -144,7 +144,7 @@ export const LiveVideoStage: React.FC<LiveVideoStageProps> = ({
       </div>
 
       {/* Main Video Viewport */}
-      <div className="relative flex-1 flex items-center justify-center bg-radial from-slate-900 via-slate-950 to-[#09090b] overflow-hidden">
+      <div className="relative flex-1 flex items-center justify-center bg-[#101011] overflow-hidden">
         {/* Real Video element if active */}
         <video
           ref={videoRef}
@@ -158,7 +158,7 @@ export const LiveVideoStage: React.FC<LiveVideoStageProps> = ({
         {(!streamActive || !isCamOn) && (
           <div className="flex flex-col items-center justify-center p-6 text-center z-10 space-y-4">
             <div className="relative">
-              <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-3xl overflow-hidden border-2 border-blue-500/50 shadow-2xl shadow-blue-500/20 bg-slate-900">
+              <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-3xl overflow-hidden border border-[#3f3f46] shadow-xl bg-[#18181b]">
                 <img
                   src={room.instructorAvatar}
                   alt={room.instructorName}
@@ -167,17 +167,17 @@ export const LiveVideoStage: React.FC<LiveVideoStageProps> = ({
                 {/* Audio pulse ring */}
                 <div className="absolute inset-0 ring-4 ring-emerald-400/40 rounded-3xl animate-pulse" />
               </div>
-              <div className="absolute -bottom-2 -right-2 p-1.5 rounded-full bg-blue-600 text-white shadow-lg border-2 border-slate-950">
+              <div className="absolute -bottom-2 -right-2 p-1.5 rounded-full bg-[#27272a] text-[#fafafa] shadow-lg border border-[#3f3f46]">
                 <Sparkles className="w-3.5 h-3.5" />
               </div>
             </div>
 
             <div className="space-y-1">
               <div className="flex items-center justify-center gap-2">
-                <h4 className="text-sm sm:text-base font-bold text-slate-100">{room.instructorName}</h4>
-                <Badge variant="primary" size="sm">Faculty Host</Badge>
+                <h4 className="text-sm sm:text-base font-bold text-[#fafafa]">{room.instructorName}</h4>
+                <Badge variant="default" size="sm">Faculty Host</Badge>
               </div>
-              <p className="text-xs text-slate-400 font-mono">Audio High-Definition 48kHz Stereo</p>
+              <p className="text-xs text-[#a1a1aa] font-mono">Audio High-Definition 48kHz Stereo</p>
             </div>
 
             {/* Audio Waveform visualizer simulation */}
@@ -199,14 +199,14 @@ export const LiveVideoStage: React.FC<LiveVideoStageProps> = ({
 
         {/* Speaking Student Spotlight Overlay (if student was granted microphone) */}
         {speakingStudent && (
-          <div className="absolute bottom-16 right-4 z-20 p-2 bg-slate-900/90 border border-emerald-500/50 rounded-xl shadow-2xl flex items-center gap-2.5 backdrop-blur-md">
+          <div className="absolute bottom-16 right-4 z-20 p-2 bg-[#18181b]/95 border border-emerald-500/50 rounded-xl shadow-2xl flex items-center gap-2.5 backdrop-blur-md">
             <img
               src={speakingStudent.avatar}
               alt={speakingStudent.name}
               className="w-8 h-8 rounded-lg object-cover ring-2 ring-emerald-400"
             />
             <div className="text-left text-xs">
-              <span className="font-semibold text-slate-100 flex items-center gap-1">
+              <span className="font-semibold text-[#fafafa] flex items-center gap-1">
                 <Volume2 className="w-3 h-3 text-emerald-400 animate-pulse" />
                 {speakingStudent.name}
               </span>
@@ -223,7 +223,7 @@ export const LiveVideoStage: React.FC<LiveVideoStageProps> = ({
             .map((p) => (
               <div
                 key={p.id}
-                className="relative w-10 h-10 rounded-xl overflow-hidden border border-slate-700/80 bg-slate-900 shadow-md group/peer"
+                className="relative w-10 h-10 rounded-xl overflow-hidden border border-[#27272a] bg-[#18181b] shadow-md group/peer"
                 title={`${p.name} (${p.role})`}
               >
                 <img src={p.avatar} alt={p.name} className="w-full h-full object-cover" />
@@ -241,14 +241,14 @@ export const LiveVideoStage: React.FC<LiveVideoStageProps> = ({
       </div>
 
       {/* Bottom Media Controls Bar */}
-      <div className="p-3 bg-slate-950 border-t border-slate-800/80 flex items-center justify-between z-20">
+      <div className="p-3 bg-[#09090b] border-t border-[#27272a] flex items-center justify-between z-20">
         <div className="flex items-center gap-2">
           {/* Mic Button */}
           <Button
             variant={isMicOn ? 'outline' : 'danger'}
             size="sm"
             onClick={onToggleMic}
-            className={isMicOn ? 'bg-slate-900 border-slate-700 text-slate-200' : 'bg-rose-600 text-white'}
+            className={isMicOn ? 'bg-[#18181b] border-[#27272a] text-[#fafafa] hover:border-[#3f3f46]' : 'bg-rose-600 text-white'}
           >
             {isMicOn ? <Mic className="w-3.5 h-3.5 mr-1.5 text-emerald-400" /> : <MicOff className="w-3.5 h-3.5 mr-1.5" />}
             {isMicOn ? 'Mute' : 'Unmuted'}
@@ -259,9 +259,9 @@ export const LiveVideoStage: React.FC<LiveVideoStageProps> = ({
             variant={isCamOn ? 'outline' : 'danger'}
             size="sm"
             onClick={onToggleCam}
-            className={isCamOn ? 'bg-slate-900 border-slate-700 text-slate-200' : 'bg-rose-600 text-white'}
+            className={isCamOn ? 'bg-[#18181b] border-[#27272a] text-[#fafafa] hover:border-[#3f3f46]' : 'bg-rose-600 text-white'}
           >
-            {isCamOn ? <Video className="w-3.5 h-3.5 mr-1.5 text-blue-400" /> : <VideoOff className="w-3.5 h-3.5 mr-1.5" />}
+            {isCamOn ? <Video className="w-3.5 h-3.5 mr-1.5 text-[#fafafa]" /> : <VideoOff className="w-3.5 h-3.5 mr-1.5" />}
             {isCamOn ? 'Stop Video' : 'Start Video'}
           </Button>
 
@@ -271,7 +271,7 @@ export const LiveVideoStage: React.FC<LiveVideoStageProps> = ({
               variant={isScreenSharing ? 'primary' : 'outline'}
               size="sm"
               onClick={onShareScreen}
-              className={isScreenSharing ? 'bg-blue-600' : 'bg-slate-900 border-slate-700 text-slate-200'}
+              className={isScreenSharing ? 'bg-[#fafafa] text-[#09090b]' : 'bg-[#18181b] border-[#27272a] text-[#fafafa] hover:border-[#3f3f46]'}
             >
               <MonitorUp className="w-3.5 h-3.5 mr-1.5" />
               {isScreenSharing ? 'Sharing Screen' : 'Share Screen'}
@@ -284,7 +284,7 @@ export const LiveVideoStage: React.FC<LiveVideoStageProps> = ({
               variant={isHandRaised ? 'primary' : 'outline'}
               size="sm"
               onClick={onRaiseHand}
-              className={isHandRaised ? 'bg-amber-600 hover:bg-amber-500 text-white' : 'bg-slate-900 border-slate-700 text-slate-200'}
+              className={isHandRaised ? 'bg-amber-600 hover:bg-amber-500 text-white' : 'bg-[#18181b] border-[#27272a] text-[#fafafa] hover:border-[#3f3f46]'}
             >
               <Hand className={`w-3.5 h-3.5 mr-1.5 ${isHandRaised ? 'animate-bounce' : ''}`} />
               {isHandRaised ? 'Hand Raised ✋' : 'Raise Hand'}
@@ -292,8 +292,8 @@ export const LiveVideoStage: React.FC<LiveVideoStageProps> = ({
           )}
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-slate-400">
-          <span className="hidden sm:inline font-mono text-[11px] text-slate-400">
+        <div className="flex items-center gap-2 text-xs text-[#a1a1aa]">
+          <span className="hidden sm:inline font-mono text-[11px] text-[#71717a]">
             HD 1080p • 60 FPS • WebRTC
           </span>
         </div>

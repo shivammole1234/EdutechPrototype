@@ -111,10 +111,10 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
         <div
           className={`p-2.5 rounded-lg border transition ${
             currentStep === 1
-              ? 'bg-blue-950/60 border-blue-500 text-blue-400'
+              ? 'bg-[#27272a] border-[#3f3f46] text-[#fafafa]'
               : currentStep > 1
-              ? 'bg-slate-900 border-slate-800 text-emerald-400'
-              : 'bg-slate-950 border-slate-800 text-slate-500'
+              ? 'bg-[#18181b] border-[#27272a] text-emerald-400'
+              : 'bg-[#09090b] border-[#27272a] text-[#71717a]'
           }`}
         >
           1. Test Details
@@ -122,10 +122,10 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
         <div
           className={`p-2.5 rounded-lg border transition ${
             currentStep === 2
-              ? 'bg-blue-950/60 border-blue-500 text-blue-400'
+              ? 'bg-[#27272a] border-[#3f3f46] text-[#fafafa]'
               : currentStep > 2
-              ? 'bg-slate-900 border-slate-800 text-emerald-400'
-              : 'bg-slate-950 border-slate-800 text-slate-500'
+              ? 'bg-[#18181b] border-[#27272a] text-emerald-400'
+              : 'bg-[#09090b] border-[#27272a] text-[#71717a]'
           }`}
         >
           2. Questions ({selectedQuestionIds.length})
@@ -133,10 +133,10 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
         <div
           className={`p-2.5 rounded-lg border transition ${
             currentStep === 3
-              ? 'bg-blue-950/60 border-blue-500 text-blue-400'
+              ? 'bg-[#27272a] border-[#3f3f46] text-[#fafafa]'
               : currentStep > 3
-              ? 'bg-slate-900 border-slate-800 text-emerald-400'
-              : 'bg-slate-950 border-slate-800 text-slate-500'
+              ? 'bg-[#18181b] border-[#27272a] text-emerald-400'
+              : 'bg-[#09090b] border-[#27272a] text-[#71717a]'
           }`}
         >
           3. Security & Rules
@@ -144,8 +144,8 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
         <div
           className={`p-2.5 rounded-lg border transition ${
             currentStep === 4
-              ? 'bg-blue-950/60 border-blue-500 text-blue-400'
-              : 'bg-slate-950 border-slate-800 text-slate-500'
+              ? 'bg-[#27272a] border-[#3f3f46] text-[#fafafa]'
+              : 'bg-[#09090b] border-[#27272a] text-[#71717a]'
           }`}
         >
           4. Review & Publish
@@ -172,7 +172,7 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Instructions for students regarding timing, allowed languages, and submission rules..."
-              className="w-full bg-slate-950 border border-slate-700/80 rounded-lg p-3 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+              className="w-full bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-xs text-[#fafafa] focus:outline-none focus:border-[#3f3f46]"
             />
           </div>
 
@@ -190,7 +190,7 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
               <select
                 value={batchId}
                 onChange={(e) => setBatchId(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-slate-200"
+                className="w-full bg-[#09090b] border border-[#27272a] rounded-lg px-3 py-2 text-sm text-[#fafafa]"
               >
                 <option value="batch_01">Full Stack & DSA Accelerator (Cohort 2025-A)</option>
                 <option value="batch_02">Python & Applied AI Engineering</option>
@@ -206,7 +206,7 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <CardTitle>Select Questions from Bank</CardTitle>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-[#a1a1aa] mt-0.5">
                 {selectedQuestionIds.length} Selected • {totalPoints} Total Points
               </p>
             </div>
@@ -221,8 +221,8 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
                   onClick={() => toggleSelectQuestion(q.id)}
                   className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
                     isSelected
-                      ? 'bg-blue-950/40 border-blue-500/80 shadow-xs'
-                      : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
+                      ? 'bg-[#27272a] border-[#3f3f46] shadow-xs'
+                      : 'bg-[#09090b] border-[#27272a] hover:border-[#3f3f46]'
                   }`}
                 >
                   <div className="space-y-1">
@@ -239,20 +239,20 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
                       >
                         {q.difficulty}
                       </Badge>
-                      <h4 className="font-semibold text-sm text-slate-100">{q.title}</h4>
+                      <h4 className="font-semibold text-sm text-[#fafafa]">{q.title}</h4>
                     </div>
-                    <p className="text-xs text-slate-400">
-                      Topic: <span className="text-slate-300">{q.topic}</span> • {q.testCases.length} Test cases
+                    <p className="text-xs text-[#a1a1aa]">
+                      Topic: <span className="text-[#fafafa]">{q.topic}</span> • {q.testCases.length} Test cases
                     </p>
                   </div>
 
                   <div className="flex items-center gap-4">
-                    <span className="font-mono text-sm font-bold text-blue-400">{q.points} PTS</span>
+                    <span className="font-mono text-sm font-bold text-[#fafafa]">{q.points} PTS</span>
                     <div
                       className={`w-5 h-5 rounded-md flex items-center justify-center border ${
                         isSelected
-                          ? 'bg-blue-600 border-blue-600 text-white'
-                          : 'border-slate-700 bg-slate-900'
+                          ? 'bg-[#fafafa] border-[#fafafa] text-[#09090b]'
+                          : 'border-[#27272a] bg-[#18181b]'
                       }`}
                     >
                       {isSelected && <Check className="w-3.5 h-3.5" />}
@@ -271,49 +271,49 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
           <CardTitle>Proctoring & Anti-Cheat Controls</CardTitle>
 
           <div className="space-y-4 text-xs">
-            <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-3">
+            <div className="p-4 bg-[#09090b] border border-[#27272a] rounded-xl space-y-3">
               <label className="flex items-center justify-between cursor-pointer">
                 <div>
-                  <p className="font-semibold text-slate-100 text-sm">Enforce Fullscreen Mode</p>
-                  <p className="text-slate-400">Exiting fullscreen triggers a violation flag</p>
+                  <p className="font-semibold text-[#fafafa] text-sm">Enforce Fullscreen Mode</p>
+                  <p className="text-[#a1a1aa]">Exiting fullscreen triggers a violation flag</p>
                 </div>
                 <input
                   type="checkbox"
                   checked={enforceFullscreen}
                   onChange={(e) => setEnforceFullscreen(e.target.checked)}
-                  className="w-4 h-4 rounded bg-slate-900 border-slate-700 text-blue-600"
+                  className="w-4 h-4 rounded bg-[#18181b] border-[#27272a] accent-neutral-200"
                 />
               </label>
 
-              <label className="flex items-center justify-between cursor-pointer pt-3 border-t border-slate-800">
+              <label className="flex items-center justify-between cursor-pointer pt-3 border-t border-[#27272a]">
                 <div>
-                  <p className="font-semibold text-slate-100 text-sm">Disable Clipboard (Copy/Paste)</p>
-                  <p className="text-slate-400">Prevents pasting external code snippets</p>
+                  <p className="font-semibold text-[#fafafa] text-sm">Disable Clipboard (Copy/Paste)</p>
+                  <p className="text-[#a1a1aa]">Prevents pasting external code snippets</p>
                 </div>
                 <input
                   type="checkbox"
                   checked={disableCopyPaste}
                   onChange={(e) => setDisableCopyPaste(e.target.checked)}
-                  className="w-4 h-4 rounded bg-slate-900 border-slate-700 text-blue-600"
+                  className="w-4 h-4 rounded bg-[#18181b] border-[#27272a] accent-neutral-200"
                 />
               </label>
 
-              <label className="flex items-center justify-between cursor-pointer pt-3 border-t border-slate-800">
+              <label className="flex items-center justify-between cursor-pointer pt-3 border-t border-[#27272a]">
                 <div>
-                  <p className="font-semibold text-slate-100 text-sm">Webcam & Proctor Snapshot</p>
-                  <p className="text-slate-400">Periodic snapshot captures for faculty review</p>
+                  <p className="font-semibold text-[#fafafa] text-sm">Webcam & Proctor Snapshot</p>
+                  <p className="text-[#a1a1aa]">Periodic snapshot captures for faculty review</p>
                 </div>
                 <input
                   type="checkbox"
                   checked={enableWebcam}
                   onChange={(e) => setEnableWebcam(e.target.checked)}
-                  className="w-4 h-4 rounded bg-slate-900 border-slate-700 text-blue-600"
+                  className="w-4 h-4 rounded bg-[#18181b] border-[#27272a] accent-neutral-200"
                 />
               </label>
             </div>
 
-            <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-2">
-              <p className="font-semibold text-slate-100">Tab Switch Tolerance</p>
+            <div className="p-4 bg-[#09090b] border border-[#27272a] rounded-xl space-y-2">
+              <p className="font-semibold text-[#fafafa]">Tab Switch Tolerance</p>
               <div className="flex items-center gap-4">
                 <input
                   type="range"
@@ -321,9 +321,9 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
                   max="10"
                   value={maxTabSwitches}
                   onChange={(e) => setMaxTabSwitches(Number(e.target.value))}
-                  className="flex-1 accent-blue-500 cursor-pointer"
+                  className="flex-1 accent-neutral-200 cursor-pointer"
                 />
-                <span className="font-mono text-sm font-bold text-blue-400">
+                <span className="font-mono text-sm font-bold text-[#fafafa]">
                   {maxTabSwitches} Warnings Allowed
                 </span>
               </div>
@@ -337,25 +337,25 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
         <Card className="p-6 space-y-5">
           <CardTitle>Assessment Summary Review</CardTitle>
 
-          <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-3 text-xs">
+          <div className="p-4 bg-[#09090b] border border-[#27272a] rounded-xl space-y-3 text-xs">
             <div className="flex justify-between">
-              <span className="text-slate-400">Assessment Name:</span>
-              <span className="font-bold text-slate-100">{title || 'Untitled Assessment'}</span>
+              <span className="text-[#a1a1aa]">Assessment Name:</span>
+              <span className="font-bold text-[#fafafa]">{title || 'Untitled Assessment'}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-400">Duration:</span>
-              <span className="font-mono text-slate-200">{durationMinutes} Minutes</span>
+              <span className="text-[#a1a1aa]">Duration:</span>
+              <span className="font-mono text-[#fafafa]">{durationMinutes} Minutes</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-400">Questions Count:</span>
-              <span className="font-mono text-slate-200">{selectedQuestionIds.length} Tasks</span>
+              <span className="text-[#a1a1aa]">Questions Count:</span>
+              <span className="font-mono text-[#fafafa]">{selectedQuestionIds.length} Tasks</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-400">Total Score:</span>
-              <span className="font-mono font-bold text-blue-400">{totalPoints} Points</span>
+              <span className="text-[#a1a1aa]">Total Score:</span>
+              <span className="font-mono font-bold text-[#fafafa]">{totalPoints} Points</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-400">Proctoring:</span>
+              <span className="text-[#a1a1aa]">Proctoring:</span>
               <span className="text-emerald-400 font-semibold">
                 {enableWebcam ? 'Webcam Snapshots' : ''} {enforceFullscreen ? '• Fullscreen Lock' : ''}
               </span>

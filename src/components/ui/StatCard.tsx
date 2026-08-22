@@ -35,10 +35,10 @@ export const StatCard: React.FC<StatCardProps> = ({
             {change && (
               <span
                 className={cn(
-                  'text-xs font-semibold px-2 py-0.5 rounded-md font-mono',
-                  changeType === 'positive' && 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20',
-                  changeType === 'negative' && 'text-rose-400 bg-rose-500/10 border border-rose-500/20',
-                  changeType === 'neutral' && 'text-[#a1a1aa] bg-[#27272a] border border-[#3f3f46]'
+                  'text-[11px] font-medium px-2 py-0.5 rounded-md font-mono',
+                  changeType === 'positive' && 'text-emerald-400/90 bg-emerald-950/40 border border-emerald-800/40',
+                  changeType === 'negative' && 'text-rose-400/90 bg-rose-950/40 border border-rose-800/40',
+                  changeType === 'neutral' && 'text-zinc-400 bg-zinc-800/60 border border-zinc-700/50'
                 )}
               >
                 {change}
@@ -47,7 +47,7 @@ export const StatCard: React.FC<StatCardProps> = ({
           </div>
           {subtitle && <p className="text-xs text-[#a1a1aa] mt-2">{subtitle}</p>}
         </div>
-        <div className="p-3 bg-[#09090b] border border-[#27272a] rounded-xl text-blue-400">
+        <div className="p-2.5 bg-[#121215] border border-[#27272a] rounded-xl text-zinc-400">
           {icon}
         </div>
       </div>

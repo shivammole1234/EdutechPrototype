@@ -49,7 +49,7 @@ export const TopNavbar: React.FC<{ title?: string }> = ({ title }) => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Quick search (Cmd+K)"
-          className="bg-[#18181b] border border-[#27272a] rounded-lg px-4 py-1.5 text-xs w-64 focus:outline-none focus:ring-1 focus:ring-blue-500 text-[#a1a1aa] placeholder:text-[#71717a] transition-all"
+          className="bg-[#18181b] border border-[#27272a] rounded-lg px-4 py-1.5 text-xs w-64 focus:outline-none focus:ring-1 focus:ring-[#3f3f46] text-[#a1a1aa] placeholder:text-[#71717a] transition-all"
         />
       </div>
 
@@ -102,7 +102,7 @@ export const TopNavbar: React.FC<{ title?: string }> = ({ title }) => {
                   className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-[#27272a] transition cursor-pointer text-left"
                 >
                   <div className="flex items-center gap-2.5">
-                    <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                    <div className="p-1.5 rounded-lg bg-[#27272a] text-[#fafafa] border border-[#3f3f46]">
                       <GraduationCap className="w-4 h-4" />
                     </div>
                     <div>
@@ -110,7 +110,7 @@ export const TopNavbar: React.FC<{ title?: string }> = ({ title }) => {
                       <p className="text-[10px] text-[#71717a]">Dr. Elena • Proctoring & Tests</p>
                     </div>
                   </div>
-                  {user?.role === 'INSTRUCTOR' && <Check className="w-4 h-4 text-blue-400" />}
+                  {user?.role === 'INSTRUCTOR' && <Check className="w-4 h-4 text-[#fafafa]" />}
                 </button>
 
                 <button
@@ -152,7 +152,7 @@ export const TopNavbar: React.FC<{ title?: string }> = ({ title }) => {
           className="relative w-8 h-8 flex items-center justify-center rounded-lg bg-[#18181b] border border-[#27272a] text-[#a1a1aa] hover:text-[#fafafa] hover:border-[#3f3f46] transition-colors cursor-pointer"
         >
           <Bell className="w-3.5 h-3.5" />
-          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 ring-2 ring-[#18181b]" />
+          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#fafafa] ring-2 ring-[#18181b]" />
         </button>
 
         {/* User Avatar & Logout */}

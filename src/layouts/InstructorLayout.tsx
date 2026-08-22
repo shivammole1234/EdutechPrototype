@@ -57,10 +57,10 @@ export const InstructorLayout: React.FC = () => {
       {/* Mobile Header */}
       <div className="md:hidden flex items-center justify-between p-4 bg-[#09090b] border-b border-[#27272a]">
         <div className="flex items-center gap-2 font-bold text-[#fafafa]">
-          <div className="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center font-bold text-white shadow-xs">
+          <div className="w-8 h-8 bg-[#27272a] border border-[#3f3f46] rounded-md flex items-center justify-center font-bold text-[#fafafa] shadow-xs">
             <CodeXml className="w-4 h-4" />
           </div>
-          <span className="font-bold tracking-tight text-sm">AI STUDIO <span className="text-blue-400 text-xs font-mono">FACULTY</span></span>
+          <span className="font-bold tracking-tight text-sm">AI STUDIO <span className="text-[#fafafa] text-xs font-mono">FACULTY</span></span>
         </div>
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -79,12 +79,12 @@ export const InstructorLayout: React.FC = () => {
       >
         {/* Brand */}
         <div className="h-16 px-6 border-b border-[#27272a] flex items-center gap-3">
-          <div className="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center font-bold text-white shadow-sm shadow-blue-600/20">
+          <div className="w-8 h-8 bg-[#fafafa] rounded-md flex items-center justify-center font-bold text-[#09090b] shadow-sm">
             A
           </div>
           <div>
             <h2 className="font-bold text-sm text-[#fafafa] tracking-tight flex items-center gap-1.5">
-              AI STUDIO <span className="text-[10px] px-1.5 py-0.2 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-md font-mono">FACULTY</span>
+              AI STUDIO <span className="text-[10px] px-1.5 py-0.2 bg-[#27272a] text-[#fafafa] border border-[#3f3f46] rounded-md font-mono">FACULTY</span>
             </h2>
             <p className="text-[10px] text-[#71717a]">Classroom & Proctoring</p>
           </div>

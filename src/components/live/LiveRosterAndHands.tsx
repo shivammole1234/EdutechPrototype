@@ -36,21 +36,21 @@ export const LiveRosterAndHands: React.FC<LiveRosterAndHandsProps> = ({
   const isInstructor = currentUser.role === 'INSTRUCTOR';
 
   return (
-    <div className="flex flex-col h-full bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+    <div className="flex flex-col h-full bg-[#18181b] border border-[#27272a] rounded-2xl overflow-hidden shadow-sm">
       {/* Header */}
-      <div className="p-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+      <div className="p-3 bg-[#18181b] border-b border-[#27272a] flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <div className="p-1.5 rounded-lg bg-[#27272a] text-[#fafafa] border border-[#3f3f46]">
             <Users className="w-4 h-4" />
           </div>
           <div>
-            <h4 className="text-xs font-bold text-slate-100">Class Roster & Speaking Queue</h4>
-            <p className="text-[10px] text-slate-400">{participants.length} Active in Classroom</p>
+            <h4 className="text-xs font-bold text-[#fafafa]">Class Roster & Speaking Queue</h4>
+            <p className="text-[10px] text-[#a1a1aa]">{participants.length} Active in Classroom</p>
           </div>
         </div>
 
         {isInstructor && onMuteAll && (
-          <Button variant="outline" size="sm" onClick={onMuteAll} className="bg-slate-900 border-slate-700 text-xs">
+          <Button variant="outline" size="sm" onClick={onMuteAll} className="bg-[#09090b] border-[#27272a] text-xs text-[#fafafa] hover:border-[#3f3f46]">
             <VolumeX className="w-3.5 h-3.5 mr-1 text-rose-400" />
             Mute All
           </Button>
@@ -61,7 +61,7 @@ export const LiveRosterAndHands: React.FC<LiveRosterAndHandsProps> = ({
       <div className="flex-1 p-3 overflow-y-auto space-y-4">
         {/* Raised Hands Priority Queue */}
         {raisedHands.length > 0 && (
-          <div className="p-3 bg-amber-950/30 border border-amber-800/50 rounded-xl space-y-2">
+          <div className="p-3 bg-[#09090b] border border-amber-800/50 rounded-xl space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-amber-300 flex items-center gap-1.5">
                 <Hand className="w-3.5 h-3.5 animate-bounce text-amber-400" />
@@ -74,7 +74,7 @@ export const LiveRosterAndHands: React.FC<LiveRosterAndHandsProps> = ({
               {raisedHands.map((hand) => (
                 <div
                   key={hand.id}
-                  className="p-2 bg-slate-900/90 border border-amber-700/40 rounded-lg flex items-center justify-between gap-2"
+                  className="p-2 bg-[#18181b] border border-amber-700/40 rounded-lg flex items-center justify-between gap-2"
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     <img
@@ -83,8 +83,8 @@ export const LiveRosterAndHands: React.FC<LiveRosterAndHandsProps> = ({
                       className="w-7 h-7 rounded-full object-cover shrink-0"
                     />
                     <div className="truncate">
-                      <p className="text-xs font-bold text-slate-200 truncate">{hand.studentName}</p>
-                      <p className="text-[10px] text-slate-400 font-mono">Raised @ {hand.raisedAt}</p>
+                      <p className="text-xs font-bold text-[#fafafa] truncate">{hand.studentName}</p>
+                      <p className="text-[10px] text-[#a1a1aa] font-mono">Raised @ {hand.raisedAt}</p>
                     </div>
                   </div>
 
@@ -105,7 +105,7 @@ export const LiveRosterAndHands: React.FC<LiveRosterAndHandsProps> = ({
                       {onLowerHand && (
                         <button
                           onClick={() => onLowerHand(hand.studentId)}
-                          className="p-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white"
+                          className="p-1 rounded-lg bg-[#27272a] hover:bg-[#3f3f46] text-[#a1a1aa] hover:text-[#fafafa]"
                           title="Lower Hand"
                         >
                           <X className="w-3.5 h-3.5" />
@@ -121,51 +121,51 @@ export const LiveRosterAndHands: React.FC<LiveRosterAndHandsProps> = ({
 
         {/* Full Participant Roster */}
         <div className="space-y-2">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-1">
+          <div className="text-[10px] font-bold uppercase tracking-wider text-[#71717a] px-1">
             Connected Peers & Faculty
           </div>
 
           {participants.map((p) => (
             <div
               key={p.id}
-              className="p-2.5 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-between gap-2 hover:border-slate-700 transition"
+              className="p-2.5 bg-[#09090b] border border-[#27272a] rounded-xl flex items-center justify-between gap-2 hover:border-[#3f3f46] transition"
             >
               <div className="flex items-center gap-2.5 min-w-0">
                 <div className="relative shrink-0">
                   <img
                     src={p.avatar}
                     alt={p.name}
-                    className="w-8 h-8 rounded-full object-cover border border-slate-700"
+                    className="w-8 h-8 rounded-full object-cover border border-[#27272a]"
                   />
                   {p.isSpeaking && (
-                    <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-slate-950 animate-ping" />
+                    <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-[#09090b] animate-ping" />
                   )}
                 </div>
 
                 <div className="truncate">
                   <div className="flex items-center gap-1.5 truncate">
-                    <span className="text-xs font-bold text-slate-200 truncate">{p.name}</span>
+                    <span className="text-xs font-bold text-[#fafafa] truncate">{p.name}</span>
                     {p.id === currentUser.id && (
-                      <span className="text-[10px] text-slate-400 font-mono">(You)</span>
+                      <span className="text-[10px] text-[#a1a1aa] font-mono">(You)</span>
                     )}
                   </div>
-                  <span className="text-[10px] text-slate-400 font-mono block">
+                  <span className="text-[10px] text-[#a1a1aa] font-mono block">
                     {p.role === 'INSTRUCTOR' ? 'Lead Faculty' : 'Student • 2025-A'}
                   </span>
                 </div>
               </div>
 
               {/* Status Icons */}
-              <div className="flex items-center gap-1.5 text-slate-400 shrink-0">
+              <div className="flex items-center gap-1.5 text-[#a1a1aa] shrink-0">
                 {p.handRaised && (
                   <Badge variant="warning" size="sm" className="px-1.5 py-0">
                     <Hand className="w-2.5 h-2.5" />
                   </Badge>
                 )}
-                <div className={`p-1 rounded ${p.micOn ? 'text-emerald-400 bg-emerald-950/40' : 'text-slate-500'}`}>
+                <div className={`p-1 rounded ${p.micOn ? 'text-emerald-400 bg-emerald-950/40' : 'text-[#71717a]'}`}>
                   {p.micOn ? <Mic className="w-3.5 h-3.5" /> : <MicOff className="w-3.5 h-3.5" />}
                 </div>
-                <div className={`p-1 rounded ${p.camOn ? 'text-blue-400 bg-blue-950/40' : 'text-slate-500'}`}>
+                <div className={`p-1 rounded ${p.camOn ? 'text-[#fafafa] bg-[#27272a]' : 'text-[#71717a]'}`}>
                   {p.camOn ? <Video className="w-3.5 h-3.5" /> : <VideoOff className="w-3.5 h-3.5" />}
                 </div>
               </div>

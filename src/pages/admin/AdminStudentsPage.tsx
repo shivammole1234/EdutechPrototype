@@ -93,7 +93,7 @@ export const AdminStudentsPage: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-1.5 text-xs text-[#fafafa] cursor-pointer focus:outline-none focus:border-blue-500"
+            className="bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-1.5 text-xs text-[#fafafa] cursor-pointer focus:outline-none focus:border-[#3f3f46]"
           >
             <option value="ALL">All Statuses</option>
             <option value="ACTIVE">Active</option>

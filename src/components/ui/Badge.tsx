@@ -15,7 +15,7 @@ export const Badge: React.FC<BadgeProps> = ({
 }) => {
   const variants = {
     default: 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46]',
-    primary: 'bg-blue-500/10 text-blue-400 border border-blue-500/20',
+    primary: 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46]',
     success: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
     warning: 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
     danger: 'bg-rose-500/10 text-rose-400 border border-rose-500/20',

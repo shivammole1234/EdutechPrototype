@@ -94,7 +94,7 @@ export const AdminInstructorsPage: React.FC = () => {
             <div className="pt-3 border-t border-[#27272a] grid grid-cols-2 gap-2 text-xs">
               <div className="p-2.5 bg-[#09090b] rounded-xl border border-[#27272a]">
                 <span className="text-[#71717a] flex items-center gap-1.5 mb-1 text-[11px]">
-                  <BookOpen className="w-3.5 h-3.5 text-blue-400" /> Batches
+                  <BookOpen className="w-3.5 h-3.5 text-[#fafafa]" /> Batches
                 </span>
                 <span className="font-bold text-[#fafafa] font-mono">{inst.assignedBatchesCount || 2} Active</span>
               </div>

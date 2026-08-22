@@ -79,15 +79,15 @@ export const InstructorLiveSessionsPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400">Faculty Studio</span>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#a1a1aa]">Faculty Studio</span>
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono bg-[#27272a] text-[#fafafa] border border-[#3f3f46]">
               Live Classroom Management
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">
+          <h2 className="text-xl sm:text-2xl font-bold text-[#fafafa] tracking-tight mt-1">
             Live Coding Lab & Classroom Studio
           </h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+          <p className="text-xs sm:text-sm text-[#a1a1aa] mt-0.5">
             Host live interactive lectures with HD video stage, Monaco code broadcast, canvas whiteboard, and live quizzes.
           </p>
         </div>
@@ -97,9 +97,9 @@ export const InstructorLiveSessionsPage: React.FC = () => {
             variant="outline"
             size="sm"
             onClick={() => setShowScheduleModal(true)}
-            className="bg-slate-900 border-slate-700 text-slate-200 text-xs"
+            className="bg-[#18181b] border-[#27272a] hover:border-[#3f3f46] text-[#fafafa] text-xs"
           >
-            <Calendar className="w-3.5 h-3.5 mr-1 text-blue-400" />
+            <Calendar className="w-3.5 h-3.5 mr-1 text-[#fafafa]" />
             Schedule Class
           </Button>
 
@@ -107,7 +107,7 @@ export const InstructorLiveSessionsPage: React.FC = () => {
             variant="primary"
             size="sm"
             onClick={handleLaunchInstantClass}
-            className="bg-blue-600 hover:bg-blue-500 font-bold text-white shadow-lg shadow-blue-950/40 text-xs"
+            className="font-bold text-xs shadow-sm"
           >
             <Radio className="w-3.5 h-3.5 mr-1.5 animate-pulse text-rose-300" />
             Launch Instant Live Class
@@ -117,18 +117,18 @@ export const InstructorLiveSessionsPage: React.FC = () => {
 
       {/* Schedule Modal */}
       {showScheduleModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-lg w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 bg-[#09090b]/80 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#18181b] border border-[#27272a] rounded-2xl p-6 max-w-lg w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
+            <div className="flex items-center justify-between border-b border-[#27272a] pb-3">
               <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400">
+                <div className="p-1.5 rounded-lg bg-[#27272a] text-[#fafafa] border border-[#3f3f46]">
                   <Video className="w-4 h-4" />
                 </div>
-                <h3 className="text-base font-bold text-slate-100">Schedule Live Class</h3>
+                <h3 className="text-base font-bold text-[#fafafa]">Schedule Live Class</h3>
               </div>
               <button
                 onClick={() => setShowScheduleModal(false)}
-                className="text-xs text-slate-400 hover:text-white"
+                className="text-xs text-[#a1a1aa] hover:text-[#fafafa]"
               >
                 ✕
               </button>
@@ -136,55 +136,55 @@ export const InstructorLiveSessionsPage: React.FC = () => {
 
             <form onSubmit={handleScheduleSubmit} className="space-y-3.5 text-xs">
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">Class Title</label>
+                <label className="block text-[#fafafa] font-semibold mb-1">Class Title</label>
                 <input
                   type="text"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="e.g. Masterclass: Dijkstra Algorithm & Min-Heap Optimization"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:ring-1 focus:ring-blue-500"
+                  className="w-full bg-[#09090b] border border-[#27272a] focus:border-[#3f3f46] rounded-xl px-3 py-2 text-[#fafafa] focus:outline-none"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">Key Topic / Subject</label>
+                <label className="block text-[#fafafa] font-semibold mb-1">Key Topic / Subject</label>
                 <input
                   type="text"
                   value={newTopic}
                   onChange={(e) => setNewTopic(e.target.value)}
                   placeholder="e.g. Graph Theory, Priority Queues, Greedy Algorithms"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-200"
+                  className="w-full bg-[#09090b] border border-[#27272a] focus:border-[#3f3f46] rounded-xl px-3 py-2 text-[#fafafa] focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Date</label>
+                  <label className="block text-[#fafafa] font-semibold mb-1">Date</label>
                   <input
                     type="date"
                     value={newDate}
                     onChange={(e) => setNewDate(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-200"
+                    className="w-full bg-[#09090b] border border-[#27272a] focus:border-[#3f3f46] rounded-xl px-3 py-2 text-[#fafafa] focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Time & Timezone</label>
+                  <label className="block text-[#fafafa] font-semibold mb-1">Time & Timezone</label>
                   <input
                     type="text"
                     value={newTime}
                     onChange={(e) => setNewTime(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-200"
+                    className="w-full bg-[#09090b] border border-[#27272a] focus:border-[#3f3f46] rounded-xl px-3 py-2 text-[#fafafa] focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">Duration (Minutes)</label>
+                <label className="block text-[#fafafa] font-semibold mb-1">Duration (Minutes)</label>
                 <select
                   value={newDuration}
                   onChange={(e) => setNewDuration(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-200"
+                  className="w-full bg-[#09090b] border border-[#27272a] focus:border-[#3f3f46] rounded-xl px-3 py-2 text-[#fafafa] focus:outline-none"
                 >
                   <option value="60">60 Minutes (1 Hour)</option>
                   <option value="90">90 Minutes (1.5 Hours)</option>
@@ -192,7 +192,7 @@ export const InstructorLiveSessionsPage: React.FC = () => {
                 </select>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#27272a]">
                 <Button
                   type="button"
                   variant="outline"
@@ -201,7 +201,7 @@ export const InstructorLiveSessionsPage: React.FC = () => {
                 >
                   Cancel
                 </Button>
-                <Button type="submit" variant="primary" size="sm" className="bg-blue-600 hover:bg-blue-500">
+                <Button type="submit" variant="primary" size="sm">
                   Start Broadcast Studio
                 </Button>
               </div>
@@ -212,27 +212,27 @@ export const InstructorLiveSessionsPage: React.FC = () => {
 
       {/* Featured Active Live Class Studio Card */}
       {activeClass && (
-        <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-950/60 via-slate-900 to-indigo-950/40 border border-blue-700/60 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="p-6 rounded-2xl bg-[#18181b] border border-[#27272a] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
             <div className="flex items-center gap-2">
               <Badge variant="danger" size="sm" className="bg-rose-950/90 text-rose-300 border-rose-800 font-mono">
                 <Radio className="w-3 h-3 mr-1 animate-ping text-rose-400" />
                 BROADCASTING LIVE
               </Badge>
-              <span className="text-xs text-blue-300 font-mono">Batch 2025-A Active Room</span>
+              <span className="text-xs text-[#a1a1aa] font-mono">Batch 2025-A Active Room</span>
             </div>
 
-            <h3 className="text-xl font-bold text-white tracking-tight">{activeClass.title}</h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">{activeClass.description}</p>
+            <h3 className="text-xl font-bold text-[#fafafa] tracking-tight">{activeClass.title}</h3>
+            <p className="text-xs sm:text-sm text-[#a1a1aa] leading-relaxed">{activeClass.description}</p>
 
-            <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 pt-1">
+            <div className="flex flex-wrap items-center gap-4 text-xs text-[#a1a1aa] pt-1">
               <span className="flex items-center gap-1 font-mono text-emerald-400">
                 <Users className="w-3.5 h-3.5" />
                 {activeClass.participants.length} Active Students Connected
               </span>
               <span>•</span>
-              <span className="flex items-center gap-1 font-mono text-slate-300">
-                <Clock className="w-3.5 h-3.5 text-blue-400" />
+              <span className="flex items-center gap-1 font-mono text-[#fafafa]">
+                <Clock className="w-3.5 h-3.5 text-[#fafafa]" />
                 {activeClass.durationMinutes} mins scheduled
               </span>
             </div>
@@ -242,7 +242,7 @@ export const InstructorLiveSessionsPage: React.FC = () => {
             <Button
               variant="primary"
               size="lg"
-              className="w-full md:w-auto bg-blue-600 hover:bg-blue-500 font-bold px-8 py-3 shadow-xl shadow-blue-950/60"
+              className="w-full md:w-auto font-bold px-8 py-3 shadow-sm"
             >
               <Video className="w-4 h-4 mr-2" />
               Enter Broadcast Studio
@@ -263,33 +263,33 @@ export const InstructorLiveSessionsPage: React.FC = () => {
             return (
               <Card
                 key={cls.id}
-                className={`p-5 flex flex-col justify-between space-y-4 border transition-all ${
+                className={`p-5 flex flex-col justify-between space-y-4 border rounded-2xl transition-all ${
                   isLive
-                    ? 'border-blue-700/80 bg-slate-900/90 shadow-lg'
-                    : 'border-slate-800 bg-slate-900/50'
+                    ? 'border-[#3f3f46] bg-[#18181b] shadow-md ring-1 ring-[#3f3f46]/50'
+                    : 'border-[#27272a] bg-[#18181b] hover:border-[#3f3f46]'
                 }`}
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <Badge
-                      variant={isLive ? 'danger' : isScheduled ? 'primary' : 'default'}
+                      variant={isLive ? 'danger' : isScheduled ? 'default' : 'outline'}
                       size="sm"
                     >
                       {isLive ? 'LIVE NOW' : isScheduled ? 'SCHEDULED' : 'ENDED'}
                     </Badge>
-                    <span className="text-[11px] text-slate-400 font-mono">{cls.scheduledTime}</span>
+                    <span className="text-[11px] text-[#a1a1aa] font-mono">{cls.scheduledTime}</span>
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-bold text-slate-100">{cls.title}</h4>
-                    <p className="text-xs text-slate-400 line-clamp-2 mt-1">{cls.description}</p>
+                    <h4 className="text-sm font-bold text-[#fafafa]">{cls.title}</h4>
+                    <p className="text-xs text-[#a1a1aa] line-clamp-2 mt-1">{cls.description}</p>
                   </div>
 
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {cls.tags.map((t) => (
                       <span
                         key={t}
-                        className="px-2 py-0.5 rounded-md bg-slate-950 border border-slate-800 text-[10px] text-slate-400 font-mono"
+                        className="px-2 py-0.5 rounded-md bg-[#09090b] border border-[#27272a] text-[10px] text-[#a1a1aa] font-mono"
                       >
                         #{t}
                       </span>
@@ -297,22 +297,22 @@ export const InstructorLiveSessionsPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2 pt-3 border-t border-slate-800/80">
-                  <div className="flex items-center justify-between text-xs text-slate-400">
+                <div className="space-y-2 pt-3 border-t border-[#27272a]">
+                  <div className="flex items-center justify-between text-xs text-[#a1a1aa]">
                     <span>{cls.batchName.split('(')[0]}</span>
                     <span className="font-mono">{cls.durationMinutes}m</span>
                   </div>
 
                   {isLive ? (
                     <Link to={`/instructor/live-classroom/${cls.id}`} className="block">
-                      <Button variant="primary" size="sm" className="w-full bg-blue-600 hover:bg-blue-500 font-bold">
+                      <Button variant="primary" size="sm" className="w-full font-bold">
                         <Video className="w-3.5 h-3.5 mr-1" />
                         Host Studio
                       </Button>
                     </Link>
                   ) : isScheduled ? (
                     <Link to={`/instructor/live-classroom/${cls.id}`} className="block">
-                      <Button variant="outline" size="sm" className="w-full bg-slate-950 border-slate-800 text-xs">
+                      <Button variant="outline" size="sm" className="w-full bg-[#09090b] border-[#27272a] text-xs">
                         <Play className="w-3.5 h-3.5 mr-1 text-emerald-400" />
                         Start Live Broadcast
                       </Button>

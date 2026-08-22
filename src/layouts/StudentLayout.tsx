@@ -56,10 +56,10 @@ export const StudentLayout: React.FC = () => {
       {/* Mobile Header */}
       <div className="md:hidden flex items-center justify-between p-4 bg-[#09090b] border-b border-[#27272a]">
         <div className="flex items-center gap-2 font-bold text-[#fafafa]">
-          <div className="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center font-bold text-white shadow-xs">
+          <div className="w-8 h-8 bg-[#27272a] border border-[#3f3f46] rounded-md flex items-center justify-center font-bold text-[#fafafa] shadow-xs">
             <CodeXml className="w-4 h-4" />
           </div>
-          <span className="font-bold tracking-tight text-sm">AI STUDIO <span className="text-blue-400 text-xs font-mono">STUDENT</span></span>
+          <span className="font-bold tracking-tight text-sm">AI STUDIO <span className="text-emerald-400 text-xs font-mono">STUDENT</span></span>
         </div>
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -78,12 +78,12 @@ export const StudentLayout: React.FC = () => {
       >
         {/* Brand */}
         <div className="h-16 px-6 border-b border-[#27272a] flex items-center gap-3">
-          <div className="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center font-bold text-white shadow-sm shadow-blue-600/20">
+          <div className="w-8 h-8 bg-[#fafafa] rounded-md flex items-center justify-center font-bold text-[#09090b] shadow-sm">
             A
           </div>
           <div>
             <h2 className="font-bold text-sm text-[#fafafa] tracking-tight flex items-center gap-1.5">
-              AI STUDIO <span className="text-[10px] px-1.5 py-0.2 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-md font-mono">LEARNER</span>
+              AI STUDIO <span className="text-[10px] px-1.5 py-0.2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-md font-mono">LEARNER</span>
             </h2>
             <p className="text-[10px] text-[#71717a]">Student ID: 48291</p>
           </div>
@@ -174,7 +174,7 @@ export const StudentLayout: React.FC = () => {
         {/* Footer info Bento */}
         <div className="p-4 border-t border-[#27272a] bg-[#09090b]">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 border border-[#3f3f46] flex items-center justify-center text-xs font-bold text-white">
+            <div className="w-8 h-8 rounded-full bg-[#27272a] border border-[#3f3f46] flex items-center justify-center text-xs font-bold text-[#fafafa]">
               AR
             </div>
             <div className="flex flex-col">

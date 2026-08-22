@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   FileText,
   Copy,
@@ -31,6 +31,26 @@ export const LiveNotesPanel: React.FC<LiveNotesPanelProps> = ({
   );
   const [copied, setCopied] = useState(false);
 
+  const classTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const privateTextareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Dynamically calculate height based on content + 3 extra lines of buffer
+  const adjustHeight = (el: HTMLTextAreaElement | null) => {
+    if (!el) return;
+    el.style.height = 'auto';
+    const computedLineHeight = parseFloat(window.getComputedStyle(el).lineHeight) || 20;
+    const buffer = computedLineHeight * 3;
+    el.style.height = `${el.scrollHeight + buffer}px`;
+  };
+
+  useEffect(() => {
+    if (activeTab === 'class' && classTextareaRef.current) {
+      adjustHeight(classTextareaRef.current);
+    } else if (activeTab === 'private' && privateTextareaRef.current) {
+      adjustHeight(privateTextareaRef.current);
+    }
+  }, [notes, privateNotes, activeTab]);
+
   const handleCopy = () => {
     const textToCopy = activeTab === 'class' ? notes : privateNotes;
     navigator.clipboard.writeText(textToCopy);
@@ -50,14 +70,14 @@ export const LiveNotesPanel: React.FC<LiveNotesPanelProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-full bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+    <div className="flex flex-col h-full bg-[#18181b] border border-[#27272a] rounded-2xl overflow-hidden shadow-sm">
       {/* Header */}
-      <div className="p-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-        <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-lg p-0.5">
+      <div className="p-3 bg-[#18181b] border-b border-[#27272a] flex items-center justify-between">
+        <div className="flex items-center gap-1.5 bg-[#09090b] border border-[#27272a] rounded-lg p-0.5">
           <button
             onClick={() => setActiveTab('class')}
             className={`px-2.5 py-1 rounded-md text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer ${
-              activeTab === 'class' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-slate-200'
+              activeTab === 'class' ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46]' : 'text-[#a1a1aa] hover:text-[#fafafa]'
             }`}
           >
             <BookOpen className="w-3 h-3" />
@@ -66,7 +86,7 @@ export const LiveNotesPanel: React.FC<LiveNotesPanelProps> = ({
           <button
             onClick={() => setActiveTab('private')}
             className={`px-2.5 py-1 rounded-md text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer ${
-              activeTab === 'private' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-slate-200'
+              activeTab === 'private' ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46]' : 'text-[#a1a1aa] hover:text-[#fafafa]'
             }`}
           >
             <Edit3 className="w-3 h-3" />
@@ -77,14 +97,14 @@ export const LiveNotesPanel: React.FC<LiveNotesPanelProps> = ({
         <div className="flex items-center gap-1.5">
           <button
             onClick={handleCopy}
-            className="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition cursor-pointer"
+            className="p-1.5 rounded-lg bg-[#09090b] hover:bg-[#27272a] border border-[#27272a] hover:border-[#3f3f46] text-[#fafafa] transition cursor-pointer"
             title="Copy Notes"
           >
             {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
           </button>
           <button
             onClick={handleDownload}
-            className="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition cursor-pointer"
+            className="p-1.5 rounded-lg bg-[#09090b] hover:bg-[#27272a] border border-[#27272a] hover:border-[#3f3f46] text-[#fafafa] transition cursor-pointer"
             title="Download Notes Markdown"
           >
             <Download className="w-3.5 h-3.5" />
@@ -93,31 +113,41 @@ export const LiveNotesPanel: React.FC<LiveNotesPanelProps> = ({
       </div>
 
       {/* Editor / Viewer Body */}
-      <div className="flex-1 p-3 bg-[#09090b]">
+      <div className="flex-1 p-3 bg-[#09090b] overflow-y-auto min-h-[300px]">
         {activeTab === 'class' ? (
           isInstructor ? (
             <textarea
+              ref={classTextareaRef}
+              rows={(notes.split('\n').length || 1) + 3}
               value={notes}
-              onChange={(e) => onUpdateNotes && onUpdateNotes(e.target.value)}
+              onChange={(e) => {
+                if (onUpdateNotes) onUpdateNotes(e.target.value);
+                adjustHeight(e.target);
+              }}
               placeholder="Type shared class notes, key takeaways, and definitions..."
-              className="w-full h-full bg-transparent font-mono text-xs text-slate-200 p-2 focus:outline-none resize-none leading-relaxed"
+              className="w-full bg-transparent font-mono text-xs text-[#fafafa] p-2 focus:outline-none resize-none leading-relaxed transition-[height] duration-75 block"
             />
           ) : (
-            <div className="w-full h-full font-mono text-xs text-slate-200 p-2 overflow-y-auto whitespace-pre-wrap leading-relaxed">
+            <div className="w-full font-mono text-xs text-[#fafafa] p-2 whitespace-pre-wrap leading-relaxed">
               {notes || 'No shared lecture notes added yet by the instructor.'}
             </div>
           )
         ) : (
           <textarea
+            ref={privateTextareaRef}
+            rows={(privateNotes.split('\n').length || 1) + 3}
             value={privateNotes}
-            onChange={(e) => setPrivateNotes(e.target.value)}
+            onChange={(e) => {
+              setPrivateNotes(e.target.value);
+              adjustHeight(e.target);
+            }}
             placeholder="Type your own private reflections, bookmarks, and homework notes..."
-            className="w-full h-full bg-transparent font-mono text-xs text-slate-200 p-2 focus:outline-none resize-none leading-relaxed"
+            className="w-full bg-transparent font-mono text-xs text-[#fafafa] p-2 focus:outline-none resize-none leading-relaxed transition-[height] duration-75 block"
           />
         )}
       </div>
 
-      <div className="p-2 bg-slate-950 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+      <div className="p-2 bg-[#18181b] border-t border-[#27272a] flex items-center justify-between text-[11px] text-[#a1a1aa]">
         <span>{activeTab === 'class' ? (isInstructor ? 'Auto-syncing to all student screens' : 'Synced live with faculty') : 'Private to your account'}</span>
         <span className="font-mono">Markdown Supported</span>
       </div>

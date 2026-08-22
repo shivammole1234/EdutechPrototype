@@ -65,7 +65,7 @@ export const StudentLiveClassesPage: React.FC = () => {
 
       {/* Featured Live Class Banner Card (if active) */}
       {activeClass && (
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-950/60 via-slate-900 to-indigo-950/40 border border-blue-800/60 p-6 sm:p-8 shadow-2xl">
+        <div className="relative overflow-hidden rounded-2xl bg-[#18181b] border border-[#27272a] p-6 sm:p-8 shadow-sm">
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-3 max-w-2xl">
               <div className="flex items-center gap-2.5">
@@ -73,25 +73,25 @@ export const StudentLiveClassesPage: React.FC = () => {
                   <span className="w-2 h-2 rounded-full bg-rose-400 animate-ping mr-1.5" />
                   LIVE NOW STREAMING
                 </Badge>
-                <span className="text-xs font-mono text-blue-300">DSA 2025-A Cohort</span>
+                <span className="text-xs font-mono text-[#a1a1aa]">DSA 2025-A Cohort</span>
               </div>
 
-              <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-tight">
+              <h3 className="text-xl sm:text-2xl font-bold text-[#fafafa] tracking-tight leading-tight">
                 {activeClass.title}
               </h3>
 
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#a1a1aa] leading-relaxed">
                 {activeClass.description}
               </p>
 
-              <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 pt-1">
+              <div className="flex flex-wrap items-center gap-4 text-xs text-[#a1a1aa] pt-1">
                 <div className="flex items-center gap-2">
                   <img
                     src={activeClass.instructorAvatar}
                     alt={activeClass.instructorName}
-                    className="w-6 h-6 rounded-full object-cover border border-slate-700"
+                    className="w-6 h-6 rounded-full object-cover border border-[#27272a]"
                   />
-                  <span className="font-semibold text-slate-200">{activeClass.instructorName}</span>
+                  <span className="font-semibold text-[#fafafa]">{activeClass.instructorName}</span>
                 </div>
                 <span>•</span>
                 <span className="flex items-center gap-1 font-mono text-emerald-400">
@@ -99,8 +99,8 @@ export const StudentLiveClassesPage: React.FC = () => {
                   {activeClass.participants.length} Students Connected
                 </span>
                 <span>•</span>
-                <span className="flex items-center gap-1 font-mono text-slate-300">
-                  <Clock className="w-3.5 h-3.5 text-blue-400" />
+                <span className="flex items-center gap-1 font-mono text-[#fafafa]">
+                  <Clock className="w-3.5 h-3.5 text-[#fafafa]" />
                   {activeClass.durationMinutes} mins
                 </span>
               </div>
@@ -111,13 +111,13 @@ export const StudentLiveClassesPage: React.FC = () => {
                 <Button
                   variant="primary"
                   size="lg"
-                  className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 font-bold px-8 py-3 shadow-xl shadow-blue-950/60"
+                  className="w-full sm:w-auto font-bold px-8 py-3 shadow-sm"
                 >
-                  <Play className="w-4 h-4 mr-2 fill-white" />
+                  <Play className="w-4 h-4 mr-2 fill-current" />
                   Enter Interactive Classroom
                 </Button>
               </Link>
-              <p className="text-[11px] text-center text-slate-400 font-mono">
+              <p className="text-[11px] text-center text-[#71717a] font-mono">
                 Microphone & shared IDE enabled
               </p>
             </div>

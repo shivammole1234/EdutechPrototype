@@ -55,7 +55,7 @@ export const AdminAnalyticsPage: React.FC = () => {
           value="94.6%"
           change="+1.8%"
           changeType="positive"
-          icon={<Users className="w-5 h-5 text-blue-400" />}
+          icon={<Users className="w-5 h-5 text-purple-400" />}
           subtitle="180-day baseline"
         />
         <StatCard

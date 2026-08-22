@@ -29,20 +29,50 @@ export interface Organization {
   totalUsers: number;
 }
 
-export interface Batch {
+export interface StudentBatch {
+  id: string;
+  name: string; // e.g. "Batch 2025-A: Alpha Group"
+  code: string; // e.g. "BATCH-ALP-25"
+  section: string; // e.g. "Morning Section", "Evening Track"
+  studentIds: string[];
+  studentCount: number;
+  tags: string[];
+  cohortId?: string;
+  cohortName?: string;
+  description?: string;
+  createdAt: string;
+}
+
+export interface Cohort {
   id: string;
   name: string;
   code: string;
+  programTrack: string;
+  academicTerm: string;
   instructorId: string;
   instructorName: string;
+  instructorAvatar?: string;
+  instructorEmail?: string;
+  coInstructorId?: string;
+  coInstructorName?: string;
+  assignedBatchIds: string[];
+  assignedBatchNames: string[];
+  totalStudentCount: number;
   startDate: string;
   endDate: string;
-  studentCount: number;
+  schedule: string;
+  maxCapacity: number;
   status: 'ACTIVE' | 'UPCOMING' | 'COMPLETED' | 'ARCHIVED';
   progress: number;
   description: string;
   topics: string[];
-  schedule: string;
+  virtualRoomId?: string;
+  meetUrl?: string;
+  createdAt: string;
+}
+
+export interface Batch extends Cohort {
+  studentCount: number; // alias for totalStudentCount for backward compatibility
 }
 
 export interface ClassSession {

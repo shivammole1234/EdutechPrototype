@@ -216,19 +216,19 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#09090b] border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+    <div className="flex flex-col h-full bg-[#09090b] border border-[#27272a] rounded-2xl overflow-hidden shadow-sm">
       {/* Editor Control Toolbar */}
-      <div className="p-3 bg-slate-950 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2.5">
+      <div className="p-3 bg-[#18181b] border-b border-[#27272a] flex flex-wrap items-center justify-between gap-2.5">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
+          <div className="p-1.5 rounded-lg bg-[#27272a] text-[#fafafa] border border-[#3f3f46]">
             <CodeXml className="w-4 h-4" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-slate-100">
+              <span className="text-xs font-bold text-[#fafafa]">
                 {isInstructor ? 'Instructor Shared IDE (Broadcast)' : 'Live Interactive Code'}
               </span>
-              <Badge variant={isInstructor ? 'primary' : syncWithInstructor ? 'success' : 'warning'} size="sm">
+              <Badge variant={isInstructor ? 'default' : syncWithInstructor ? 'success' : 'warning'} size="sm">
                 {isInstructor ? 'Master' : syncWithInstructor ? 'Synced with Faculty' : 'Personal Sandbox'}
               </Badge>
             </div>
@@ -242,7 +242,7 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
             value={selectedLang}
             onChange={(e) => setSelectedLang(e.target.value)}
             disabled={!isInstructor && syncWithInstructor}
-            className="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+            className="bg-[#09090b] border border-[#27272a] focus:border-[#3f3f46] rounded-lg px-2.5 py-1 text-xs text-[#fafafa] focus:outline-none cursor-pointer"
           >
             <option value="typescript">TypeScript</option>
             <option value="javascript">JavaScript</option>
@@ -257,7 +257,7 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
                 if (e.target.value) loadTemplate(e.target.value);
               }}
               defaultValue=""
-              className="hidden sm:block bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-slate-300 focus:outline-none cursor-pointer"
+              className="hidden sm:block bg-[#09090b] border border-[#27272a] focus:border-[#3f3f46] rounded-lg px-2.5 py-1 text-xs text-[#fafafa] focus:outline-none cursor-pointer"
             >
               <option value="" disabled>
                 Code Snippets...
@@ -287,7 +287,7 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
           {/* Copy Button */}
           <button
             onClick={handleCopy}
-            className="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition cursor-pointer"
+            className="p-1.5 rounded-lg bg-[#09090b] hover:bg-[#27272a] border border-[#27272a] hover:border-[#3f3f46] text-[#fafafa] transition cursor-pointer"
             title="Copy Code"
           >
             {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -296,7 +296,7 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
           {/* Download Button */}
           <button
             onClick={handleDownload}
-            className="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition cursor-pointer"
+            className="p-1.5 rounded-lg bg-[#09090b] hover:bg-[#27272a] border border-[#27272a] hover:border-[#3f3f46] text-[#fafafa] transition cursor-pointer"
             title="Download Snippet"
           >
             <Download className="w-3.5 h-3.5" />
@@ -317,7 +317,7 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
       </div>
 
       {/* Monaco Code Editor Area */}
-      <div className="flex-1 min-h-[320px] lg:min-h-[420px] bg-slate-950 relative">
+      <div className="flex-1 min-h-[320px] lg:min-h-[420px] bg-[#09090b] relative">
         <Editor
           height="100%"
           language={selectedLang === 'cpp' ? 'cpp' : selectedLang}
@@ -339,13 +339,13 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
       </div>
 
       {/* Sandboxed Execution Terminal Panel */}
-      <div className="bg-slate-950 border-t border-slate-800 p-3 font-mono text-xs">
-        <div className="flex items-center justify-between pb-2 border-b border-slate-800/80 text-slate-400">
-          <span className="flex items-center gap-1.5 font-semibold text-slate-200">
+      <div className="bg-[#18181b] border-t border-[#27272a] p-3 font-mono text-xs">
+        <div className="flex items-center justify-between pb-2 border-b border-[#27272a] text-[#a1a1aa]">
+          <span className="flex items-center gap-1.5 font-semibold text-[#fafafa]">
             <Terminal className="w-3.5 h-3.5 text-emerald-400" />
             Sandboxed Terminal Output
           </span>
-          <div className="flex items-center gap-2 text-[11px] text-slate-500">
+          <div className="flex items-center gap-2 text-[11px] text-[#71717a]">
             {execTime !== null && <span className="text-emerald-400">{execTime}ms runtime</span>}
             <span>Node.js v20 • Judge0</span>
           </div>

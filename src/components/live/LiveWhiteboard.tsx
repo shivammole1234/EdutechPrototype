@@ -176,25 +176,25 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-full bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+    <div className="flex flex-col h-full bg-[#09090b] border border-[#27272a] rounded-2xl overflow-hidden shadow-sm">
       {/* Whiteboard Toolbar */}
-      <div className="p-3 bg-slate-950 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+      <div className="p-3 bg-[#18181b] border-b border-[#27272a] flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <Badge variant="primary" size="sm">
+          <Badge variant="default" size="sm">
             {isInstructor ? 'Interactive Canvas (Host Broadcast)' : 'Live Faculty Whiteboard'}
           </Badge>
-          <span className="text-xs text-slate-400 font-mono hidden sm:inline">Diagrams & Architecture</span>
+          <span className="text-xs text-[#a1a1aa] font-mono hidden sm:inline">Diagrams & Architecture</span>
         </div>
 
         {/* Tools */}
         {isInstructor && (
           <div className="flex items-center gap-2">
             {/* Tool Selection */}
-            <div className="flex items-center bg-slate-900 border border-slate-700 rounded-lg p-0.5">
+            <div className="flex items-center bg-[#09090b] border border-[#27272a] rounded-lg p-0.5">
               <button
                 onClick={() => setTool('pen')}
                 className={`p-1.5 rounded-md transition cursor-pointer ${
-                  tool === 'pen' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-slate-200'
+                  tool === 'pen' ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46]' : 'text-[#a1a1aa] hover:text-[#fafafa]'
                 }`}
                 title="Pen"
               >
@@ -203,7 +203,7 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
               <button
                 onClick={() => setTool('highlighter')}
                 className={`p-1.5 rounded-md transition cursor-pointer ${
-                  tool === 'highlighter' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-slate-200'
+                  tool === 'highlighter' ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46]' : 'text-[#a1a1aa] hover:text-[#fafafa]'
                 }`}
                 title="Highlighter"
               >
@@ -212,7 +212,7 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
               <button
                 onClick={() => setTool('eraser')}
                 className={`p-1.5 rounded-md transition cursor-pointer ${
-                  tool === 'eraser' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-slate-200'
+                  tool === 'eraser' ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46]' : 'text-[#a1a1aa] hover:text-[#fafafa]'
                 }`}
                 title="Eraser"
               >
@@ -222,14 +222,14 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
 
             {/* Color Palette */}
             {tool !== 'eraser' && (
-              <div className="flex items-center gap-1.5 px-2 py-1 bg-slate-900 border border-slate-700 rounded-lg">
+              <div className="flex items-center gap-1.5 px-2 py-1 bg-[#09090b] border border-[#27272a] rounded-lg">
                 {COLORS.map((c) => (
                   <button
                     key={c.value}
                     onClick={() => setSelectedColor(c.value)}
                     style={{ backgroundColor: c.value }}
                     className={`w-4 h-4 rounded-full transition-transform cursor-pointer ${
-                      selectedColor === c.value ? 'scale-125 ring-2 ring-blue-400' : 'opacity-70 hover:opacity-100'
+                      selectedColor === c.value ? 'scale-125 ring-2 ring-[#fafafa]' : 'opacity-70 hover:opacity-100'
                     }`}
                     title={c.name}
                   />
@@ -241,7 +241,7 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
             {onClear && (
               <button
                 onClick={onClear}
-                className="p-1.5 rounded-lg bg-slate-900 hover:bg-rose-950 text-slate-400 hover:text-rose-400 border border-slate-700 hover:border-rose-700 transition cursor-pointer"
+                className="p-1.5 rounded-lg bg-[#09090b] hover:bg-rose-950/60 text-[#a1a1aa] hover:text-rose-400 border border-[#27272a] hover:border-rose-700 transition cursor-pointer"
                 title="Clear Canvas"
               >
                 <Trash2 className="w-3.5 h-3.5" />
@@ -251,7 +251,7 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
         )}
 
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={exportCanvas} className="bg-slate-900 border-slate-700 text-xs">
+          <Button variant="outline" size="sm" onClick={exportCanvas} className="bg-[#09090b] border-[#27272a] hover:border-[#3f3f46] text-[#fafafa] text-xs">
             <Download className="w-3.5 h-3.5 mr-1" />
             Export Diagram
           </Button>

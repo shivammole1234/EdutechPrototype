@@ -76,25 +76,25 @@ export const StudentDashboardPage: React.FC = () => {
     <div className="space-y-8">
       {/* Live Class In Session Alert Banner */}
       {activeClass && (
-        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-rose-950/60 via-slate-900 to-blue-950/60 border border-rose-800/80 shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="p-4 sm:p-5 rounded-2xl bg-[#141417] border border-rose-900/40 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center shrink-0">
-              <Radio className="w-6 h-6 text-rose-400 animate-pulse" />
+            <div className="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center shrink-0">
+              <Radio className="w-5 h-5 text-rose-400/80" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <Badge variant="danger" size="sm" className="bg-rose-950 text-rose-300 border-rose-800 font-mono">
-                  🔴 LIVE CLASS IN SESSION
+                <Badge variant="danger" size="sm" className="bg-rose-950/50 text-rose-300/90 border-rose-900/40 font-mono text-[10px]">
+                  🔴 LIVE IN SESSION
                 </Badge>
-                <span className="text-xs text-slate-300 font-mono hidden sm:inline">
+                <span className="text-xs text-slate-400 font-mono hidden sm:inline">
                   {activeClass.batchName.split('(')[0]}
                 </span>
               </div>
-              <h3 className="text-sm sm:text-base font-bold text-slate-100 mt-0.5">
+              <h3 className="text-sm font-semibold text-slate-200 mt-0.5">
                 {activeClass.title}
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                Led by <span className="text-blue-400 font-semibold">{activeClass.instructorName}</span> • {activeClass.participants.length} peers connected
+                Led by <span className="text-slate-300 font-medium">{activeClass.instructorName}</span> • {activeClass.participants.length} peers connected
               </p>
             </div>
           </div>
@@ -103,10 +103,10 @@ export const StudentDashboardPage: React.FC = () => {
             <Button
               variant="primary"
               size="md"
-              className="w-full sm:w-auto bg-rose-600 hover:bg-rose-500 font-bold text-white shadow-lg shadow-rose-950/50"
+              className="w-full sm:w-auto bg-rose-600/90 hover:bg-rose-600 font-medium text-white shadow-none"
             >
               <Play className="w-4 h-4 mr-2 fill-white" />
-              Join Live Class Now
+              Join Live Class
             </Button>
           </Link>
         </div>
@@ -116,8 +116,8 @@ export const StudentDashboardPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-[#18181b] border border-[#27272a] rounded-2xl">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400">Welcome Back</span>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Welcome Back</span>
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-medium font-mono bg-zinc-800 text-zinc-300 border border-zinc-700/60">
               Rank #4 in Cohort
             </span>
           </div>
@@ -125,19 +125,19 @@ export const StudentDashboardPage: React.FC = () => {
             Alex Turner • DSA Accelerator
           </h2>
           <p className="text-xs sm:text-sm text-[#a1a1aa]">
-            You have <span className="text-blue-400 font-semibold">1 Live Assessment</span> ready to take today.
+            You have <span className="text-slate-200 font-medium">1 Live Assessment</span> ready to take today.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <Link to="/student/classes">
-            <Button variant="outline" size="lg" className="border-slate-700 bg-slate-900 text-slate-200">
-              <Video className="w-4 h-4 mr-2 text-blue-400" />
+            <Button variant="outline" size="lg" className="border-zinc-700 bg-zinc-900 text-zinc-300 hover:bg-zinc-800">
+              <Video className="w-4 h-4 mr-2 text-zinc-400" />
               Live Classes Hub
             </Button>
           </Link>
           <Link to="/student/assessments/asm_01/question/q_01">
-            <Button variant="primary" size="lg" className="bg-blue-600 hover:bg-blue-500 shadow-blue-600/20">
+            <Button variant="primary" size="lg" className="bg-blue-600/90 hover:bg-blue-600 text-white shadow-none">
               <Play className="w-4 h-4 mr-2" />
               Enter Live Test IDE
             </Button>

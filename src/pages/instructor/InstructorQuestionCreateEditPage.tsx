@@ -196,7 +196,7 @@ export const InstructorQuestionCreateEditPage: React.FC = () => {
                 rows={6}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-700/80 rounded-lg p-3 text-xs text-slate-200 font-mono focus:outline-none focus:border-blue-500"
+                className="w-full bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-xs text-[#fafafa] font-mono focus:outline-none focus:border-[#3f3f46]"
                 required
               />
             </div>
@@ -209,7 +209,7 @@ export const InstructorQuestionCreateEditPage: React.FC = () => {
                 rows={3}
                 value={constraints}
                 onChange={(e) => setConstraints(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-700/80 rounded-lg p-3 text-xs text-slate-200 font-mono focus:outline-none focus:border-blue-500"
+                className="w-full bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-xs text-[#fafafa] font-mono focus:outline-none focus:border-[#3f3f46]"
               />
             </div>
 
@@ -314,7 +314,7 @@ export const InstructorQuestionCreateEditPage: React.FC = () => {
               onChange={(e) =>
                 setCodeTemplates({ ...codeTemplates, typescript: e.target.value })
               }
-              className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 font-mono text-xs text-blue-300 focus:outline-none focus:border-blue-500"
+              className="w-full bg-[#09090b] border border-[#27272a] rounded-lg p-3 font-mono text-xs text-[#fafafa] focus:outline-none focus:border-[#3f3f46]"
             />
           </Card>
         </div>

@@ -120,7 +120,7 @@ export const AdminDashboardPage: React.FC = () => {
           value={analytics.totalInstructors}
           change="3 Lead Faculty"
           changeType="neutral"
-          icon={<Users className="w-5 h-5 text-blue-400" />}
+          icon={<Users className="w-5 h-5 text-[#fafafa]" />}
           subtitle="100% active this week"
         />
         <StatCard
@@ -297,7 +297,7 @@ export const AdminDashboardPage: React.FC = () => {
                 <span className="font-mono text-slate-400">22%</span>
               </div>
               <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                <div className="bg-blue-500 h-1.5 rounded-full" style={{ width: '22%' }} />
+                <div className="bg-[#fafafa] h-1.5 rounded-full" style={{ width: '22%' }} />
               </div>
             </div>
 

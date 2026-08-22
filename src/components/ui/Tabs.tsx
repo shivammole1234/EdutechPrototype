@@ -40,8 +40,8 @@ export const Tabs: React.FC<TabsProps> = ({
               className={cn(
                 'flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all duration-150 cursor-pointer whitespace-nowrap',
                 isActive
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#27272a]'
+                  ? 'bg-[#27272a] text-[#fafafa] shadow-xs'
+                  : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#27272a]/50'
               )}
             >
               {tab.icon}
@@ -50,7 +50,7 @@ export const Tabs: React.FC<TabsProps> = ({
                 <span
                   className={cn(
                     'px-1.5 py-0.2 rounded-full text-[10px] font-mono',
-                    isActive ? 'bg-blue-700 text-white' : 'bg-[#27272a] text-[#a1a1aa]'
+                    isActive ? 'bg-[#3f3f46] text-[#fafafa]' : 'bg-[#27272a] text-[#a1a1aa]'
                   )}
                 >
                   {tab.count}
@@ -75,7 +75,7 @@ export const Tabs: React.FC<TabsProps> = ({
               className={cn(
                 'flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all duration-150 cursor-pointer whitespace-nowrap border',
                 isActive
-                  ? 'bg-blue-500/20 text-blue-400 border-blue-500/40'
+                  ? 'bg-[#27272a] text-[#fafafa] border-[#3f3f46]'
                   : 'bg-[#18181b] border-[#27272a] text-[#a1a1aa] hover:text-[#fafafa] hover:border-[#3f3f46]'
               )}
             >
@@ -105,7 +105,7 @@ export const Tabs: React.FC<TabsProps> = ({
             className={cn(
               'flex items-center gap-2 pb-3 text-xs font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer border-b-2 -mb-px whitespace-nowrap',
               isActive
-                ? 'border-blue-500 text-white font-bold'
+                ? 'border-[#fafafa] text-[#fafafa] font-bold'
                 : 'border-transparent text-[#71717a] hover:text-[#a1a1aa]'
             )}
           >
@@ -115,7 +115,7 @@ export const Tabs: React.FC<TabsProps> = ({
               <span
                 className={cn(
                   'px-1.5 py-0.5 rounded-full text-[10px] font-mono',
-                  isActive ? 'bg-blue-500/20 text-blue-400' : 'bg-[#27272a] text-[#71717a]'
+                  isActive ? 'bg-[#27272a] text-[#fafafa]' : 'bg-[#27272a] text-[#71717a]'
                 )}
               >
                 {tab.count}
