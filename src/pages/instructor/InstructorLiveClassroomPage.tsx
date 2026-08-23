@@ -177,11 +177,11 @@ export const InstructorLiveClassroomPage: React.FC = () => {
           />
 
           {/* Workspace Tab Switcher Bar */}
-          <div className="flex items-center justify-between p-2 bg-[#18181b] border border-[#27272a] rounded-xl">
-            <div className="flex items-center gap-1.5">
+          <div className="flex items-center justify-between p-2 bg-[#18181b] border border-[#27272a] rounded-xl overflow-x-auto gap-2">
+            <div className="flex items-center gap-1.5 shrink-0">
               <button
                 onClick={() => setActiveMainTab('editor')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer shrink-0 ${
                   activeMainTab === 'editor'
                     ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46] shadow-xs'
                     : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#27272a]'
@@ -193,7 +193,7 @@ export const InstructorLiveClassroomPage: React.FC = () => {
 
               <button
                 onClick={() => setActiveMainTab('whiteboard')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer shrink-0 ${
                   activeMainTab === 'whiteboard'
                     ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46] shadow-xs'
                     : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#27272a]'
@@ -205,7 +205,7 @@ export const InstructorLiveClassroomPage: React.FC = () => {
 
               <button
                 onClick={() => setActiveMainTab('notes')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer shrink-0 ${
                   activeMainTab === 'notes'
                     ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46] shadow-xs'
                     : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#27272a]'
@@ -216,7 +216,7 @@ export const InstructorLiveClassroomPage: React.FC = () => {
               </button>
             </div>
 
-            <span className="text-[11px] text-[#a1a1aa] font-mono hidden sm:inline">
+            <span className="text-[11px] text-[#a1a1aa] font-mono hidden md:inline shrink-0">
               Broadcast Active • Auto-Sync Enabled
             </span>
           </div>

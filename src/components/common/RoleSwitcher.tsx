@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Shield, GraduationCap, Code2, Check, Sun, Moon, Bell, LogOut, ChevronDown, User } from 'lucide-react';
+import { Shield, GraduationCap, Code2, Check, Sun, Moon, Bell, LogOut, ChevronDown, Menu, X } from 'lucide-react';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { UserRole } from '@/types';
 import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
 
-export const TopNavbar: React.FC<{ title?: string }> = ({ title }) => {
+interface TopNavbarProps {
+  title?: string;
+  onMenuToggle?: () => void;
+  isSidebarOpen?: boolean;
+}
+
+export const TopNavbar: React.FC<TopNavbarProps> = ({ title, onMenuToggle, isSidebarOpen }) => {
   const { user, switchRole, logout } = useAuthStore();
   const { theme, toggleTheme } = useThemeStore();
   const navigate = useNavigate();
@@ -34,12 +39,27 @@ export const TopNavbar: React.FC<{ title?: string }> = ({ title }) => {
   };
 
   return (
-    <header className="h-16 border-b border-[#27272a] bg-[#09090b] sticky top-0 z-30 px-4 sm:px-8 flex items-center justify-between">
-      {/* Left Title / Breadcrumb context */}
-      <div className="flex items-center gap-2 text-xs sm:text-sm text-[#a1a1aa]">
-        <span className="text-[#71717a]">Portal</span>
-        <span className="text-[#3f3f46]">/</span>
-        <span className="text-white font-medium">{title || 'Overview'}</span>
+    <header className="h-16 border-b border-[#27272a] bg-[#09090b] sticky top-0 z-30 px-3 sm:px-6 md:px-8 flex items-center justify-between">
+      {/* Left Title / Hamburger + Breadcrumb */}
+      <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+        {onMenuToggle && (
+          <button
+            onClick={onMenuToggle}
+            className="md:hidden p-2 rounded-lg bg-[#18181b] border border-[#27272a] hover:border-[#3f3f46] text-[#fafafa] transition-colors cursor-pointer flex items-center justify-center min-w-[40px] min-h-[40px] shrink-0"
+            aria-label={isSidebarOpen ? 'Close navigation sidebar' : 'Open navigation sidebar'}
+            title={isSidebarOpen ? 'Close Navigation' : 'Open Navigation'}
+          >
+            {isSidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        )}
+
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-[#a1a1aa] min-w-0">
+          <span className="text-[#71717a] hidden sm:inline">Portal</span>
+          <span className="text-[#3f3f46] hidden sm:inline">/</span>
+          <span className="text-[#fafafa] font-medium truncate max-w-[130px] sm:max-w-[260px] md:max-w-none">
+            {title || 'Overview'}
+          </span>
+        </div>
       </div>
 
       {/* Center Search Input */}
@@ -54,20 +74,20 @@ export const TopNavbar: React.FC<{ title?: string }> = ({ title }) => {
       </div>
 
       {/* Right Controls */}
-      <div className="flex items-center gap-2 sm:gap-4">
+      <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
         {/* Quick Role Switcher Pill */}
         <div className="relative">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center gap-2 px-3 py-1.5 bg-[#18181b] hover:bg-[#27272a] border border-[#27272a] rounded-lg text-xs font-medium text-[#fafafa] transition-all cursor-pointer shadow-xs"
+            className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-[#18181b] hover:bg-[#27272a] border border-[#27272a] rounded-lg text-xs font-medium text-[#fafafa] transition-all cursor-pointer shadow-xs"
             title="Switch demo portal role"
           >
-            <span className="text-[#71717a]">View as:</span>
-            <Badge variant={user ? roleColors[user.role] : 'default'} size="sm">
+            <span className="text-[#71717a] hidden sm:inline">View as:</span>
+            <Badge variant={user ? roleColors[user.role] : 'default'} size="sm" className="px-1.5 sm:px-2 py-0.5">
               {user?.role === 'ADMIN' && <Shield className="w-3 h-3" />}
               {user?.role === 'INSTRUCTOR' && <GraduationCap className="w-3 h-3" />}
               {user?.role === 'STUDENT' && <Code2 className="w-3 h-3" />}
-              {user?.role}
+              <span className="hidden xs:inline">{user?.role}</span>
             </Badge>
             <ChevronDown className="w-3.5 h-3.5 text-[#71717a]" />
           </button>
@@ -136,7 +156,7 @@ export const TopNavbar: React.FC<{ title?: string }> = ({ title }) => {
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#18181b] border border-[#27272a] text-[#a1a1aa] hover:text-[#fafafa] hover:border-[#3f3f46] transition-colors cursor-pointer"
+          className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#18181b] border border-[#27272a] text-[#a1a1aa] hover:text-[#fafafa] hover:border-[#3f3f46] transition-colors cursor-pointer shrink-0"
           title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
         >
           {theme === 'dark' ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
@@ -149,26 +169,27 @@ export const TopNavbar: React.FC<{ title?: string }> = ({ title }) => {
             else if (user?.role === 'INSTRUCTOR') navigate('/instructor/notifications');
             else navigate('/student/notifications');
           }}
-          className="relative w-8 h-8 flex items-center justify-center rounded-lg bg-[#18181b] border border-[#27272a] text-[#a1a1aa] hover:text-[#fafafa] hover:border-[#3f3f46] transition-colors cursor-pointer"
+          className="relative w-8 h-8 flex items-center justify-center rounded-lg bg-[#18181b] border border-[#27272a] text-[#a1a1aa] hover:text-[#fafafa] hover:border-[#3f3f46] transition-colors cursor-pointer shrink-0"
+          title="Notifications"
         >
           <Bell className="w-3.5 h-3.5" />
           <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#fafafa] ring-2 ring-[#18181b]" />
         </button>
 
         {/* User Avatar & Logout */}
-        <div className="flex items-center gap-3 pl-2 border-l border-[#27272a]">
+        <div className="flex items-center gap-2 sm:gap-3 pl-1.5 sm:pl-2 border-l border-[#27272a]">
           <img
             src={user?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'}
             alt={user?.name}
-            className="w-8 h-8 rounded-full object-cover border border-[#27272a]"
+            className="w-8 h-8 rounded-full object-cover border border-[#27272a] shrink-0"
           />
-          <div className="hidden md:block text-left text-xs">
-            <p className="font-medium text-[#fafafa] leading-tight">{user?.name}</p>
-            <p className="text-[10px] text-[#71717a]">{user?.email}</p>
+          <div className="hidden lg:block text-left text-xs">
+            <p className="font-medium text-[#fafafa] leading-tight truncate max-w-[100px]">{user?.name}</p>
+            <p className="text-[10px] text-[#71717a] truncate max-w-[100px]">{user?.email}</p>
           </div>
           <button
             onClick={handleLogout}
-            className="p-1.5 text-[#71717a] hover:text-rose-400 transition-colors cursor-pointer"
+            className="p-1.5 text-[#71717a] hover:text-rose-400 transition-colors cursor-pointer shrink-0"
             title="Log Out"
           >
             <LogOut className="w-3.5 h-3.5" />

@@ -26,6 +26,30 @@ export const AdminLayout: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
+  // Close sidebar on route change
+  React.useEffect(() => {
+    setSidebarOpen(false);
+  }, [location.pathname]);
+
+  // Handle escape key and lock body scroll on mobile
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSidebarOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    if (sidebarOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [sidebarOpen]);
+
   const getPageTitle = () => {
     const path = location.pathname;
     if (path.includes('/admin/dashboard')) return 'Admin Overview';
@@ -43,48 +67,51 @@ export const AdminLayout: React.FC = () => {
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     cn(
-      'flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors',
+      'flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors min-h-[40px]',
       isActive
         ? 'bg-[#27272a] text-white font-semibold'
         : 'text-[#a1a1aa] hover:bg-[#18181b] hover:text-white'
     );
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-[#fafafa] flex flex-col md:flex-row">
-      {/* Mobile Sidebar Toggle Button */}
-      <div className="md:hidden flex items-center justify-between p-4 bg-[#09090b] border-b border-[#27272a]">
-        <div className="flex items-center gap-2 font-bold text-[#fafafa]">
-          <div className="w-8 h-8 bg-[#27272a] border border-[#3f3f46] rounded-md flex items-center justify-center font-bold text-[#fafafa] shadow-xs">
-            <CodeXml className="w-4 h-4" />
-          </div>
-          <span className="font-bold tracking-tight text-sm">AI STUDIO <span className="text-purple-400 text-xs font-mono">ADMIN</span></span>
-        </div>
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="p-2 rounded-lg bg-[#18181b] border border-[#27272a] text-[#a1a1aa]"
-        >
-          {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-      </div>
+    <div className="min-h-screen bg-[#09090b] text-[#fafafa] flex flex-col md:flex-row relative">
+      {/* Mobile Backdrop Overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/80 backdrop-blur-xs z-40 md:hidden transition-opacity"
+          onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
+        />
+      )}
 
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-40 w-64 bg-[#09090b] border-r border-[#27272a] flex flex-col transition-transform duration-200 md:static md:translate-x-0',
+          'fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] md:w-64 bg-[#09090b] border-r border-[#27272a] flex flex-col transition-transform duration-300 ease-in-out md:static md:translate-x-0 shadow-2xl md:shadow-none',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
-        {/* Brand */}
-        <div className="h-16 px-6 border-b border-[#27272a] flex items-center gap-3">
-          <div className="w-8 h-8 bg-[#fafafa] rounded-md flex items-center justify-center font-bold text-[#09090b] shadow-sm">
-            A
+        {/* Brand & Mobile Close Button */}
+        <div className="h-16 px-4 sm:px-6 border-b border-[#27272a] flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-[#fafafa] rounded-md flex items-center justify-center font-bold text-[#09090b] shadow-sm">
+              A
+            </div>
+            <div>
+              <h2 className="font-bold text-sm text-[#fafafa] tracking-tight flex items-center gap-1.5">
+                AI STUDIO <span className="text-[10px] px-1.5 py-0.2 bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-md font-mono">ADMIN</span>
+              </h2>
+              <p className="text-[10px] text-[#71717a]">Enterprise LMS & Sandbox</p>
+            </div>
           </div>
-          <div>
-            <h2 className="font-bold text-sm text-[#fafafa] tracking-tight flex items-center gap-1.5">
-              AI STUDIO <span className="text-[10px] px-1.5 py-0.2 bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-md font-mono">ADMIN</span>
-            </h2>
-            <p className="text-[10px] text-[#71717a]">Enterprise LMS & Sandbox</p>
-          </div>
+
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="md:hidden p-2 rounded-lg bg-[#18181b] border border-[#27272a] hover:border-[#3f3f46] text-[#a1a1aa] hover:text-[#fafafa] transition cursor-pointer min-w-[36px] min-h-[36px] flex items-center justify-center"
+            aria-label="Close sidebar"
+          >
+            <X className="w-4 h-4" />
+          </button>
         </div>
 
         {/* Navigation links */}
@@ -102,7 +129,7 @@ export const AdminLayout: React.FC = () => {
           <div>
             <button
               onClick={() => setUsersOpen(!usersOpen)}
-              className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#18181b] transition"
+              className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#18181b] transition min-h-[40px] cursor-pointer"
             >
               <div className="flex items-center gap-3">
                 <Users className="w-4 h-4 text-[#71717a]" />
@@ -181,8 +208,12 @@ export const AdminLayout: React.FC = () => {
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 bg-[#09090b]">
-        <TopNavbar title={getPageTitle()} />
-        <main className="flex-1 p-4 sm:p-6 md:p-8 max-w-7xl w-full mx-auto">
+        <TopNavbar
+          title={getPageTitle()}
+          onMenuToggle={() => setSidebarOpen(!sidebarOpen)}
+          isSidebarOpen={sidebarOpen}
+        />
+        <main className="flex-1 p-3 sm:p-6 md:p-8 max-w-7xl w-full mx-auto">
           <Outlet />
         </main>
       </div>

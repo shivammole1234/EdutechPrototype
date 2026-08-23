@@ -55,6 +55,7 @@ export const StudentAssessmentIDEPage: React.FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [tabSwitches, setTabSwitches] = useState(0);
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const [mobileTab, setMobileTab] = useState<'problem' | 'code' | 'tests'>('problem');
 
   // Load Assessment & Questions
   useEffect(() => {
@@ -215,41 +216,41 @@ export const StudentAssessmentIDEPage: React.FC = () => {
   return (
     <div className="h-screen bg-slate-950 text-slate-100 flex flex-col overflow-hidden select-none">
       {/* Top Header Bar */}
-      <header className="h-14 bg-slate-950 border-b border-slate-800/90 px-4 flex items-center justify-between shrink-0 z-20">
-        {/* Left: Test Title & Question Navigator */}
-        <div className="flex items-center gap-4">
+      <header className="h-14 bg-slate-950 border-b border-slate-800/90 px-3 sm:px-4 flex items-center justify-between shrink-0 z-20 gap-2">
+        {/* Left: Exit + Question Navigator */}
+        <div className="flex items-center gap-2 sm:gap-4 min-w-0">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => navigate('/student/assessments')}
-            className="text-slate-400 hover:text-slate-200"
+            className="text-slate-400 hover:text-slate-200 px-2 sm:px-3 text-xs shrink-0"
           >
-            <ChevronLeft className="w-4 h-4 mr-1" />
-            Exit IDE
+            <ChevronLeft className="w-4 h-4 mr-0.5 sm:mr-1" />
+            <span className="hidden xs:inline">Exit</span>
           </Button>
 
-          <div className="hidden sm:block border-l border-slate-800 pl-4">
-            <h1 className="text-xs font-bold text-slate-200 truncate max-w-xs sm:max-w-sm">
+          <div className="hidden md:block border-l border-slate-800 pl-4">
+            <h1 className="text-xs font-bold text-slate-200 truncate max-w-[150px] lg:max-w-xs">
               {assessment?.title || 'Coding Assessment'}
             </h1>
           </div>
 
           {/* Question Nav Pills 01, 02, 03 */}
-          <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-800 p-1 rounded-lg">
+          <div className="flex items-center gap-1 bg-slate-900 border border-slate-800 p-0.5 sm:p-1 rounded-lg shrink-0">
             {questions.map((q, idx) => {
               const isActive = idx === currentQuestionIndex;
               return (
                 <button
                   key={q.id}
                   onClick={() => setCurrentQuestionIndex(idx)}
-                  className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold font-mono transition cursor-pointer ${
+                  className={`flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold font-mono transition cursor-pointer ${
                     isActive
                       ? 'bg-emerald-600 text-white shadow-xs'
                       : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
                   }`}
                 >
                   <span>Q{idx + 1}</span>
-                  {idx === 0 && <CheckCircle2 className="w-3 h-3 text-emerald-300" />}
+                  {idx === 0 && <CheckCircle2 className="w-3 h-3 text-emerald-300 hidden sm:inline" />}
                 </button>
               );
             })}
@@ -257,10 +258,10 @@ export const StudentAssessmentIDEPage: React.FC = () => {
         </div>
 
         {/* Right: Timer, Proctor status, Submit button */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           {/* Countdown Clock */}
           <div
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg border font-mono text-xs font-bold ${
+            className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 rounded-lg border font-mono text-xs font-bold ${
               secondsRemaining < 600
                 ? 'bg-rose-950/80 border-rose-600 text-rose-300 animate-pulse'
                 : 'bg-slate-900 border-slate-800 text-slate-200'
@@ -272,14 +273,14 @@ export const StudentAssessmentIDEPage: React.FC = () => {
 
           {/* Tab Switch warning badge */}
           {tabSwitches > 0 && (
-            <Badge variant="warning" size="sm">
+            <Badge variant="warning" size="sm" className="hidden sm:inline-flex">
               <Shield className="w-3 h-3 mr-1" />
               {tabSwitches}/3 Violations
             </Badge>
           )}
 
           {/* Fullscreen Toggle */}
-          <Button variant="ghost" size="icon" onClick={toggleFullscreen} className="text-slate-400">
+          <Button variant="ghost" size="icon" onClick={toggleFullscreen} className="text-slate-400 hidden sm:flex">
             {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
           </Button>
 
@@ -288,18 +289,51 @@ export const StudentAssessmentIDEPage: React.FC = () => {
             variant="primary"
             size="sm"
             onClick={() => setIsSubmitModalOpen(true)}
-            className="bg-emerald-600 hover:bg-emerald-700 font-semibold"
+            className="bg-emerald-600 hover:bg-emerald-700 font-semibold text-xs px-2.5 sm:px-3"
           >
-            <Send className="w-3.5 h-3.5 mr-1.5" />
-            Finish Test
+            <Send className="w-3.5 h-3.5 mr-1" />
+            <span className="hidden sm:inline">Finish Test</span>
+            <span className="sm:hidden">Finish</span>
           </Button>
         </div>
       </header>
 
+      {/* Mobile View Switcher (Visible on < lg) */}
+      <div className="lg:hidden flex items-center justify-around bg-slate-900 border-b border-slate-800 p-1 shrink-0">
+        <button
+          onClick={() => setMobileTab('problem')}
+          className={`flex-1 py-1.5 text-xs font-semibold rounded-md text-center transition ${
+            mobileTab === 'problem' ? 'bg-slate-800 text-emerald-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          Problem
+        </button>
+        <button
+          onClick={() => setMobileTab('code')}
+          className={`flex-1 py-1.5 text-xs font-semibold rounded-md text-center transition ${
+            mobileTab === 'code' ? 'bg-slate-800 text-emerald-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          Code Editor
+        </button>
+        <button
+          onClick={() => setMobileTab('tests')}
+          className={`flex-1 py-1.5 text-xs font-semibold rounded-md text-center transition ${
+            mobileTab === 'tests' ? 'bg-slate-800 text-emerald-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          Test Cases
+        </button>
+      </div>
+
       {/* Main Two-Pane IDE Workspace */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-hidden">
-        {/* Left Problem Description Panel (5 cols) */}
-        <div className="lg:col-span-5 border-r border-slate-800 flex flex-col h-full bg-slate-950 overflow-hidden">
+        {/* Left Problem Description Panel (5 cols on lg, toggled on mobile) */}
+        <div
+          className={`lg:col-span-5 border-r border-slate-800 flex flex-col h-full bg-slate-950 overflow-hidden ${
+            mobileTab === 'problem' ? 'flex' : 'hidden lg:flex'
+          }`}
+        >
           {/* Problem Header */}
           <div className="p-4 border-b border-slate-800 shrink-0 space-y-2">
             <div className="flex items-center justify-between">
@@ -373,15 +407,19 @@ export const StudentAssessmentIDEPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Code Editor & Execution Panel (7 cols) */}
-        <div className="lg:col-span-7 flex flex-col h-full bg-slate-950 overflow-hidden">
+        {/* Right Code Editor & Execution Panel (7 cols on lg, toggled on mobile) */}
+        <div
+          className={`lg:col-span-7 flex flex-col h-full bg-slate-950 overflow-hidden ${
+            mobileTab !== 'problem' ? 'flex' : 'hidden lg:flex'
+          }`}
+        >
           {/* Editor Sub-Header (Language Switcher, Reset, Autosave indicator) */}
-          <div className="h-11 bg-slate-900/90 border-b border-slate-800 px-4 flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-3">
+          <div className="h-11 bg-slate-900/90 border-b border-slate-800 px-3 sm:px-4 flex items-center justify-between shrink-0">
+            <div className="flex items-center gap-2 sm:gap-3">
               <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value as SupportedLanguage)}
-                className="bg-slate-950 border border-slate-700/80 rounded-md px-2.5 py-1 text-xs font-mono text-slate-200 cursor-pointer focus:outline-none focus:border-emerald-500"
+                className="bg-slate-950 border border-slate-700/80 rounded-md px-2 py-1 text-xs font-mono text-slate-200 cursor-pointer focus:outline-none focus:border-emerald-500"
               >
                 <option value="typescript">TypeScript 5.x</option>
                 <option value="javascript">JavaScript (Node.js)</option>
@@ -398,19 +436,23 @@ export const StudentAssessmentIDEPage: React.FC = () => {
                 title="Reset to starter template"
               >
                 <RotateCcw className="w-3 h-3" />
-                <span>Reset</span>
+                <span className="hidden sm:inline">Reset</span>
               </button>
             </div>
 
             <div className="flex items-center gap-3 text-[11px] text-slate-400 font-mono">
-              <span>Autosaved</span>
+              <span className="hidden sm:inline">Autosaved</span>
             </div>
           </div>
 
           {/* Monaco-Style Code Area */}
-          <div className="flex-1 relative bg-slate-950 overflow-hidden font-mono text-xs flex">
+          <div
+            className={`relative bg-slate-950 overflow-hidden font-mono text-xs flex ${
+              mobileTab === 'tests' ? 'hidden lg:flex lg:flex-1' : 'flex-1'
+            }`}
+          >
             {/* Line numbers simulated */}
-            <div className="w-10 py-3 bg-slate-950 border-r border-slate-900 text-right pr-2 select-none text-slate-600 text-[11px] font-mono leading-relaxed">
+            <div className="w-8 sm:w-10 py-3 bg-slate-950 border-r border-slate-900 text-right pr-1.5 sm:pr-2 select-none text-slate-600 text-[11px] font-mono leading-relaxed">
               {Array.from({ length: 28 }).map((_, i) => (
                 <div key={i}>{i + 1}</div>
               ))}
@@ -427,36 +469,46 @@ export const StudentAssessmentIDEPage: React.FC = () => {
           </div>
 
           {/* Action Bar (Run Sample Tests & Submit Solution) */}
-          <div className="h-12 bg-slate-900/90 border-t border-slate-800 px-4 flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-2">
+          <div className="h-12 bg-slate-900/90 border-t border-slate-800 px-3 sm:px-4 flex items-center justify-between shrink-0 gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <button
-                onClick={() => setActiveBottomTab('tests')}
-                className={`px-2.5 py-1 rounded text-xs font-semibold transition ${
+                onClick={() => {
+                  setActiveBottomTab('tests');
+                  setMobileTab('tests');
+                }}
+                className={`px-2 sm:px-2.5 py-1 rounded text-xs font-semibold transition ${
                   activeBottomTab === 'tests' ? 'bg-slate-800 text-slate-100' : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
                 Test Cases
               </button>
               <button
-                onClick={() => setActiveBottomTab('results')}
-                className={`px-2.5 py-1 rounded text-xs font-semibold transition ${
+                onClick={() => {
+                  setActiveBottomTab('results');
+                  setMobileTab('tests');
+                }}
+                className={`px-2 sm:px-2.5 py-1 rounded text-xs font-semibold transition ${
                   activeBottomTab === 'results' ? 'bg-slate-800 text-slate-100' : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
-                Test Results {executionResult && `(${executionResult.passedTests}/${executionResult.totalTests})`}
+                <span className="hidden sm:inline">Test Results</span>
+                <span className="sm:hidden">Results</span>{' '}
+                {executionResult && `(${executionResult.passedTests}/${executionResult.totalTests})`}
               </button>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleRunCode}
                 isLoading={isRunning}
                 disabled={isSubmitting}
+                className="text-xs px-2 sm:px-3"
               >
                 <Play className="w-3.5 h-3.5 mr-1" />
-                Run Code
+                <span className="hidden sm:inline">Run Code</span>
+                <span className="sm:hidden">Run</span>
               </Button>
               <Button
                 variant="primary"
@@ -464,16 +516,21 @@ export const StudentAssessmentIDEPage: React.FC = () => {
                 onClick={handleSubmitSolution}
                 isLoading={isSubmitting}
                 disabled={isRunning}
-                className="bg-emerald-600 hover:bg-emerald-700"
+                className="bg-emerald-600 hover:bg-emerald-700 text-xs px-2 sm:px-3"
               >
                 <Send className="w-3.5 h-3.5 mr-1" />
-                Submit Solution
+                <span className="hidden sm:inline">Submit Solution</span>
+                <span className="sm:hidden">Submit</span>
               </Button>
             </div>
           </div>
 
           {/* Bottom Execution & Results Drawer */}
-          <div className="h-44 bg-slate-950 border-t border-slate-800 p-3 overflow-y-auto shrink-0 text-xs">
+          <div
+            className={`bg-slate-950 border-t border-slate-800 p-3 overflow-y-auto shrink-0 text-xs ${
+              mobileTab === 'tests' ? 'flex-1 lg:h-44 lg:flex-none' : 'h-36 sm:h-44'
+            }`}
+          >
             {activeBottomTab === 'tests' && (
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
