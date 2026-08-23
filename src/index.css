@@ -98,11 +98,6 @@
     outline-color: var(--border-hover);
   }
 
-  ::selection {
-    background-color: var(--bg-surface-secondary);
-    color: var(--text-primary);
-  }
-
   body {
     font-family: var(--font-sans);
     background-color: var(--bg-canvas);
@@ -118,6 +113,25 @@
   code, pre, .font-mono {
     font-family: var(--font-mono);
   }
+}
+
+/* Universal High-Contrast Text Selection for Ultra-Readability across entire app */
+::selection,
+*::selection,
+::-moz-selection,
+*::-moz-selection {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.dark ::selection,
+.dark *::selection,
+.dark ::-moz-selection,
+.dark *::-moz-selection {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 
 /* Custom modern Bento scrollbars */
