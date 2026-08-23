@@ -13,7 +13,9 @@ import {
   CheckCircle2,
   FileText,
   Radio,
+  Briefcase,
 } from 'lucide-react';
+import { ScheduleInterviewModal } from '@/components/interviews/ScheduleInterviewModal';
 import {
   AreaChart,
   Area,
@@ -29,6 +31,7 @@ import { StatCard } from '@/components/ui/StatCard';
 import { Card, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
+import { useThemeStore } from '@/stores/useThemeStore';
 import { batchService } from '@/services/batchService';
 import { assessmentService } from '@/services/assessmentService';
 import { liveSessionService } from '@/services/liveSessionService';
@@ -41,6 +44,8 @@ export const InstructorDashboardPage: React.FC = () => {
   const [assessments, setAssessments] = useState<Assessment[]>([]);
   const [liveSessions, setLiveSessions] = useState<LiveSession[]>([]);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
+  const { theme } = useThemeStore();
+  const isDark = theme === 'dark';
 
   useEffect(() => {
     async function load() {
@@ -71,14 +76,20 @@ export const InstructorDashboardPage: React.FC = () => {
       {/* Top Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] tracking-tight">
             Faculty Command Center
           </h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-1">
             Active classrooms, test proctoring, live coding sessions, and submission review queues.
           </p>
         </div>
         <div className="flex items-center gap-3">
+          <Link to="/instructor/interviews">
+            <Button variant="outline" size="sm">
+              <Briefcase className="w-4 h-4 mr-1.5 text-[var(--text-muted)]" />
+              Schedule Interview
+            </Button>
+          </Link>
           <Link to="/instructor/assessments/new">
             <Button variant="outline" size="sm">
               <FileCode2 className="w-4 h-4 mr-1.5" />
@@ -86,7 +97,7 @@ export const InstructorDashboardPage: React.FC = () => {
             </Button>
           </Link>
           <Link to="/instructor/live-sessions">
-            <Button variant="primary" size="sm" className="bg-blue-600 hover:bg-blue-700">
+            <Button variant="primary" size="sm">
               <Video className="w-4 h-4 mr-1.5" />
               Launch Live Lab
             </Button>
@@ -101,7 +112,7 @@ export const InstructorDashboardPage: React.FC = () => {
           value="90"
           change="3 Batches"
           changeType="neutral"
-          icon={<Users className="w-5 h-5 text-blue-400" />}
+          icon={<Users className="w-5 h-5 text-[var(--text-muted)]" />}
           subtitle="96.2% active participation"
         />
         <StatCard
@@ -109,7 +120,7 @@ export const InstructorDashboardPage: React.FC = () => {
           value="94.5%"
           change="+2.1% this week"
           changeType="positive"
-          icon={<CalendarCheck className="w-5 h-5 text-emerald-400" />}
+          icon={<CalendarCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />}
           subtitle="18 sessions conducted"
         />
         <StatCard
@@ -117,7 +128,7 @@ export const InstructorDashboardPage: React.FC = () => {
           value="14"
           change="Review Required"
           changeType="negative"
-          icon={<FileText className="w-5 h-5 text-amber-400" />}
+          icon={<FileText className="w-5 h-5 text-amber-500" />}
           subtitle="Assignments & tests"
         />
         <StatCard
@@ -125,7 +136,7 @@ export const InstructorDashboardPage: React.FC = () => {
           value="88.4%"
           change="+4.2% cohort gain"
           changeType="positive"
-          icon={<TrendingUp className="w-5 h-5 text-purple-400" />}
+          icon={<TrendingUp className="w-5 h-5 text-purple-600 dark:text-purple-400" />}
           subtitle="DSA & Algorithm track"
         />
       </div>
@@ -136,7 +147,7 @@ export const InstructorDashboardPage: React.FC = () => {
           <CardHeader>
             <div>
               <CardTitle>Cohort Average Performance Trend</CardTitle>
-              <p className="text-xs text-slate-400 mt-0.5">Average score (%) vs. problem completion volume</p>
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">Average score (%) vs. problem completion volume</p>
             </div>
             <Badge variant="primary" size="sm">
               <TrendingUp className="w-3 h-3 mr-1" />
@@ -148,22 +159,27 @@ export const InstructorDashboardPage: React.FC = () => {
               <AreaChart data={performanceTrend}>
                 <defs>
                   <linearGradient id="scoreGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#3B82F6" stopOpacity={0.0} />
+                    <stop offset="5%" stopColor={isDark ? '#fafafa' : '#18181b'} stopOpacity={0.25} />
+                    <stop offset="95%" stopColor={isDark ? '#fafafa' : '#18181b'} stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.3} />
-                <XAxis dataKey="week" stroke="#64748B" fontSize={11} />
-                <YAxis stroke="#64748B" fontSize={11} domain={[60, 100]} />
+                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#27272a' : '#e4e4e7'} opacity={0.7} />
+                <XAxis dataKey="week" stroke="#71717a" fontSize={11} />
+                <YAxis stroke="#71717a" fontSize={11} domain={[60, 100]} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0F172A', borderColor: '#334155', borderRadius: '8px' }}
-                  itemStyle={{ color: '#E2E8F0', fontSize: '12px' }}
+                  contentStyle={{
+                    backgroundColor: isDark ? '#18181b' : '#ffffff',
+                    borderColor: isDark ? '#27272a' : '#e4e4e7',
+                    borderRadius: '8px',
+                    color: isDark ? '#fafafa' : '#18181b',
+                  }}
+                  itemStyle={{ color: isDark ? '#fafafa' : '#18181b', fontSize: '12px' }}
                 />
                 <Area
                   type="monotone"
                   dataKey="avgScore"
                   name="Avg Score (%)"
-                  stroke="#3B82F6"
+                  stroke={isDark ? '#fafafa' : '#18181b'}
                   strokeWidth={2}
                   fillOpacity={1}
                   fill="url(#scoreGrad)"
@@ -178,20 +194,20 @@ export const InstructorDashboardPage: React.FC = () => {
           <CardHeader>
             <div>
               <CardTitle>Live Proctoring</CardTitle>
-              <p className="text-xs text-slate-400 mt-0.5">Active test sessions</p>
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">Active test sessions</p>
             </div>
-            <span className="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold">
+            <span className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
               <Radio className="w-3.5 h-3.5 animate-pulse" /> LIVE
             </span>
           </CardHeader>
 
           <div className="space-y-4">
-            <div className="p-3.5 bg-slate-950/70 border border-blue-900/40 rounded-xl space-y-2">
+            <div className="p-3.5 bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-xl space-y-2">
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-xs text-slate-200">DSA Mid-Term Mock</span>
+                <span className="font-semibold text-xs text-[var(--text-primary)]">DSA Mid-Term Mock</span>
                 <Badge variant="success" size="sm">28 Online</Badge>
               </div>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-[var(--text-muted)]">
                 Fullscreen lockdown active • 0 tab violations detected
               </p>
               <Link to="/instructor/assessments/asm_01/monitor">
@@ -201,12 +217,12 @@ export const InstructorDashboardPage: React.FC = () => {
               </Link>
             </div>
 
-            <div className="p-3.5 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
+            <div className="p-3.5 bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-xl space-y-2">
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-xs text-slate-200">Next Live Lab</span>
-                <span className="text-[11px] text-blue-400 font-mono">Today, 2:00 PM</span>
+                <span className="font-semibold text-xs text-[var(--text-primary)]">Next Live Lab</span>
+                <span className="text-[11px] text-[var(--text-primary)] font-mono">Today, 2:00 PM</span>
               </div>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-[var(--text-muted)]">
                 Binary Tree Traversal & Recursion Debugging
               </p>
               <Link to="/instructor/live-sessions">
@@ -225,9 +241,9 @@ export const InstructorDashboardPage: React.FC = () => {
           <CardHeader>
             <div>
               <CardTitle>My Cohorts</CardTitle>
-              <p className="text-xs text-slate-400 mt-0.5">Assigned teaching tracks</p>
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">Assigned teaching tracks</p>
             </div>
-            <Link to="/instructor/batches" className="text-xs text-blue-400 hover:underline flex items-center">
+            <Link to="/instructor/batches" className="text-xs text-[var(--text-primary)] hover:underline flex items-center font-medium">
               All batches <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </CardHeader>
@@ -235,12 +251,12 @@ export const InstructorDashboardPage: React.FC = () => {
             {batches.map((b) => (
               <div
                 key={b.id}
-                className="p-3.5 bg-slate-950/60 border border-slate-800 rounded-xl flex items-center justify-between"
+                className="p-3.5 bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-xl flex items-center justify-between"
               >
                 <div>
-                  <h4 className="font-semibold text-xs sm:text-sm text-slate-100">{b.name}</h4>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    {b.studentCount} Students • Progress: <span className="text-blue-400 font-mono font-bold">{b.progress}%</span>
+                  <h4 className="font-semibold text-xs sm:text-sm text-[var(--text-primary)]">{b.name}</h4>
+                  <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+                    {b.studentCount} Students • Progress: <span className="text-[var(--text-primary)] font-mono font-bold">{b.progress}%</span>
                   </p>
                 </div>
                 <Link to={`/instructor/batches`}>
@@ -257,9 +273,9 @@ export const InstructorDashboardPage: React.FC = () => {
           <CardHeader>
             <div>
               <CardTitle>Recent Assessments</CardTitle>
-              <p className="text-xs text-slate-400 mt-0.5">Examinations & tests created</p>
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">Examinations & tests created</p>
             </div>
-            <Link to="/instructor/assessments" className="text-xs text-blue-400 hover:underline flex items-center">
+            <Link to="/instructor/assessments" className="text-xs text-[var(--text-primary)] hover:underline flex items-center font-medium">
               All tests <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </CardHeader>
@@ -267,16 +283,16 @@ export const InstructorDashboardPage: React.FC = () => {
             {assessments.map((as) => (
               <div
                 key={as.id}
-                className="p-3.5 bg-slate-950/60 border border-slate-800 rounded-xl flex items-center justify-between"
+                className="p-3.5 bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-xl flex items-center justify-between"
               >
                 <div>
                   <div className="flex items-center gap-2">
-                    <h4 className="font-semibold text-xs sm:text-sm text-slate-100">{as.title}</h4>
+                    <h4 className="font-semibold text-xs sm:text-sm text-[var(--text-primary)]">{as.title}</h4>
                     <Badge variant={as.status === 'IN_PROGRESS' ? 'success' : 'default'} size="sm">
                       {as.status}
                     </Badge>
                   </div>
-                  <p className="text-xs text-slate-400 mt-0.5">
+                  <p className="text-xs text-[var(--text-secondary)] mt-0.5">
                     {as.questionsCount} Questions • {as.durationMinutes} mins • {as.submissionsCount} Submissions
                   </p>
                 </div>
@@ -296,6 +312,7 @@ export const InstructorDashboardPage: React.FC = () => {
 
 export const InstructorBatchesPage: React.FC = () => {
   const [batches, setBatches] = useState<Batch[]>([]);
+  const [scheduleModalBatchId, setScheduleModalBatchId] = useState<string | null>(null);
 
   useEffect(() => {
     batchService.getBatches().then(setBatches);
@@ -303,11 +320,19 @@ export const InstructorBatchesPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-bold text-slate-100 tracking-tight">Assigned Cohorts & Classes</h2>
-        <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
-          View syllabus pacing, student roster, and cohort attendance.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Assigned Cohorts & Batches</h2>
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-0.5">
+            View syllabus pacing, student roster, batch interviews, and cohort attendance.
+          </p>
+        </div>
+        <Link to="/instructor/interviews">
+          <Button variant="outline" size="sm">
+            <Briefcase className="w-4 h-4 mr-1.5 text-[var(--text-muted)]" />
+            View All Batch Interviews
+          </Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -318,46 +343,65 @@ export const InstructorBatchesPage: React.FC = () => {
                 <Badge variant="primary" size="sm">{b.code}</Badge>
                 <Badge variant="success" size="sm">{b.status}</Badge>
               </div>
-              <h3 className="font-bold text-slate-100 text-sm">{b.name}</h3>
-              <p className="text-xs text-slate-400 line-clamp-2">{b.description}</p>
+              <h3 className="font-bold text-[var(--text-primary)] text-sm">{b.name}</h3>
+              <p className="text-xs text-[var(--text-secondary)] line-clamp-2">{b.description}</p>
 
               <div className="space-y-1">
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-400">Curriculum Pacing:</span>
-                  <span className="text-blue-400 font-mono font-bold">{b.progress}%</span>
+                  <span className="text-[var(--text-muted)]">Curriculum Pacing:</span>
+                  <span className="text-[var(--text-primary)] font-mono font-bold">{b.progress}%</span>
                 </div>
-                <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
-                  <div className="bg-blue-500 h-2 rounded-full" style={{ width: `${b.progress}%` }} />
+                <div className="w-full bg-[var(--bg-surface-secondary)] rounded-full h-2 overflow-hidden border border-[var(--border-default)]">
+                  <div className="bg-emerald-500 h-2 rounded-full" style={{ width: `${b.progress}%` }} />
                 </div>
               </div>
             </div>
 
-            <div className="space-y-2 pt-3 border-t border-slate-800 text-xs">
-              <div className="flex justify-between text-slate-300">
-                <span className="text-slate-400">Enrolled Students:</span>
-                <span className="font-mono font-bold">{b.studentCount} Engineers</span>
+            <div className="space-y-2 pt-3 border-t border-[var(--border-default)] text-xs">
+              <div className="flex justify-between text-[var(--text-secondary)]">
+                <span className="text-[var(--text-muted)]">Enrolled Students:</span>
+                <span className="font-mono font-bold text-[var(--text-primary)]">{b.studentCount} Engineers</span>
               </div>
-              <div className="flex justify-between text-slate-300">
-                <span className="text-slate-400">Start Date:</span>
-                <span>{formatDate(b.startDate)}</span>
+              <div className="flex justify-between text-[var(--text-secondary)]">
+                <span className="text-[var(--text-muted)]">Start Date:</span>
+                <span className="text-[var(--text-primary)]">{formatDate(b.startDate)}</span>
               </div>
             </div>
 
-            <div className="pt-2 flex items-center justify-between gap-2">
-              <Link to="/instructor/students" className="flex-1">
-                <Button variant="outline" size="sm" className="w-full">
-                  Roster
-                </Button>
-              </Link>
-              <Link to="/instructor/attendance" className="flex-1">
-                <Button variant="primary" size="sm" className="w-full">
-                  Attendance
-                </Button>
-              </Link>
+            <div className="space-y-2 pt-2 border-t border-[var(--border-default)]">
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={() => setScheduleModalBatchId(b.id)}
+                className="w-full font-semibold text-xs"
+              >
+                <Briefcase className="w-3.5 h-3.5 mr-1.5" />
+                Schedule Interview for this Batch
+              </Button>
+
+              <div className="flex items-center justify-between gap-2">
+                <Link to="/instructor/students" className="flex-1">
+                  <Button variant="outline" size="sm" className="w-full">
+                    Roster
+                  </Button>
+                </Link>
+                <Link to="/instructor/attendance" className="flex-1">
+                  <Button variant="outline" size="sm" className="w-full">
+                    Attendance
+                  </Button>
+                </Link>
+              </div>
             </div>
           </Card>
         ))}
       </div>
+
+      <ScheduleInterviewModal
+        isOpen={!!scheduleModalBatchId}
+        onClose={() => setScheduleModalBatchId(null)}
+        onSuccess={() => setScheduleModalBatchId(null)}
+        initialBatchId={scheduleModalBatchId || undefined}
+      />
     </div>
   );
 };
@@ -374,15 +418,15 @@ export const InstructorStudentsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-slate-100 tracking-tight">Enrolled Students Roster</h2>
-        <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+        <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Enrolled Students Roster</h2>
+        <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-0.5">
           Student performance scores, attendance rates, and assessment completion.
         </p>
       </div>
 
-      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xs">
-        <table className="w-full text-left text-xs text-slate-300">
-          <thead className="bg-slate-950 border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400">
+      <div className="bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-xl overflow-hidden shadow-xs">
+        <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+          <thead className="bg-[var(--bg-surface-secondary)] border-b border-[var(--border-default)] text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
             <tr>
               <th className="py-3 px-4 font-semibold">Student</th>
               <th className="py-3 px-4 font-semibold">Enrolled Cohort</th>
@@ -391,24 +435,24 @@ export const InstructorStudentsPage: React.FC = () => {
               <th className="py-3 px-4 text-right font-semibold">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800/60">
+          <tbody className="divide-y divide-[var(--border-default)]">
             {students.map((st) => (
-              <tr key={st.id} className="hover:bg-slate-850/60 transition">
+              <tr key={st.id} className="hover:bg-[var(--bg-surface-hover)] transition">
                 <td className="py-3.5 px-4">
                   <div className="flex items-center gap-3">
                     <img
                       src={st.avatar}
                       alt={st.name}
-                      className="w-8 h-8 rounded-full object-cover border border-slate-700"
+                      className="w-8 h-8 rounded-full object-cover border border-[var(--border-default)]"
                     />
                     <div>
-                      <p className="font-semibold text-slate-100">{st.name}</p>
-                      <p className="text-[11px] text-slate-400">{st.email}</p>
+                      <p className="font-semibold text-[var(--text-primary)]">{st.name}</p>
+                      <p className="text-[11px] text-[var(--text-muted)]">{st.email}</p>
                     </div>
                   </div>
                 </td>
-                <td className="py-3.5 px-4 text-slate-300">{st.batchName || 'Cohort 2025-A'}</td>
-                <td className="py-3.5 px-4 font-mono font-bold text-blue-400">
+                <td className="py-3.5 px-4 text-[var(--text-secondary)]">{st.batchName || 'Cohort 2025-A'}</td>
+                <td className="py-3.5 px-4 font-mono font-bold text-[var(--text-primary)]">
                   {st.performanceScore || 90}%
                 </td>
                 <td className="py-3.5 px-4">
@@ -443,8 +487,8 @@ export const InstructorQuestionsPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-100 tracking-tight">Question Bank & Test Suites</h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+          <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Question Bank & Test Suites</h2>
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-0.5">
             Create coding problems, define hidden test cases, and manage starter code templates.
           </p>
         </div>
@@ -473,20 +517,20 @@ export const InstructorQuestionsPage: React.FC = () => {
                 >
                   {q.difficulty}
                 </Badge>
-                <span className="font-mono text-xs font-bold text-blue-400">{q.points} PTS</span>
+                <span className="font-mono text-xs font-bold text-[var(--text-primary)]">{q.points} PTS</span>
               </div>
-              <h3 className="font-bold text-slate-100 text-sm">{q.title}</h3>
-              <p className="text-xs text-slate-400 line-clamp-2">{q.description}</p>
+              <h3 className="font-bold text-[var(--text-primary)] text-sm">{q.title}</h3>
+              <p className="text-xs text-[var(--text-secondary)] line-clamp-2">{q.description}</p>
             </div>
 
-            <div className="space-y-2 pt-3 border-t border-slate-800 text-xs">
-              <div className="flex justify-between text-slate-300">
-                <span className="text-slate-400">Topic:</span>
-                <span>{q.topic}</span>
+            <div className="space-y-2 pt-3 border-t border-[var(--border-default)] text-xs">
+              <div className="flex justify-between text-[var(--text-secondary)]">
+                <span className="text-[var(--text-muted)]">Topic:</span>
+                <span className="text-[var(--text-primary)]">{q.topic}</span>
               </div>
-              <div className="flex justify-between text-slate-300">
-                <span className="text-slate-400">Test Cases:</span>
-                <span className="font-mono font-bold text-slate-200">{q.testCases?.length || 3} Cases</span>
+              <div className="flex justify-between text-[var(--text-secondary)]">
+                <span className="text-[var(--text-muted)]">Test Cases:</span>
+                <span className="font-mono font-bold text-[var(--text-primary)]">{q.testCases?.length || 3} Cases</span>
               </div>
             </div>
 

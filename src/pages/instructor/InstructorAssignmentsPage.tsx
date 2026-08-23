@@ -51,8 +51,8 @@ export const InstructorAssignmentsPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-100 tracking-tight">Assignments & Weekly Labs</h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+          <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Assignments & Weekly Labs</h2>
+          <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-0.5">
             Create homework tasks, code submissions, and grade rubrics.
           </p>
         </div>
@@ -68,20 +68,20 @@ export const InstructorAssignmentsPage: React.FC = () => {
             <div className="space-y-3">
               <div className="flex items-start justify-between">
                 <Badge variant="primary" size="sm">Homework Lab</Badge>
-                <span className="font-mono text-xs font-bold text-blue-400">{asg.totalPoints} PTS</span>
+                <span className="font-mono text-xs font-bold text-[var(--primary)]">{asg.totalPoints} PTS</span>
               </div>
-              <h3 className="font-bold text-slate-100 text-sm">{asg.title}</h3>
-              <p className="text-xs text-slate-400 line-clamp-2">{asg.description}</p>
+              <h3 className="font-bold text-[var(--text-primary)] text-sm">{asg.title}</h3>
+              <p className="text-xs text-[var(--text-muted)] line-clamp-2">{asg.description}</p>
             </div>
 
-            <div className="space-y-2 pt-3 border-t border-slate-800 text-xs">
-              <div className="flex justify-between text-slate-300">
-                <span className="text-slate-400">Due Date:</span>
+            <div className="space-y-2 pt-3 border-t border-[var(--border-default)] text-xs">
+              <div className="flex justify-between text-[var(--text-secondary)]">
+                <span className="text-[var(--text-muted)]">Due Date:</span>
                 <span>{formatDate(asg.dueDate)}</span>
               </div>
-              <div className="flex justify-between text-slate-300">
-                <span className="text-slate-400">Submissions Received:</span>
-                <span className="font-mono font-bold text-slate-200">{asg.submissionsCount} / 30</span>
+              <div className="flex justify-between text-[var(--text-secondary)]">
+                <span className="text-[var(--text-muted)]">Submissions Received:</span>
+                <span className="font-mono font-bold text-[var(--text-primary)]">{asg.submissionsCount} / 30</span>
               </div>
             </div>
           </Card>
@@ -124,7 +124,7 @@ export const InstructorAssignmentsPage: React.FC = () => {
               required
             />
           </div>
-          <div className="pt-3 flex justify-end gap-2 border-t border-slate-800">
+          <div className="pt-3 flex justify-end gap-2 border-t border-[var(--border-default)]">
             <Button variant="outline" type="button" onClick={() => setIsCreateOpen(false)}>
               Cancel
             </Button>
@@ -151,16 +151,16 @@ export const InstructorAttendancePage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-100 tracking-tight">Class Attendance & Session Ledger</h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+          <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Class Attendance & Session Ledger</h2>
+          <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-0.5">
             Log student attendance, track absence rates, and export attendance records.
           </p>
         </div>
       </div>
 
-      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xs">
-        <table className="w-full text-left text-xs text-slate-300">
-          <thead className="bg-slate-950 border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400">
+      <div className="bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-xl overflow-hidden shadow-xs">
+        <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+          <thead className="bg-[var(--bg-muted)] border-b border-[var(--border-default)] text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
             <tr>
               <th className="py-3 px-4 font-semibold">Student</th>
               <th className="py-3 px-4 font-semibold">Cohort</th>
@@ -169,13 +169,13 @@ export const InstructorAttendancePage: React.FC = () => {
               <th className="py-3 px-4 font-semibold">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800/60">
+          <tbody className="divide-y divide-[var(--border-default)]">
             {records.map((rec) => (
-              <tr key={rec.id} className="hover:bg-slate-850/60 transition">
-                <td className="py-3.5 px-4 font-semibold text-slate-100">{rec.studentName}</td>
-                <td className="py-3.5 px-4 text-slate-400">Full Stack 2025-A</td>
-                <td className="py-3.5 px-4 text-slate-200">{rec.sessionTitle}</td>
-                <td className="py-3.5 px-4 font-mono text-slate-400">{formatDate(rec.date)}</td>
+              <tr key={rec.id} className="hover:bg-[var(--bg-muted)]/50 transition">
+                <td className="py-3.5 px-4 font-semibold text-[var(--text-primary)]">{rec.studentName}</td>
+                <td className="py-3.5 px-4 text-[var(--text-muted)]">Full Stack 2025-A</td>
+                <td className="py-3.5 px-4 text-[var(--text-secondary)]">{rec.sessionTitle}</td>
+                <td className="py-3.5 px-4 font-mono text-[var(--text-muted)]">{formatDate(rec.date)}</td>
                 <td className="py-3.5 px-4">
                   <Badge variant={rec.status === 'PRESENT' ? 'success' : 'danger'} size="sm">
                     {rec.status}

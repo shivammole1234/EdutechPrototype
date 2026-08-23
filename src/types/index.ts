@@ -449,3 +449,66 @@ export interface LiveClassRoom {
   recordingUrl?: string;
 }
 
+export type InterviewType =
+  | 'MOCK_TECHNICAL'
+  | 'SYSTEM_DESIGN'
+  | 'CODING_ROUND'
+  | 'BEHAVIORAL'
+  | 'PORTFOLIO_REVIEW';
+
+export type InterviewStatus = 'SCHEDULED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
+
+export interface InterviewRubric {
+  problemSolving: number; // 1-5
+  codeQuality: number; // 1-5
+  communication: number; // 1-5
+  csFundamentals: number; // 1-5
+}
+
+export interface InterviewCandidateSlot {
+  id: string;
+  studentId: string;
+  studentName: string;
+  studentEmail: string;
+  studentAvatar: string;
+  scheduledTime: string; // e.g. "14:00 - 14:45"
+  durationMinutes: number;
+  status: 'CONFIRMED' | 'IN_PROGRESS' | 'COMPLETED' | 'NO_SHOW';
+  feedback?: string;
+  score?: number; // 0-100
+  rubricScores?: InterviewRubric;
+  meetingUrl?: string;
+  recordingUrl?: string;
+  notes?: string;
+  evaluatedAt?: string;
+}
+
+export interface BatchInterview {
+  id: string;
+  title: string;
+  type: InterviewType;
+  batchId: string; // The targeted specific batch/cohort
+  batchName: string;
+  batchCode?: string;
+  instructorId: string;
+  instructorName: string;
+  instructorAvatar?: string;
+  instructorEmail?: string;
+  scheduledDate: string; // YYYY-MM-DD
+  startTime: string; // "14:00"
+  endTime: string; // "17:00"
+  durationPerSlotMinutes: number; // e.g. 45
+  status: InterviewStatus;
+  description: string;
+  meetingUrl: string;
+  targetTopics: string[];
+  candidateSlots: InterviewCandidateSlot[];
+  totalSlots: number;
+  bookedSlots: number;
+  completedSlots: number;
+  avgScore?: number;
+  instructions?: string;
+  createdAt: string;
+}
+
+

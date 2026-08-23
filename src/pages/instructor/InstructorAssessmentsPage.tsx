@@ -20,8 +20,8 @@ export const InstructorAssessmentsPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-100 tracking-tight">Assessments & Examinations</h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+          <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Assessments & Examinations</h2>
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-0.5">
             Create timed coding assessments, configure proctoring controls, and monitor live test-takers.
           </p>
         </div>
@@ -52,32 +52,32 @@ export const InstructorAssessmentsPage: React.FC = () => {
                   {as.status === 'IN_PROGRESS' && <Radio className="w-3 h-3 mr-1 animate-pulse" />}
                   {as.status}
                 </Badge>
-                <span className="font-mono text-xs font-bold text-blue-400">{as.totalPoints} PTS</span>
+                <span className="font-mono text-xs font-bold text-[var(--text-primary)]">{as.totalPoints} PTS</span>
               </div>
 
-              <h3 className="font-bold text-slate-100 text-sm">{as.title}</h3>
-              <p className="text-xs text-slate-400 line-clamp-2">{as.description}</p>
+              <h3 className="font-bold text-[var(--text-primary)] text-sm">{as.title}</h3>
+              <p className="text-xs text-[var(--text-secondary)] line-clamp-2">{as.description}</p>
             </div>
 
-            <div className="space-y-2 pt-3 border-t border-slate-800 text-xs">
-              <div className="flex justify-between text-slate-300">
-                <span className="text-slate-400">Duration:</span>
-                <span className="font-mono">{as.durationMinutes} Minutes</span>
+            <div className="space-y-2 pt-3 border-t border-[var(--border-default)] text-xs">
+              <div className="flex justify-between text-[var(--text-secondary)]">
+                <span className="text-[var(--text-muted)]">Duration:</span>
+                <span className="font-mono text-[var(--text-primary)]">{as.durationMinutes} Minutes</span>
               </div>
-              <div className="flex justify-between text-slate-300">
-                <span className="text-slate-400">Questions:</span>
-                <span className="font-mono">{as.questionsCount} Algorithmic Tasks</span>
+              <div className="flex justify-between text-[var(--text-secondary)]">
+                <span className="text-[var(--text-muted)]">Questions:</span>
+                <span className="font-mono text-[var(--text-primary)]">{as.questionsCount} Algorithmic Tasks</span>
               </div>
-              <div className="flex justify-between text-slate-300">
-                <span className="text-slate-400">Security:</span>
-                <span className="text-emerald-400 font-semibold flex items-center gap-1">
+              <div className="flex justify-between text-[var(--text-secondary)]">
+                <span className="text-[var(--text-muted)]">Security:</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
                   <Shield className="w-3 h-3" />
                   {as.settings.proctoring.enableWebcam ? 'Webcam + Lock' : 'Standard'}
                 </span>
               </div>
-              <div className="flex justify-between text-slate-300">
-                <span className="text-slate-400">Submissions Logged:</span>
-                <span className="font-mono font-bold text-slate-200">{as.submissionsCount}</span>
+              <div className="flex justify-between text-[var(--text-secondary)]">
+                <span className="text-[var(--text-muted)]">Submissions Logged:</span>
+                <span className="font-mono font-bold text-[var(--text-primary)]">{as.submissionsCount}</span>
               </div>
             </div>
 

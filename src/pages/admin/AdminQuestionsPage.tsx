@@ -23,8 +23,8 @@ export const AdminQuestionsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-slate-100 tracking-tight">Master Question Repository</h2>
-        <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+        <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Master Question Repository</h2>
+        <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-0.5">
           Global database of algorithmic problems, test cases, and difficulty distributions.
         </p>
       </div>
@@ -34,13 +34,13 @@ export const AdminQuestionsPage: React.FC = () => {
           placeholder="Filter questions by title, algorithm pattern, or data structure..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          icon={<Search className="w-4 h-4 text-slate-500" />}
+          icon={<Search className="w-4 h-4 text-[var(--text-muted)]" />}
         />
       </Card>
 
-      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xs">
-        <table className="w-full text-left text-xs text-slate-300">
-          <thead className="bg-slate-950 border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400">
+      <div className="bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-xl overflow-hidden shadow-xs">
+        <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+          <thead className="bg-[var(--bg-muted)] border-b border-[var(--border-default)] text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
             <tr>
               <th className="py-3 px-4 font-semibold">Problem Statement</th>
               <th className="py-3 px-4 font-semibold">Topic</th>
@@ -51,16 +51,16 @@ export const AdminQuestionsPage: React.FC = () => {
               <th className="py-3 px-4 font-semibold">Acceptance</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800/60">
+          <tbody className="divide-y divide-[var(--border-default)]">
             {filtered.map((q) => (
-              <tr key={q.id} className="hover:bg-slate-850/60 transition">
-                <td className="py-3.5 px-4 font-semibold text-slate-100">
+              <tr key={q.id} className="hover:bg-[var(--bg-muted)]/50 transition">
+                <td className="py-3.5 px-4 font-semibold text-[var(--text-primary)]">
                   <div className="flex items-center gap-2">
-                    <Code2 className="w-4 h-4 text-purple-400" />
+                    <Code2 className="w-4 h-4 text-[var(--primary)]" />
                     <span>{q.title}</span>
                   </div>
                 </td>
-                <td className="py-3.5 px-4 text-slate-300">{q.topic}</td>
+                <td className="py-3.5 px-4 text-[var(--text-secondary)]">{q.topic}</td>
                 <td className="py-3.5 px-4">
                   <Badge
                     variant={
@@ -75,10 +75,10 @@ export const AdminQuestionsPage: React.FC = () => {
                     {q.difficulty}
                   </Badge>
                 </td>
-                <td className="py-3.5 px-4 font-mono text-slate-400">{q.type}</td>
-                <td className="py-3.5 px-4 font-mono text-slate-300">{q.testCases.length} Tests</td>
-                <td className="py-3.5 px-4 font-mono text-purple-400 font-bold">{q.points}</td>
-                <td className="py-3.5 px-4 font-mono text-slate-300">{q.acceptanceRate || 85}%</td>
+                <td className="py-3.5 px-4 font-mono text-[var(--text-muted)]">{q.type}</td>
+                <td className="py-3.5 px-4 font-mono text-[var(--text-secondary)]">{q.testCases.length} Tests</td>
+                <td className="py-3.5 px-4 font-mono text-[var(--primary)] font-bold">{q.points}</td>
+                <td className="py-3.5 px-4 font-mono text-[var(--text-secondary)]">{q.acceptanceRate || 85}%</td>
               </tr>
             ))}
           </tbody>

@@ -66,8 +66,8 @@ export const AdminStudentsPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-[#fafafa] tracking-tight">Student Directory</h2>
-          <p className="text-xs sm:text-sm text-[#a1a1aa] mt-0.5">
+          <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Student Directory</h2>
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-0.5">
             Manage student enrollments, cohort assignments, and activity statuses.
           </p>
         </div>
@@ -84,32 +84,32 @@ export const AdminStudentsPage: React.FC = () => {
             placeholder="Search by name, email, cohort..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            icon={<Search className="w-4 h-4 text-[#71717a]" />}
+            icon={<Search className="w-4 h-4 text-[var(--text-muted)]" />}
           />
         </div>
 
         <div className="flex items-center gap-2 w-full sm:w-auto">
-          <span className="text-xs text-[#71717a] font-medium">Status:</span>
+          <span className="text-xs text-[var(--text-muted)] font-medium">Status:</span>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-1.5 text-xs text-[#fafafa] cursor-pointer focus:outline-none focus:border-[#3f3f46]"
+            className="bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-lg px-3 py-1.5 text-xs text-[var(--text-primary)] cursor-pointer focus:outline-none focus:border-[var(--border-hover)]"
           >
             <option value="ALL">All Statuses</option>
             <option value="ACTIVE">Active</option>
             <option value="INACTIVE">Inactive</option>
           </select>
-          <span className="text-xs text-[#71717a] ml-2 font-mono">
+          <span className="text-xs text-[var(--text-muted)] ml-2 font-mono">
             {filteredStudents.length} Students
           </span>
         </div>
       </Card>
 
       {/* Student Table */}
-      <div className="bg-[#18181b] border border-[#27272a] rounded-2xl overflow-hidden shadow-xs">
+      <div className="bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-2xl overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-[#fafafa]">
-            <thead className="bg-[#09090b] border-b border-[#27272a] text-[11px] uppercase tracking-wider text-[#71717a]">
+          <table className="w-full text-left text-xs text-[var(--text-primary)]">
+            <thead className="bg-[var(--bg-surface-secondary)] border-b border-[var(--border-default)] text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
               <tr>
                 <th className="py-3 px-4 font-semibold">Student Name</th>
                 <th className="py-3 px-4 font-semibold">Assigned Cohort</th>
@@ -119,24 +119,24 @@ export const AdminStudentsPage: React.FC = () => {
                 <th className="py-3 px-4 text-right font-semibold">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#27272a]">
+            <tbody className="divide-y divide-[var(--border-default)]">
               {filteredStudents.map((st) => (
-                <tr key={st.id} className="hover:bg-[#27272a]/40 transition duration-150">
+                <tr key={st.id} className="hover:bg-[var(--bg-surface-hover)] transition duration-150">
                   <td className="py-3.5 px-4">
                     <div className="flex items-center gap-3">
                       <img
                         src={st.avatar}
                         alt={st.name}
-                        className="w-8 h-8 rounded-full object-cover border border-[#27272a]"
+                        className="w-8 h-8 rounded-full object-cover border border-[var(--border-default)]"
                       />
                       <div>
-                        <p className="font-semibold text-[#fafafa]">{st.name}</p>
-                        <p className="text-[11px] text-[#71717a]">{st.email}</p>
+                        <p className="font-semibold text-[var(--text-primary)]">{st.name}</p>
+                        <p className="text-[11px] text-[var(--text-muted)]">{st.email}</p>
                       </div>
                     </div>
                   </td>
                   <td className="py-3.5 px-4">
-                    <span className="text-[#a1a1aa] font-medium">{st.batchName || 'General Track'}</span>
+                    <span className="text-[var(--text-secondary)] font-medium">{st.batchName || 'General Track'}</span>
                   </td>
                   <td className="py-3.5 px-4">
                     <Badge variant={st.status === 'ACTIVE' ? 'success' : 'default'} size="sm">
@@ -145,8 +145,8 @@ export const AdminStudentsPage: React.FC = () => {
                   </td>
                   <td className="py-3.5 px-4">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono font-bold text-[#fafafa]">{st.performanceScore || 85}%</span>
-                      <div className="w-16 bg-[#27272a] rounded-full h-1.5 overflow-hidden">
+                      <span className="font-mono font-bold text-[var(--text-primary)]">{st.performanceScore || 85}%</span>
+                      <div className="w-16 bg-[var(--bg-surface-secondary)] rounded-full h-1.5 overflow-hidden border border-[var(--border-default)]">
                         <div
                           className="bg-emerald-500 h-1.5 rounded-full"
                           style={{ width: `${st.performanceScore || 85}%` }}
@@ -154,7 +154,7 @@ export const AdminStudentsPage: React.FC = () => {
                       </div>
                     </div>
                   </td>
-                  <td className="py-3.5 px-4 text-[#71717a] font-mono">
+                  <td className="py-3.5 px-4 text-[var(--text-muted)] font-mono">
                     {formatDate(st.joinedDate)}
                   </td>
                   <td className="py-3.5 px-4 text-right space-x-2">
@@ -189,19 +189,19 @@ export const AdminStudentsPage: React.FC = () => {
           description={`Record ID: ${selectedStudent.id}`}
         >
           <div className="space-y-4 text-xs">
-            <div className="flex items-center gap-4 pb-4 border-b border-[#27272a]">
+            <div className="flex items-center gap-4 pb-4 border-b border-[var(--border-default)]">
               <img
                 src={selectedStudent.avatar}
                 alt={selectedStudent.name}
-                className="w-14 h-14 rounded-full object-cover border border-[#27272a]"
+                className="w-14 h-14 rounded-full object-cover border border-[var(--border-default)]"
               />
               <div>
-                <h4 className="text-base font-bold text-[#fafafa]">{selectedStudent.name}</h4>
-                <p className="text-[#a1a1aa] flex items-center gap-2 mt-0.5">
+                <h4 className="text-base font-bold text-[var(--text-primary)]">{selectedStudent.name}</h4>
+                <p className="text-[var(--text-secondary)] flex items-center gap-2 mt-0.5">
                   <Mail className="w-3.5 h-3.5" /> {selectedStudent.email}
                 </p>
                 {selectedStudent.phone && (
-                  <p className="text-[#a1a1aa] flex items-center gap-2 mt-0.5">
+                  <p className="text-[var(--text-secondary)] flex items-center gap-2 mt-0.5">
                     <Phone className="w-3.5 h-3.5" /> {selectedStudent.phone}
                   </p>
                 )}
@@ -209,19 +209,19 @@ export const AdminStudentsPage: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="p-3 bg-[#09090b] rounded-xl border border-[#27272a]">
-                <span className="text-[#71717a] block mb-1">Assigned Cohort:</span>
-                <span className="font-semibold text-[#fafafa]">{selectedStudent.batchName}</span>
+              <div className="p-3 bg-[var(--bg-surface-secondary)] rounded-xl border border-[var(--border-default)]">
+                <span className="text-[var(--text-muted)] block mb-1">Assigned Cohort:</span>
+                <span className="font-semibold text-[var(--text-primary)]">{selectedStudent.batchName}</span>
               </div>
-              <div className="p-3 bg-[#09090b] rounded-xl border border-[#27272a]">
-                <span className="text-[#71717a] block mb-1">Academic Performance:</span>
-                <span className="font-semibold text-emerald-400 font-mono">{selectedStudent.performanceScore || 85}% Average</span>
+              <div className="p-3 bg-[var(--bg-surface-secondary)] rounded-xl border border-[var(--border-default)]">
+                <span className="text-[var(--text-muted)] block mb-1">Academic Performance:</span>
+                <span className="font-semibold text-emerald-600 dark:text-emerald-400 font-mono">{selectedStudent.performanceScore || 85}% Average</span>
               </div>
             </div>
 
-            <div className="p-3 bg-[#09090b] rounded-xl border border-[#27272a]">
-              <span className="text-[#71717a] block mb-1">Bio / Notes:</span>
-              <p className="text-[#a1a1aa]">{selectedStudent.bio || 'Active participant in daily algorithm challenges.'}</p>
+            <div className="p-3 bg-[var(--bg-surface-secondary)] rounded-xl border border-[var(--border-default)]">
+              <span className="text-[var(--text-muted)] block mb-1">Bio / Notes:</span>
+              <p className="text-[var(--text-secondary)]">{selectedStudent.bio || 'Active participant in daily algorithm challenges.'}</p>
             </div>
 
             <div className="pt-2 flex justify-end gap-2">
@@ -263,13 +263,13 @@ export const AdminStudentsPage: React.FC = () => {
             onChange={(e) => setNewStudent({ ...newStudent, phone: e.target.value })}
           />
           <div className="space-y-1.5">
-            <label className="block text-xs font-bold uppercase tracking-wider text-[#71717a]">
+            <label className="block text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
               Target Cohort
             </label>
             <select
               value={newStudent.batchName}
               onChange={(e) => setNewStudent({ ...newStudent, batchName: e.target.value })}
-              className="w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-2 text-xs text-[#fafafa]"
+              className="w-full bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-lg px-3 py-2 text-xs text-[var(--text-primary)]"
             >
               <option value="Full Stack & DSA Accelerator (Cohort 2025-A)">
                 Full Stack & DSA Accelerator (Cohort 2025-A)
@@ -283,7 +283,7 @@ export const AdminStudentsPage: React.FC = () => {
             </select>
           </div>
 
-          <div className="pt-3 flex justify-end gap-2 border-t border-[#27272a]">
+          <div className="pt-3 flex justify-end gap-2 border-t border-[var(--border-default)]">
             <Button variant="outline" type="button" onClick={() => setIsAddModalOpen(false)}>
               Cancel
             </Button>

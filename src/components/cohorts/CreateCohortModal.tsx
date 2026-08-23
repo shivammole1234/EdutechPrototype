@@ -184,10 +184,10 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
               onClick={() => setActiveStep(s.step)}
               className={`p-2.5 rounded-lg text-xs font-semibold transition text-left border ${
                 activeStep === s.step
-                  ? 'bg-[#27272a] border-[#3f3f46] text-[#fafafa]'
+                  ? 'bg-[var(--bg-surface-secondary)] border-[var(--border-hover)] text-[var(--text-primary)]'
                   : activeStep > s.step
-                  ? 'bg-[#18181b] border-[#27272a] text-[#a1a1aa]'
-                  : 'bg-[#09090b] border-[#27272a]/60 text-[#71717a]'
+                  ? 'bg-[var(--bg-surface)] border-[var(--border-default)] text-[var(--text-secondary)]'
+                  : 'bg-[var(--bg-surface-secondary)] border-[var(--border-default)]/60 text-[var(--text-muted)]'
               }`}
             >
               {s.label}
@@ -231,13 +231,13 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold uppercase tracking-wider text-[#71717a]">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
                   Academic Program Track
                 </label>
                 <select
                   value={formData.programTrack}
                   onChange={(e) => setFormData({ ...formData, programTrack: e.target.value })}
-                  className="w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3.5 py-2 text-xs text-[#fafafa] focus:outline-none focus:border-[#3f3f46] focus:ring-1 focus:ring-[#3f3f46]"
+                  className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-lg px-3.5 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--border-hover)]"
                 >
                   <option value="Full Stack & Cloud Architecture">Full Stack & Cloud Architecture</option>
                   <option value="Algorithms & High-Scale Systems">Algorithms & High-Scale Systems</option>
@@ -248,13 +248,13 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold uppercase tracking-wider text-[#71717a]">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
                   Academic Term / Semester
                 </label>
                 <select
                   value={formData.academicTerm}
                   onChange={(e) => setFormData({ ...formData, academicTerm: e.target.value })}
-                  className="w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3.5 py-2 text-xs text-[#fafafa] focus:outline-none focus:border-[#3f3f46] focus:ring-1 focus:ring-[#3f3f46]"
+                  className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-lg px-3.5 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--border-hover)]"
                 >
                   <option value="Spring 2025">Spring 2025 (Jan - Jun)</option>
                   <option value="Summer 2025">Summer 2025 (Jun - Aug)</option>
@@ -289,7 +289,7 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#71717a]">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
                 Cohort Overview & Syllabus Goals
               </label>
               <textarea
@@ -297,7 +297,7 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
                 placeholder="Describe curriculum milestones, proctored midterm timelines, and live coding requirements..."
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3.5 py-2 text-xs text-[#fafafa] placeholder-[#71717a] focus:outline-none focus:border-[#3f3f46] focus:ring-1 focus:ring-[#3f3f46]"
+                className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-lg px-3.5 py-2 text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--border-hover)]"
               />
             </div>
           </div>
@@ -307,7 +307,7 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
         {activeStep === 2 && (
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#71717a] mb-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] mb-2">
                 Select Primary Lead Instructor (Faculty Provider)
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -319,22 +319,22 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
                       onClick={() => setFormData({ ...formData, instructorId: inst.id })}
                       className={`p-3.5 rounded-xl border cursor-pointer transition flex items-start gap-3 ${
                         isSelected
-                          ? 'bg-[#27272a] border-[#52525b] shadow-sm'
-                          : 'bg-[#09090b] border-[#27272a] hover:border-[#3f3f46]'
+                          ? 'bg-[var(--bg-surface-secondary)] border-[var(--border-hover)] shadow-sm'
+                          : 'bg-[var(--bg-surface)] border-[var(--border-default)] hover:border-[var(--border-hover)]'
                       }`}
                     >
                       <img
                         src={inst.avatar}
                         alt={inst.name}
-                        className="w-11 h-11 rounded-full object-cover border border-[#27272a] shrink-0"
+                        className="w-11 h-11 rounded-full object-cover border border-[var(--border-default)] shrink-0"
                       />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
-                          <h4 className="text-xs font-bold text-[#fafafa] truncate">{inst.name}</h4>
-                          {isSelected && <Check className="w-4 h-4 text-[#fafafa]" />}
+                          <h4 className="text-xs font-bold text-[var(--text-primary)] truncate">{inst.name}</h4>
+                          {isSelected && <Check className="w-4 h-4 text-[var(--text-primary)]" />}
                         </div>
-                        <p className="text-[11px] text-[#a1a1aa] truncate">{inst.email}</p>
-                        <p className="text-[10px] text-[#71717a] mt-1 line-clamp-1">{inst.bio}</p>
+                        <p className="text-[11px] text-[var(--text-secondary)] truncate">{inst.email}</p>
+                        <p className="text-[10px] text-[var(--text-muted)] mt-1 line-clamp-1">{inst.bio}</p>
                       </div>
                     </div>
                   );
@@ -343,7 +343,7 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#71717a] mb-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] mb-2">
                 Optional Secondary Co-Instructor / Teaching Assistant (TA)
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -351,12 +351,12 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
                   onClick={() => setFormData({ ...formData, coInstructorId: '' })}
                   className={`p-3 rounded-xl border cursor-pointer transition text-center ${
                     !formData.coInstructorId
-                      ? 'bg-[#27272a] border-[#52525b] text-[#fafafa]'
-                      : 'bg-[#09090b] border-[#27272a] text-[#71717a] hover:border-[#3f3f46]'
+                      ? 'bg-[var(--bg-surface-secondary)] border-[var(--border-hover)] text-[var(--text-primary)]'
+                      : 'bg-[var(--bg-surface)] border-[var(--border-default)] text-[var(--text-muted)] hover:border-[var(--border-hover)]'
                   }`}
                 >
                   <p className="text-xs font-semibold">No Secondary TA</p>
-                  <p className="text-[10px] text-[#71717a] mt-0.5">Solo faculty cohort</p>
+                  <p className="text-[10px] text-[var(--text-muted)] mt-0.5">Solo faculty cohort</p>
                 </div>
 
                 {instructors
@@ -369,18 +369,18 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
                         onClick={() => setFormData({ ...formData, coInstructorId: inst.id })}
                         className={`p-3 rounded-xl border cursor-pointer transition flex items-center gap-2.5 ${
                           isSelected
-                            ? 'bg-[#27272a] border-[#52525b] shadow-sm'
-                            : 'bg-[#09090b] border-[#27272a] hover:border-[#3f3f46]'
+                            ? 'bg-[var(--bg-surface-secondary)] border-[var(--border-hover)] shadow-sm'
+                            : 'bg-[var(--bg-surface)] border-[var(--border-default)] hover:border-[var(--border-hover)]'
                         }`}
                       >
                         <img
                           src={inst.avatar}
                           alt={inst.name}
-                          className="w-8 h-8 rounded-full object-cover border border-[#27272a] shrink-0"
+                          className="w-8 h-8 rounded-full object-cover border border-[var(--border-default)] shrink-0"
                         />
                         <div className="min-w-0">
-                          <h5 className="text-xs font-semibold text-[#fafafa] truncate">{inst.name}</h5>
-                          <span className="text-[10px] text-[#a1a1aa] font-mono">Assigned as TA</span>
+                          <h5 className="text-xs font-semibold text-[var(--text-primary)] truncate">{inst.name}</h5>
+                          <span className="text-[10px] text-[var(--text-secondary)] font-mono">Assigned as TA</span>
                         </div>
                       </div>
                     );
@@ -413,10 +413,10 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-[#71717a]">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
                   Assign Student Batches
                 </label>
-                <p className="text-[11px] text-[#a1a1aa] mt-0.5">
+                <p className="text-[11px] text-[var(--text-secondary)] mt-0.5">
                   Select existing student batches or create a new student group.
                 </p>
               </div>
@@ -436,15 +436,15 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
             </div>
 
             {/* Aggregated Headcount Bar */}
-            <div className="p-3.5 rounded-xl bg-[#09090b] border border-[#27272a] flex items-center justify-between text-xs">
+            <div className="p-3.5 rounded-xl bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] flex items-center justify-between text-xs">
               <div className="flex items-center gap-2">
-                <span className="font-bold text-[#fafafa]">{selectedBatches.length} Batches Selected</span>
-                <span className="text-[#71717a]">•</span>
-                <span className="text-[#fafafa] font-mono font-bold">
+                <span className="font-bold text-[var(--text-primary)]">{selectedBatches.length} Batches Selected</span>
+                <span className="text-[var(--text-muted)]">•</span>
+                <span className="text-[var(--text-primary)] font-mono font-bold">
                   {totalEnrolledStudents} Total Students
                 </span>
               </div>
-              <div className="text-[#71717a] font-mono text-[11px]">
+              <div className="text-[var(--text-muted)] font-mono text-[11px]">
                 Capacity: {totalEnrolledStudents} / {formData.maxCapacity} Seats
               </div>
             </div>
@@ -459,36 +459,36 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
                     onClick={() => handleToggleBatch(batch.id)}
                     className={`p-3.5 rounded-xl border cursor-pointer transition flex flex-col justify-between space-y-2.5 ${
                       isSelected
-                        ? 'bg-[#27272a] border-[#52525b] shadow-sm'
-                        : 'bg-[#09090b] border-[#27272a] hover:border-[#3f3f46]'
+                        ? 'bg-[var(--bg-surface-secondary)] border-[var(--border-hover)] shadow-sm'
+                        : 'bg-[var(--bg-surface)] border-[var(--border-default)] hover:border-[var(--border-hover)]'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div>
                         <div className="flex items-center gap-1.5">
-                          <span className="text-xs font-bold text-[#fafafa]">{batch.name}</span>
+                          <span className="text-xs font-bold text-[var(--text-primary)]">{batch.name}</span>
                         </div>
-                        <p className="text-[11px] text-[#a1a1aa] mt-1 font-mono">{batch.code} • {batch.section}</p>
+                        <p className="text-[11px] text-[var(--text-secondary)] mt-1 font-mono">{batch.code} • {batch.section}</p>
                       </div>
                       <div
                         className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 ${
                           isSelected
-                            ? 'bg-[#fafafa] border-[#fafafa] text-[#09090b]'
-                            : 'border-[#27272a] bg-[#18181b]'
+                            ? 'bg-[var(--text-primary)] border-[var(--text-primary)] text-[var(--bg-surface)]'
+                            : 'border-[var(--border-default)] bg-[var(--bg-surface)]'
                         }`}
                       >
                         {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between text-[11px] pt-2 border-t border-[#27272a]">
-                      <span className="text-[#a1a1aa]">{batch.studentCount} Students</span>
+                    <div className="flex items-center justify-between text-[11px] pt-2 border-t border-[var(--border-default)]">
+                      <span className="text-[var(--text-secondary)]">{batch.studentCount} Students</span>
                       {batch.cohortName ? (
-                        <span className="text-[#71717a] text-[10px] font-mono truncate max-w-[120px]">
+                        <span className="text-[var(--text-muted)] text-[10px] font-mono truncate max-w-[120px]">
                           In {batch.cohortName.split('(')[0]}
                         </span>
                       ) : (
-                        <span className="text-[#71717a] text-[10px]">Unassigned Batch</span>
+                        <span className="text-[var(--text-muted)] text-[10px]">Unassigned Batch</span>
                       )}
                     </div>
                   </div>
@@ -498,7 +498,7 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
 
             {/* Syllabus Topic Tags */}
             <div className="pt-2">
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#71717a] mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] mb-1.5">
                 Core Syllabus Topic Milestones
               </label>
               <div className="flex gap-2 mb-2">
@@ -522,13 +522,13 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
                 {formData.topics.map((top, idx) => (
                   <span
                     key={idx}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs bg-[#09090b] border border-[#27272a] text-[#fafafa]"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] text-[var(--text-primary)]"
                   >
                     {top}
                     <button
                       type="button"
                       onClick={() => handleRemoveTopic(idx)}
-                      className="text-[#71717a] hover:text-rose-400 transition"
+                      className="text-[var(--text-muted)] hover:text-rose-500 transition cursor-pointer"
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -542,60 +542,60 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
         {/* STEP 4: Topology Review & Live Preview */}
         {activeStep === 4 && (
           <div className="space-y-4">
-            <div className="p-3.5 bg-[#09090b] border border-[#27272a] rounded-xl flex items-center gap-2.5">
-              <ShieldCheck className="w-5 h-5 text-[#fafafa] shrink-0" />
+            <div className="p-3.5 bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-xl flex items-center gap-2.5">
+              <ShieldCheck className="w-5 h-5 text-[var(--text-primary)] shrink-0" />
               <div>
-                <h4 className="text-xs font-bold text-[#fafafa]">Live Architecture Review</h4>
-                <p className="text-[11px] text-[#a1a1aa]">
+                <h4 className="text-xs font-bold text-[var(--text-primary)]">Live Architecture Review</h4>
+                <p className="text-[11px] text-[var(--text-secondary)]">
                   Verify the faculty instructor, middleware cohort configuration, and student batch routing.
                 </p>
               </div>
             </div>
 
             {/* Interactive Preview Flow */}
-            <div className="p-4 bg-[#09090b] border border-[#27272a] rounded-xl space-y-4">
+            <div className="p-4 bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-xl space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-center">
                 {/* 1. Instructor Node */}
-                <div className="p-3.5 rounded-xl bg-[#18181b] border border-[#27272a] space-y-2">
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#71717a]">
+                <div className="p-3.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-default)] space-y-2">
+                  <span className="text-[10px] font-mono font-bold uppercase text-[var(--text-muted)]">
                     Lead Faculty
                   </span>
                   <div className="flex items-center gap-2.5">
                     <img
                       src={selectedLeadInstructor.avatar}
                       alt={selectedLeadInstructor.name}
-                      className="w-9 h-9 rounded-full object-cover border border-[#27272a]"
+                      className="w-9 h-9 rounded-full object-cover border border-[var(--border-default)]"
                     />
                     <div className="min-w-0">
-                      <p className="text-xs font-bold text-[#fafafa] truncate">{selectedLeadInstructor.name}</p>
-                      <p className="text-[10px] text-[#71717a] truncate">{selectedLeadInstructor.email}</p>
+                      <p className="text-xs font-bold text-[var(--text-primary)] truncate">{selectedLeadInstructor.name}</p>
+                      <p className="text-[10px] text-[var(--text-muted)] truncate">{selectedLeadInstructor.email}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* 2. Cohort Middleware Node */}
-                <div className="p-3.5 rounded-xl bg-[#18181b] border border-[#27272a] space-y-2 text-center">
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#71717a]">
+                <div className="p-3.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-default)] space-y-2 text-center">
+                  <span className="text-[10px] font-mono font-bold uppercase text-[var(--text-muted)]">
                     Cohort Middleware
                   </span>
-                  <p className="text-xs font-bold text-[#fafafa]">{formData.name || 'New Cohort'}</p>
-                  <p className="text-[10px] font-mono text-[#a1a1aa]">{formData.code || 'COHORT-CODE'}</p>
-                  <span className="text-[10px] text-[#71717a] block">{formData.schedule}</span>
+                  <p className="text-xs font-bold text-[var(--text-primary)]">{formData.name || 'New Cohort'}</p>
+                  <p className="text-[10px] font-mono text-[var(--text-secondary)]">{formData.code || 'COHORT-CODE'}</p>
+                  <span className="text-[10px] text-[var(--text-muted)] block">{formData.schedule}</span>
                 </div>
 
                 {/* 3. Student Batches Node */}
-                <div className="p-3.5 rounded-xl bg-[#18181b] border border-[#27272a] space-y-2">
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#71717a]">
+                <div className="p-3.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-default)] space-y-2">
+                  <span className="text-[10px] font-mono font-bold uppercase text-[var(--text-muted)]">
                     {selectedBatches.length} Batches ({totalEnrolledStudents} Students)
                   </span>
                   <div className="space-y-1">
                     {selectedBatches.length === 0 ? (
-                      <p className="text-[11px] text-[#71717a] italic">No batches assigned yet</p>
+                      <p className="text-[11px] text-[var(--text-muted)] italic">No batches assigned yet</p>
                     ) : (
                       selectedBatches.map((b) => (
-                        <div key={b.id} className="text-[11px] text-[#fafafa] flex items-center justify-between">
+                        <div key={b.id} className="text-[11px] text-[var(--text-primary)] flex items-center justify-between">
                           <span className="truncate">{b.name}</span>
-                          <span className="font-mono text-[#a1a1aa] text-[10px]">{b.studentCount} students</span>
+                          <span className="font-mono text-[var(--text-secondary)] text-[10px]">{b.studentCount} students</span>
                         </div>
                       ))
                     )}
@@ -603,16 +603,16 @@ export const CreateCohortModal: React.FC<CreateCohortModalProps> = ({
                 </div>
               </div>
 
-              <div className="p-3 bg-[#18181b] rounded-xl border border-[#27272a] text-xs text-[#a1a1aa] flex items-center justify-between">
-                <span>Program Track: <strong className="text-[#fafafa]">{formData.programTrack}</strong></span>
-                <span>Term: <strong className="text-[#fafafa]">{formData.academicTerm}</strong></span>
+              <div className="p-3 bg-[var(--bg-surface)] rounded-xl border border-[var(--border-default)] text-xs text-[var(--text-secondary)] flex items-center justify-between">
+                <span>Program Track: <strong className="text-[var(--text-primary)]">{formData.programTrack}</strong></span>
+                <span>Term: <strong className="text-[var(--text-primary)]">{formData.academicTerm}</strong></span>
               </div>
             </div>
           </div>
         )}
 
         {/* Modal Controls */}
-        <div className="pt-4 flex items-center justify-between border-t border-[#27272a]">
+        <div className="pt-4 flex items-center justify-between border-t border-[var(--border-default)]">
           <div>
             {activeStep > 1 && (
               <Button

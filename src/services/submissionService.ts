@@ -46,6 +46,10 @@ class SubmissionService {
     this.submissions.unshift(newSubmission);
     return newSubmission;
   }
+
+  async createSubmission(data: Omit<Submission, 'id' | 'submittedAt'>): Promise<Submission> {
+    return this.saveSubmission(data);
+  }
 }
 
 export const submissionService = new SubmissionService();

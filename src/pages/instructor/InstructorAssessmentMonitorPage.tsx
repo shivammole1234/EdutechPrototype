@@ -123,14 +123,14 @@ export const InstructorAssessmentMonitorPage: React.FC = () => {
           </Button>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-xl font-bold text-slate-100 tracking-tight">
+              <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">
                 {assessment?.title || 'Live Assessment Proctor'}
               </h2>
               <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-emerald-950/80 border border-emerald-800 text-emerald-400 text-xs font-semibold">
                 <Radio className="w-3 h-3 animate-pulse" /> LIVE STREAM
               </span>
             </div>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-[var(--text-muted)] mt-0.5">
               Live keystroke inspection, anti-cheat detection, and timer management.
             </p>
           </div>
@@ -139,21 +139,21 @@ export const InstructorAssessmentMonitorPage: React.FC = () => {
 
       {/* Proctor Stats Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 bg-slate-900 border border-slate-800 rounded-xl">
-          <p className="text-xs text-slate-400 uppercase font-semibold">Online Test-Takers</p>
-          <p className="text-2xl font-bold text-slate-100 font-mono mt-1">28 / 30</p>
+        <div className="p-4 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-xl">
+          <p className="text-xs text-[var(--text-muted)] uppercase font-semibold">Online Test-Takers</p>
+          <p className="text-2xl font-bold text-[var(--text-primary)] font-mono mt-1">28 / 30</p>
         </div>
-        <div className="p-4 bg-slate-900 border border-slate-800 rounded-xl">
-          <p className="text-xs text-slate-400 uppercase font-semibold">Violations / Flags</p>
-          <p className="text-2xl font-bold text-amber-400 font-mono mt-1">1 Flagged</p>
+        <div className="p-4 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-xl">
+          <p className="text-xs text-[var(--text-muted)] uppercase font-semibold">Violations / Flags</p>
+          <p className="text-2xl font-bold text-amber-500 dark:text-amber-400 font-mono mt-1">1 Flagged</p>
         </div>
-        <div className="p-4 bg-slate-900 border border-slate-800 rounded-xl">
-          <p className="text-xs text-slate-400 uppercase font-semibold">Submissions In</p>
-          <p className="text-2xl font-bold text-emerald-400 font-mono mt-1">2 Complete</p>
+        <div className="p-4 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-xl">
+          <p className="text-xs text-[var(--text-muted)] uppercase font-semibold">Submissions In</p>
+          <p className="text-2xl font-bold text-emerald-500 dark:text-emerald-400 font-mono mt-1">2 Complete</p>
         </div>
-        <div className="p-4 bg-slate-900 border border-slate-800 rounded-xl">
-          <p className="text-xs text-slate-400 uppercase font-semibold">Avg Test Pace</p>
-          <p className="text-2xl font-bold text-blue-400 font-mono mt-1">Q2 of 3</p>
+        <div className="p-4 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-xl">
+          <p className="text-xs text-[var(--text-muted)] uppercase font-semibold">Avg Test Pace</p>
+          <p className="text-2xl font-bold text-[var(--text-primary)] font-mono mt-1">Q2 of 3</p>
         </div>
       </div>
 
@@ -162,14 +162,14 @@ export const InstructorAssessmentMonitorPage: React.FC = () => {
         {/* Candidates Table */}
         <div className="lg:col-span-8 space-y-4">
           <Card className="p-0 overflow-hidden">
-            <div className="p-4 border-b border-slate-800 flex items-center justify-between">
+            <div className="p-4 border-b border-[var(--border-default)] flex items-center justify-between">
               <CardTitle>Active Candidates ({candidates.length})</CardTitle>
               <Badge variant="primary" size="sm">Auto-refreshing 2s</Badge>
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-slate-300">
-                <thead className="bg-slate-950 border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400">
+              <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+                <thead className="bg-[var(--bg-muted)] border-b border-[var(--border-default)] text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
                   <tr>
                     <th className="py-3 px-4 font-semibold">Candidate</th>
                     <th className="py-3 px-4 font-semibold">Progress</th>
@@ -178,27 +178,27 @@ export const InstructorAssessmentMonitorPage: React.FC = () => {
                     <th className="py-3 px-4 text-right font-semibold">Proctor Controls</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-[var(--border-default)]">
                   {candidates.map((cand) => (
-                    <tr key={cand.id} className="hover:bg-slate-850/60 transition">
+                    <tr key={cand.id} className="hover:bg-[var(--bg-muted)]/50 transition">
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <img
                             src={cand.avatar}
                             alt={cand.name}
-                            className="w-8 h-8 rounded-full object-cover border border-slate-700"
+                            className="w-8 h-8 rounded-full object-cover border border-[var(--border-default)]"
                           />
                           <div>
-                            <p className="font-semibold text-slate-100">{cand.name}</p>
-                            <p className="text-[11px] text-slate-400 font-mono">
+                            <p className="font-semibold text-[var(--text-primary)]">{cand.name}</p>
+                            <p className="text-[11px] text-[var(--text-muted)] font-mono">
                               {Math.floor(cand.timeRemainingSec / 60)}m left
                             </p>
                           </div>
                         </div>
                       </td>
                       <td className="py-3.5 px-4">
-                        <p className="font-semibold text-slate-200">{cand.currentQuestion}</p>
-                        <p className="text-[11px] text-emerald-400 font-mono">{cand.testsPassed}</p>
+                        <p className="font-semibold text-[var(--text-primary)]">{cand.currentQuestion}</p>
+                        <p className="text-[11px] text-emerald-500 dark:text-emerald-400 font-mono">{cand.testsPassed}</p>
                       </td>
                       <td className="py-3.5 px-4">
                         <Badge
@@ -234,7 +234,7 @@ export const InstructorAssessmentMonitorPage: React.FC = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="text-amber-400 hover:text-amber-300"
+                          className="text-amber-500 dark:text-amber-400 hover:text-amber-400"
                           onClick={() => handleSendWarning(cand)}
                         >
                           Warn
@@ -242,7 +242,7 @@ export const InstructorAssessmentMonitorPage: React.FC = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="text-blue-400 hover:text-blue-300"
+                          className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                           onClick={() => handleExtendTime(cand)}
                         >
                           +10m
@@ -260,14 +260,14 @@ export const InstructorAssessmentMonitorPage: React.FC = () => {
         <div className="lg:col-span-4 space-y-4">
           <Card className="p-4 space-y-3">
             <CardTitle className="flex items-center gap-2">
-              <Terminal className="w-4 h-4 text-blue-400" />
+              <Terminal className="w-4 h-4 text-[var(--text-muted)]" />
               Proctoring Telemetry Feed
             </CardTitle>
             <div className="space-y-2 max-h-[360px] overflow-y-auto pr-1 text-xs">
               {logs.map((log, idx) => (
                 <div
                   key={idx}
-                  className="p-2.5 bg-slate-950/70 border border-slate-800 rounded-lg text-slate-300 font-mono text-[11px]"
+                  className="p-2.5 bg-[var(--bg-muted)]/50 border border-[var(--border-default)] rounded-lg text-[var(--text-secondary)] font-mono text-[11px]"
                 >
                   {log}
                 </div>
@@ -287,16 +287,16 @@ export const InstructorAssessmentMonitorPage: React.FC = () => {
           maxWidth="2xl"
         >
           <div className="space-y-4">
-            <div className="flex items-center justify-between text-xs p-3 bg-slate-950 rounded-lg border border-slate-800">
-              <span className="text-slate-400">Current Status: <span className="text-emerald-400 font-semibold">{inspectCandidate.status}</span></span>
-              <span className="font-mono text-slate-300">{inspectCandidate.testsPassed}</span>
+            <div className="flex items-center justify-between text-xs p-3 bg-[var(--bg-muted)]/50 rounded-lg border border-[var(--border-default)]">
+              <span className="text-[var(--text-muted)]">Current Status: <span className="text-emerald-500 dark:text-emerald-400 font-semibold">{inspectCandidate.status}</span></span>
+              <span className="font-mono text-[var(--text-secondary)]">{inspectCandidate.testsPassed}</span>
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
                 Active Monaco Buffer Snapshot
               </label>
-              <pre className="p-4 bg-slate-950 border border-slate-800 rounded-xl font-mono text-xs text-blue-300 overflow-x-auto max-h-80">
+              <pre className="p-4 bg-[var(--bg-muted)] border border-[var(--border-default)] rounded-xl font-mono text-xs text-[var(--text-primary)] overflow-x-auto max-h-80">
                 {inspectCandidate.currentCode}
               </pre>
             </div>

@@ -70,14 +70,14 @@ export const LiveNotesPanel: React.FC<LiveNotesPanelProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#18181b] border border-[#27272a] rounded-2xl overflow-hidden shadow-sm">
+    <div className="flex flex-col h-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-2xl overflow-hidden shadow-sm">
       {/* Header */}
-      <div className="p-3 bg-[#18181b] border-b border-[#27272a] flex items-center justify-between">
-        <div className="flex items-center gap-1.5 bg-[#09090b] border border-[#27272a] rounded-lg p-0.5">
+      <div className="p-3 bg-[var(--bg-surface)] border-b border-[var(--border-default)] flex items-center justify-between">
+        <div className="flex items-center gap-1.5 bg-[var(--bg-muted)] border border-[var(--border-default)] rounded-lg p-0.5">
           <button
             onClick={() => setActiveTab('class')}
             className={`px-2.5 py-1 rounded-md text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer ${
-              activeTab === 'class' ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46]' : 'text-[#a1a1aa] hover:text-[#fafafa]'
+              activeTab === 'class' ? 'bg-[var(--bg-surface)] text-[var(--text-primary)] border border-[var(--border-default)]' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
             <BookOpen className="w-3 h-3" />
@@ -86,7 +86,7 @@ export const LiveNotesPanel: React.FC<LiveNotesPanelProps> = ({
           <button
             onClick={() => setActiveTab('private')}
             className={`px-2.5 py-1 rounded-md text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer ${
-              activeTab === 'private' ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46]' : 'text-[#a1a1aa] hover:text-[#fafafa]'
+              activeTab === 'private' ? 'bg-[var(--bg-surface)] text-[var(--text-primary)] border border-[var(--border-default)]' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
             <Edit3 className="w-3 h-3" />
@@ -97,14 +97,14 @@ export const LiveNotesPanel: React.FC<LiveNotesPanelProps> = ({
         <div className="flex items-center gap-1.5">
           <button
             onClick={handleCopy}
-            className="p-1.5 rounded-lg bg-[#09090b] hover:bg-[#27272a] border border-[#27272a] hover:border-[#3f3f46] text-[#fafafa] transition cursor-pointer"
+            className="p-1.5 rounded-lg bg-[var(--bg-muted)] hover:bg-[var(--border-default)] border border-[var(--border-default)] text-[var(--text-primary)] transition cursor-pointer"
             title="Copy Notes"
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? <Check className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
           </button>
           <button
             onClick={handleDownload}
-            className="p-1.5 rounded-lg bg-[#09090b] hover:bg-[#27272a] border border-[#27272a] hover:border-[#3f3f46] text-[#fafafa] transition cursor-pointer"
+            className="p-1.5 rounded-lg bg-[var(--bg-muted)] hover:bg-[var(--border-default)] border border-[var(--border-default)] text-[var(--text-primary)] transition cursor-pointer"
             title="Download Notes Markdown"
           >
             <Download className="w-3.5 h-3.5" />
@@ -113,7 +113,7 @@ export const LiveNotesPanel: React.FC<LiveNotesPanelProps> = ({
       </div>
 
       {/* Editor / Viewer Body */}
-      <div className="flex-1 p-3 bg-[#09090b] overflow-y-auto min-h-[300px]">
+      <div className="flex-1 p-3 bg-[var(--bg-canvas)] overflow-y-auto min-h-[300px]">
         {activeTab === 'class' ? (
           isInstructor ? (
             <textarea
@@ -125,10 +125,10 @@ export const LiveNotesPanel: React.FC<LiveNotesPanelProps> = ({
                 adjustHeight(e.target);
               }}
               placeholder="Type shared class notes, key takeaways, and definitions..."
-              className="w-full bg-transparent font-mono text-xs text-[#fafafa] p-2 focus:outline-none resize-none leading-relaxed transition-[height] duration-75 block"
+              className="w-full bg-transparent font-mono text-xs text-[var(--text-primary)] p-2 focus:outline-none resize-none leading-relaxed transition-[height] duration-75 block"
             />
           ) : (
-            <div className="w-full font-mono text-xs text-[#fafafa] p-2 whitespace-pre-wrap leading-relaxed">
+            <div className="w-full font-mono text-xs text-[var(--text-primary)] p-2 whitespace-pre-wrap leading-relaxed">
               {notes || 'No shared lecture notes added yet by the instructor.'}
             </div>
           )
@@ -142,12 +142,12 @@ export const LiveNotesPanel: React.FC<LiveNotesPanelProps> = ({
               adjustHeight(e.target);
             }}
             placeholder="Type your own private reflections, bookmarks, and homework notes..."
-            className="w-full bg-transparent font-mono text-xs text-[#fafafa] p-2 focus:outline-none resize-none leading-relaxed transition-[height] duration-75 block"
+            className="w-full bg-transparent font-mono text-xs text-[var(--text-primary)] p-2 focus:outline-none resize-none leading-relaxed transition-[height] duration-75 block"
           />
         )}
       </div>
 
-      <div className="p-2 bg-[#18181b] border-t border-[#27272a] flex items-center justify-between text-[11px] text-[#a1a1aa]">
+      <div className="p-2 bg-[var(--bg-surface)] border-t border-[var(--border-default)] flex items-center justify-between text-[11px] text-[var(--text-muted)]">
         <span>{activeTab === 'class' ? (isInstructor ? 'Auto-syncing to all student screens' : 'Synced live with faculty') : 'Private to your account'}</span>
         <span className="font-mono">Markdown Supported</span>
       </div>

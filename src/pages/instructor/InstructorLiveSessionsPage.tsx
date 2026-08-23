@@ -79,15 +79,15 @@ export const InstructorLiveSessionsPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#a1a1aa]">Faculty Studio</span>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono bg-[#27272a] text-[#fafafa] border border-[#3f3f46]">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">Faculty Studio</span>
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-default)]">
               Live Classroom Management
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-[#fafafa] tracking-tight mt-1">
+          <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] tracking-tight mt-1">
             Live Coding Lab & Classroom Studio
           </h2>
-          <p className="text-xs sm:text-sm text-[#a1a1aa] mt-0.5">
+          <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-0.5">
             Host live interactive lectures with HD video stage, Monaco code broadcast, canvas whiteboard, and live quizzes.
           </p>
         </div>
@@ -97,9 +97,9 @@ export const InstructorLiveSessionsPage: React.FC = () => {
             variant="outline"
             size="sm"
             onClick={() => setShowScheduleModal(true)}
-            className="bg-[#18181b] border-[#27272a] hover:border-[#3f3f46] text-[#fafafa] text-xs"
+            className="bg-[var(--bg-surface)] border-[var(--border-default)] hover:border-[var(--border-hover)] text-[var(--text-primary)] text-xs"
           >
-            <Calendar className="w-3.5 h-3.5 mr-1 text-[#fafafa]" />
+            <Calendar className="w-3.5 h-3.5 mr-1 text-[var(--text-primary)]" />
             Schedule Class
           </Button>
 
@@ -117,18 +117,18 @@ export const InstructorLiveSessionsPage: React.FC = () => {
 
       {/* Schedule Modal */}
       {showScheduleModal && (
-        <div className="fixed inset-0 z-50 bg-[#09090b]/80 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-[#18181b] border border-[#27272a] rounded-2xl p-6 max-w-lg w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
-            <div className="flex items-center justify-between border-b border-[#27272a] pb-3">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-2xl p-6 max-w-lg w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
+            <div className="flex items-center justify-between border-b border-[var(--border-default)] pb-3">
               <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded-lg bg-[#27272a] text-[#fafafa] border border-[#3f3f46]">
+                <div className="p-1.5 rounded-lg bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-default)]">
                   <Video className="w-4 h-4" />
                 </div>
-                <h3 className="text-base font-bold text-[#fafafa]">Schedule Live Class</h3>
+                <h3 className="text-base font-bold text-[var(--text-primary)]">Schedule Live Class</h3>
               </div>
               <button
                 onClick={() => setShowScheduleModal(false)}
-                className="text-xs text-[#a1a1aa] hover:text-[#fafafa]"
+                className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)]"
               >
                 ✕
               </button>
@@ -136,55 +136,55 @@ export const InstructorLiveSessionsPage: React.FC = () => {
 
             <form onSubmit={handleScheduleSubmit} className="space-y-3.5 text-xs">
               <div>
-                <label className="block text-[#fafafa] font-semibold mb-1">Class Title</label>
+                <label className="block text-[var(--text-primary)] font-semibold mb-1">Class Title</label>
                 <input
                   type="text"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="e.g. Masterclass: Dijkstra Algorithm & Min-Heap Optimization"
-                  className="w-full bg-[#09090b] border border-[#27272a] focus:border-[#3f3f46] rounded-xl px-3 py-2 text-[#fafafa] focus:outline-none"
+                  className="w-full bg-[var(--bg-muted)] border border-[var(--border-default)] focus:border-[var(--border-hover)] rounded-xl px-3 py-2 text-[var(--text-primary)] focus:outline-none"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-[#fafafa] font-semibold mb-1">Key Topic / Subject</label>
+                <label className="block text-[var(--text-primary)] font-semibold mb-1">Key Topic / Subject</label>
                 <input
                   type="text"
                   value={newTopic}
                   onChange={(e) => setNewTopic(e.target.value)}
                   placeholder="e.g. Graph Theory, Priority Queues, Greedy Algorithms"
-                  className="w-full bg-[#09090b] border border-[#27272a] focus:border-[#3f3f46] rounded-xl px-3 py-2 text-[#fafafa] focus:outline-none"
+                  className="w-full bg-[var(--bg-muted)] border border-[var(--border-default)] focus:border-[var(--border-hover)] rounded-xl px-3 py-2 text-[var(--text-primary)] focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[#fafafa] font-semibold mb-1">Date</label>
+                  <label className="block text-[var(--text-primary)] font-semibold mb-1">Date</label>
                   <input
                     type="date"
                     value={newDate}
                     onChange={(e) => setNewDate(e.target.value)}
-                    className="w-full bg-[#09090b] border border-[#27272a] focus:border-[#3f3f46] rounded-xl px-3 py-2 text-[#fafafa] focus:outline-none"
+                    className="w-full bg-[var(--bg-muted)] border border-[var(--border-default)] focus:border-[var(--border-hover)] rounded-xl px-3 py-2 text-[var(--text-primary)] focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-[#fafafa] font-semibold mb-1">Time & Timezone</label>
+                  <label className="block text-[var(--text-primary)] font-semibold mb-1">Time & Timezone</label>
                   <input
                     type="text"
                     value={newTime}
                     onChange={(e) => setNewTime(e.target.value)}
-                    className="w-full bg-[#09090b] border border-[#27272a] focus:border-[#3f3f46] rounded-xl px-3 py-2 text-[#fafafa] focus:outline-none"
+                    className="w-full bg-[var(--bg-muted)] border border-[var(--border-default)] focus:border-[var(--border-hover)] rounded-xl px-3 py-2 text-[var(--text-primary)] focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[#fafafa] font-semibold mb-1">Duration (Minutes)</label>
+                <label className="block text-[var(--text-primary)] font-semibold mb-1">Duration (Minutes)</label>
                 <select
                   value={newDuration}
                   onChange={(e) => setNewDuration(e.target.value)}
-                  className="w-full bg-[#09090b] border border-[#27272a] focus:border-[#3f3f46] rounded-xl px-3 py-2 text-[#fafafa] focus:outline-none"
+                  className="w-full bg-[var(--bg-muted)] border border-[var(--border-default)] focus:border-[var(--border-hover)] rounded-xl px-3 py-2 text-[var(--text-primary)] focus:outline-none"
                 >
                   <option value="60">60 Minutes (1 Hour)</option>
                   <option value="90">90 Minutes (1.5 Hours)</option>
@@ -192,7 +192,7 @@ export const InstructorLiveSessionsPage: React.FC = () => {
                 </select>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#27272a]">
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-[var(--border-default)]">
                 <Button
                   type="button"
                   variant="outline"
@@ -212,27 +212,27 @@ export const InstructorLiveSessionsPage: React.FC = () => {
 
       {/* Featured Active Live Class Studio Card */}
       {activeClass && (
-        <div className="p-6 rounded-2xl bg-[#18181b] border border-[#27272a] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="p-6 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-default)] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
             <div className="flex items-center gap-2">
               <Badge variant="danger" size="sm" className="bg-rose-950/90 text-rose-300 border-rose-800 font-mono">
                 <Radio className="w-3 h-3 mr-1 animate-ping text-rose-400" />
                 BROADCASTING LIVE
               </Badge>
-              <span className="text-xs text-[#a1a1aa] font-mono">Batch 2025-A Active Room</span>
+              <span className="text-xs text-[var(--text-muted)] font-mono">Batch 2025-A Active Room</span>
             </div>
 
-            <h3 className="text-xl font-bold text-[#fafafa] tracking-tight">{activeClass.title}</h3>
-            <p className="text-xs sm:text-sm text-[#a1a1aa] leading-relaxed">{activeClass.description}</p>
+            <h3 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">{activeClass.title}</h3>
+            <p className="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">{activeClass.description}</p>
 
-            <div className="flex flex-wrap items-center gap-4 text-xs text-[#a1a1aa] pt-1">
-              <span className="flex items-center gap-1 font-mono text-emerald-400">
+            <div className="flex flex-wrap items-center gap-4 text-xs text-[var(--text-muted)] pt-1">
+              <span className="flex items-center gap-1 font-mono text-emerald-500 dark:text-emerald-400">
                 <Users className="w-3.5 h-3.5" />
                 {activeClass.participants.length} Active Students Connected
               </span>
               <span>•</span>
-              <span className="flex items-center gap-1 font-mono text-[#fafafa]">
-                <Clock className="w-3.5 h-3.5 text-[#fafafa]" />
+              <span className="flex items-center gap-1 font-mono text-[var(--text-primary)]">
+                <Clock className="w-3.5 h-3.5 text-[var(--text-primary)]" />
                 {activeClass.durationMinutes} mins scheduled
               </span>
             </div>
@@ -253,7 +253,7 @@ export const InstructorLiveSessionsPage: React.FC = () => {
 
       {/* Scheduled & Past Sessions Section */}
       <div className="space-y-4">
-        <h3 className="text-base font-bold text-slate-100">Live Lectures & Course Archives</h3>
+        <h3 className="text-base font-bold text-[var(--text-primary)]">Live Lectures & Course Archives</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {classes.map((cls) => {
@@ -265,8 +265,8 @@ export const InstructorLiveSessionsPage: React.FC = () => {
                 key={cls.id}
                 className={`p-5 flex flex-col justify-between space-y-4 border rounded-2xl transition-all ${
                   isLive
-                    ? 'border-[#3f3f46] bg-[#18181b] shadow-md ring-1 ring-[#3f3f46]/50'
-                    : 'border-[#27272a] bg-[#18181b] hover:border-[#3f3f46]'
+                    ? 'border-[var(--border-hover)] bg-[var(--bg-surface)] shadow-md ring-1 ring-[var(--border-hover)]/50'
+                    : 'border-[var(--border-default)] bg-[var(--bg-surface)] hover:border-[var(--border-hover)]'
                 }`}
               >
                 <div className="space-y-3">
@@ -277,19 +277,19 @@ export const InstructorLiveSessionsPage: React.FC = () => {
                     >
                       {isLive ? 'LIVE NOW' : isScheduled ? 'SCHEDULED' : 'ENDED'}
                     </Badge>
-                    <span className="text-[11px] text-[#a1a1aa] font-mono">{cls.scheduledTime}</span>
+                    <span className="text-[11px] text-[var(--text-muted)] font-mono">{cls.scheduledTime}</span>
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-bold text-[#fafafa]">{cls.title}</h4>
-                    <p className="text-xs text-[#a1a1aa] line-clamp-2 mt-1">{cls.description}</p>
+                    <h4 className="text-sm font-bold text-[var(--text-primary)]">{cls.title}</h4>
+                    <p className="text-xs text-[var(--text-muted)] line-clamp-2 mt-1">{cls.description}</p>
                   </div>
 
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {cls.tags.map((t) => (
                       <span
                         key={t}
-                        className="px-2 py-0.5 rounded-md bg-[#09090b] border border-[#27272a] text-[10px] text-[#a1a1aa] font-mono"
+                        className="px-2 py-0.5 rounded-md bg-[var(--bg-muted)] border border-[var(--border-default)] text-[10px] text-[var(--text-muted)] font-mono"
                       >
                         #{t}
                       </span>
@@ -297,8 +297,8 @@ export const InstructorLiveSessionsPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2 pt-3 border-t border-[#27272a]">
-                  <div className="flex items-center justify-between text-xs text-[#a1a1aa]">
+                <div className="space-y-2 pt-3 border-t border-[var(--border-default)]">
+                  <div className="flex items-center justify-between text-xs text-[var(--text-muted)]">
                     <span>{cls.batchName.split('(')[0]}</span>
                     <span className="font-mono">{cls.durationMinutes}m</span>
                   </div>
@@ -312,8 +312,8 @@ export const InstructorLiveSessionsPage: React.FC = () => {
                     </Link>
                   ) : isScheduled ? (
                     <Link to={`/instructor/live-classroom/${cls.id}`} className="block">
-                      <Button variant="outline" size="sm" className="w-full bg-[#09090b] border-[#27272a] text-xs">
-                        <Play className="w-3.5 h-3.5 mr-1 text-emerald-400" />
+                      <Button variant="outline" size="sm" className="w-full bg-[var(--bg-muted)] border-[var(--border-default)] text-xs">
+                        <Play className="w-3.5 h-3.5 mr-1 text-emerald-500 dark:text-emerald-400" />
                         Start Live Broadcast
                       </Button>
                     </Link>
@@ -323,9 +323,9 @@ export const InstructorLiveSessionsPage: React.FC = () => {
                         variant="outline"
                         size="sm"
                         onClick={() => alert('Opening class archive stream...')}
-                        className="flex-1 bg-slate-950 border-slate-800 text-xs text-slate-300"
+                        className="flex-1 bg-[var(--bg-muted)] border-[var(--border-default)] text-xs text-[var(--text-secondary)]"
                       >
-                        <Video className="w-3.5 h-3.5 mr-1 text-emerald-400" />
+                        <Video className="w-3.5 h-3.5 mr-1 text-emerald-500 dark:text-emerald-400" />
                         Archive
                       </Button>
                       <Button
@@ -340,7 +340,7 @@ export const InstructorLiveSessionsPage: React.FC = () => {
                           a.click();
                           URL.revokeObjectURL(url);
                         }}
-                        className="p-2 text-slate-400 hover:text-slate-200"
+                        className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                         title="Download Lecture Code"
                       >
                         <Download className="w-3.5 h-3.5" />
@@ -361,27 +361,27 @@ export const InstructorAnalyticsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-slate-100 tracking-tight">Batch Performance Analytics</h2>
-        <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+        <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Batch Performance Analytics</h2>
+        <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-0.5">
           Deep-dive student comprehension across specific algorithm topics.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <Card className="p-5 space-y-2">
-          <span className="text-xs font-semibold text-slate-400">Class Average</span>
-          <p className="text-3xl font-bold text-blue-400 font-mono">88.4%</p>
-          <p className="text-xs text-slate-400">+4.2% higher than curriculum baseline</p>
+          <span className="text-xs font-semibold text-[var(--text-muted)]">Class Average</span>
+          <p className="text-3xl font-bold text-[var(--text-primary)] font-mono">88.4%</p>
+          <p className="text-xs text-[var(--text-muted)]">+4.2% higher than curriculum baseline</p>
         </Card>
         <Card className="p-5 space-y-2">
-          <span className="text-xs font-semibold text-slate-400">Top Problem Topic</span>
-          <p className="text-3xl font-bold text-emerald-400 font-mono">HashMaps</p>
-          <p className="text-xs text-slate-400">96% first-pass acceptance rate</p>
+          <span className="text-xs font-semibold text-[var(--text-muted)]">Top Problem Topic</span>
+          <p className="text-3xl font-bold text-emerald-500 dark:text-emerald-400 font-mono">HashMaps</p>
+          <p className="text-xs text-[var(--text-muted)]">96% first-pass acceptance rate</p>
         </Card>
         <Card className="p-5 space-y-2">
-          <span className="text-xs font-semibold text-slate-400">Needs Review Topic</span>
-          <p className="text-3xl font-bold text-amber-400 font-mono">Graph DP</p>
-          <p className="text-xs text-slate-400">64% acceptance on memoization tests</p>
+          <span className="text-xs font-semibold text-[var(--text-muted)]">Needs Review Topic</span>
+          <p className="text-3xl font-bold text-amber-500 dark:text-amber-400 font-mono">Graph DP</p>
+          <p className="text-xs text-[var(--text-muted)]">64% acceptance on memoization tests</p>
         </Card>
       </div>
     </div>
@@ -392,12 +392,12 @@ export const InstructorReportsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-slate-100 tracking-tight">Instructor Gradebooks & Reports</h2>
-        <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+        <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Instructor Gradebooks & Reports</h2>
+        <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-0.5">
           Download CSV summaries of tests, attendance records, and student submission code archives.
         </p>
       </div>
-      <Card className="p-6 text-xs text-slate-300">
+      <Card className="p-6 text-xs text-[var(--text-secondary)]">
         <p>Cohort 2025-A Full Gradebook is ready for export.</p>
         <Button variant="primary" size="sm" className="mt-4" onClick={() => alert('Exporting CSV gradebook...')}>
           Download Gradebook CSV
@@ -411,15 +411,15 @@ export const InstructorNotificationsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-slate-100 tracking-tight">Instructor Notifications</h2>
-        <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+        <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Instructor Notifications</h2>
+        <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-0.5">
           Submission alerts, proctor violation notifications, and student questions.
         </p>
       </div>
       <Card className="p-4 space-y-3 text-xs">
-        <div className="p-3 bg-slate-950 rounded-lg border border-slate-800">
-          <span className="font-bold text-slate-200 block">Assessment Submission</span>
-          <p className="text-slate-400">Alex Turner completed DSA Mid-Term Exam (Score: 92/100).</p>
+        <div className="p-3 bg-[var(--bg-muted)]/50 rounded-lg border border-[var(--border-default)]">
+          <span className="font-bold text-[var(--text-primary)] block">Assessment Submission</span>
+          <p className="text-[var(--text-muted)]">Alex Turner completed DSA Mid-Term Exam (Score: 92/100).</p>
         </div>
       </Card>
     </div>
@@ -430,15 +430,15 @@ export const InstructorSettingsPage: React.FC = () => {
   return (
     <div className="space-y-6 max-w-xl">
       <div>
-        <h2 className="text-xl font-bold text-slate-100 tracking-tight">Faculty Preferences</h2>
+        <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Faculty Preferences</h2>
       </div>
       <Card className="p-6 space-y-4 text-xs">
-        <label className="flex items-center gap-2 text-slate-300 cursor-pointer">
-          <input type="checkbox" defaultChecked className="rounded bg-slate-950 border-slate-700" />
+        <label className="flex items-center gap-2 text-[var(--text-secondary)] cursor-pointer">
+          <input type="checkbox" defaultChecked className="rounded accent-purple-500" />
           Email me when a student submits an assessment
         </label>
-        <label className="flex items-center gap-2 text-slate-300 cursor-pointer">
-          <input type="checkbox" defaultChecked className="rounded bg-slate-950 border-slate-700" />
+        <label className="flex items-center gap-2 text-[var(--text-secondary)] cursor-pointer">
+          <input type="checkbox" defaultChecked className="rounded accent-purple-500" />
           Real-time audible chime on proctor violation
         </label>
       </Card>

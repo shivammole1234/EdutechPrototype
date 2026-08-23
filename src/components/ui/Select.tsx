@@ -12,26 +12,26 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="w-full space-y-1.5">
         {label && (
-          <label className="block text-xs font-bold uppercase tracking-wider text-[#71717a]">
+          <label className="block text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
             {label}
           </label>
         )}
         <select
           ref={ref}
           className={cn(
-            'w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3.5 py-2 text-xs text-[#fafafa] focus:outline-none focus:border-[#3f3f46] focus:ring-1 focus:ring-[#3f3f46] transition duration-150 cursor-pointer disabled:opacity-50',
+            'w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded-lg px-3.5 py-2 text-xs text-[var(--input-text)] focus:outline-none focus:border-[var(--input-focus)] focus:ring-1 focus:ring-[var(--input-focus)] transition duration-150 cursor-pointer disabled:opacity-50',
             error && 'border-rose-500 focus:border-rose-500',
             className
           )}
           {...props}
         >
           {options.map((opt) => (
-            <option key={opt.value} value={opt.value} className="bg-[#18181b] text-[#fafafa]">
+            <option key={opt.value} value={opt.value} className="bg-[var(--bg-surface)] text-[var(--text-primary)]">
               {opt.label}
             </option>
           ))}
         </select>
-        {error && <p className="text-xs font-medium text-rose-400">{error}</p>}
+        {error && <p className="text-xs font-medium text-rose-500">{error}</p>}
       </div>
     );
   }

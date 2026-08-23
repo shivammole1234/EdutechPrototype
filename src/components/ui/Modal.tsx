@@ -51,34 +51,34 @@ export const Modal: React.FC<ModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/70 backdrop-blur-xs transition-opacity duration-200"
+        className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-xs transition-opacity duration-200"
         onClick={onClose}
       />
 
       {/* Modal Dialog */}
       <div
         className={cn(
-          'relative w-full bg-[#18181b] border border-[#27272a] rounded-2xl shadow-2xl z-10 overflow-hidden my-8',
+          'relative w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-2xl shadow-[var(--modal-shadow)] z-10 overflow-hidden my-8',
           maxWidths[maxWidth]
         )}
       >
         {(title || description) && (
-          <div className="flex items-center justify-between px-6 py-4 border-b border-[#27272a]">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--border-default)]">
             <div>
-              {title && <h3 className="text-base font-bold text-[#fafafa]">{title}</h3>}
-              {description && <p className="text-xs text-[#a1a1aa] mt-0.5">{description}</p>}
+              {title && <h3 className="text-base font-bold text-[var(--text-primary)]">{title}</h3>}
+              {description && <p className="text-xs text-[var(--text-secondary)] mt-0.5">{description}</p>}
             </div>
             <Button
               variant="ghost"
               size="icon"
               onClick={onClose}
-              className="text-[#a1a1aa] hover:text-[#fafafa]"
+              className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
             >
               <X className="w-4 h-4" />
             </Button>
           </div>
         )}
-        <div className="p-6">{children}</div>
+        <div className="p-6 text-[var(--text-primary)]">{children}</div>
       </div>
     </div>
   );

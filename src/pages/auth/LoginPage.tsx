@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { CodeXml, Shield, GraduationCap, Code2, ArrowRight, Lock, Mail } from 'lucide-react';
+import { CodeXml, Shield, GraduationCap, Code2, ArrowRight, Lock, Mail, Sun, Moon } from 'lucide-react';
 import { useAuthStore, MOCK_USERS } from '@/stores/useAuthStore';
+import { useThemeStore } from '@/stores/useThemeStore';
 import { UserRole } from '@/types';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -9,6 +10,7 @@ import { Input } from '@/components/ui/Input';
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const { login } = useAuthStore();
+  const { theme, toggleTheme } = useThemeStore();
   const [email, setEmail] = useState('alex.turner@student.codepulse.io');
   const [password, setPassword] = useState('••••••••••••');
   const [selectedRole, setSelectedRole] = useState<UserRole>('STUDENT');
@@ -42,27 +44,36 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Subtle Background Glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
+    <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden transition-colors duration-200">
+      {/* Theme Toggle in top right */}
+      <div className="absolute top-4 right-4 z-20">
+        <button
+          onClick={toggleTheme}
+          className="w-9 h-9 flex items-center justify-center rounded-lg bg-[var(--bg-surface)] border border-[var(--border-default)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-hover)] transition cursor-pointer shadow-xs"
+          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+        >
+          {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+        </button>
+      </div>
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center z-10">
-        <div className="inline-flex p-3 rounded-2xl bg-blue-600 text-white shadow-xl shadow-blue-600/30 mb-4">
+        <div className="inline-flex p-3 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-default)] text-[var(--text-primary)] shadow-sm mb-4">
           <CodeXml className="w-8 h-8" />
         </div>
-        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-100">
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[var(--text-primary)]">
           CodePulse Academy
         </h2>
-        <p className="mt-1.5 text-xs sm:text-sm text-slate-400">
+        <p className="mt-1.5 text-xs sm:text-sm text-[var(--text-secondary)]">
           Coding Education & Assessment Platform
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0 z-10">
         {/* Quick Demo Switcher Card */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-2xl backdrop-blur-md">
+        <div className="bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-2xl p-6 shadow-[var(--card-shadow)]">
           <div className="mb-5">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5">
+            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2.5">
               Select Demo Role to Login:
             </p>
             <div className="grid grid-cols-3 gap-2">
@@ -71,11 +82,11 @@ export const LoginPage: React.FC = () => {
                 onClick={() => handleQuickDemoLogin('STUDENT')}
                 className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border text-xs font-semibold transition cursor-pointer ${
                   selectedRole === 'STUDENT'
-                    ? 'bg-emerald-950/60 border-emerald-500 text-emerald-300 ring-1 ring-emerald-500/50'
-                    : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-300 ring-1 ring-emerald-500/30'
+                    : 'bg-[var(--bg-surface-secondary)] border-[var(--border-default)] text-[var(--text-secondary)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]'
                 }`}
               >
-                <Code2 className="w-5 h-5 text-emerald-400" />
+                <Code2 className="w-5 h-5 text-emerald-500" />
                 <span>Student</span>
               </button>
 
@@ -84,11 +95,11 @@ export const LoginPage: React.FC = () => {
                 onClick={() => handleQuickDemoLogin('INSTRUCTOR')}
                 className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border text-xs font-semibold transition cursor-pointer ${
                   selectedRole === 'INSTRUCTOR'
-                    ? 'bg-blue-950/60 border-blue-500 text-blue-300 ring-1 ring-blue-500/50'
-                    : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                    ? 'bg-[var(--bg-surface)] border-[var(--border-focus)] text-[var(--text-primary)] ring-1 ring-[var(--border-focus)]'
+                    : 'bg-[var(--bg-surface-secondary)] border-[var(--border-default)] text-[var(--text-secondary)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]'
                 }`}
               >
-                <GraduationCap className="w-5 h-5 text-blue-400" />
+                <GraduationCap className="w-5 h-5 text-[var(--text-secondary)]" />
                 <span>Instructor</span>
               </button>
 
@@ -97,23 +108,23 @@ export const LoginPage: React.FC = () => {
                 onClick={() => handleQuickDemoLogin('ADMIN')}
                 className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border text-xs font-semibold transition cursor-pointer ${
                   selectedRole === 'ADMIN'
-                    ? 'bg-purple-950/60 border-purple-500 text-purple-300 ring-1 ring-purple-500/50'
-                    : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                    ? 'bg-purple-500/10 border-purple-500/30 text-purple-600 dark:text-purple-300 ring-1 ring-purple-500/30'
+                    : 'bg-[var(--bg-surface-secondary)] border-[var(--border-default)] text-[var(--text-secondary)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]'
                 }`}
               >
-                <Shield className="w-5 h-5 text-purple-400" />
+                <Shield className="w-5 h-5 text-purple-500" />
                 <span>Admin</span>
               </button>
             </div>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-4 pt-2 border-t border-slate-800">
+          <form onSubmit={handleLogin} className="space-y-4 pt-2 border-t border-[var(--border-default)]">
             <Input
               label="Email address"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              icon={<Mail className="w-4 h-4 text-slate-500" />}
+              icon={<Mail className="w-4 h-4 text-[var(--text-muted)]" />}
               required
             />
 
@@ -122,22 +133,22 @@ export const LoginPage: React.FC = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              icon={<Lock className="w-4 h-4 text-slate-500" />}
+              icon={<Lock className="w-4 h-4 text-[var(--text-muted)]" />}
               required
             />
 
             <div className="flex items-center justify-between text-xs">
-              <label className="flex items-center gap-2 text-slate-400 cursor-pointer">
+              <label className="flex items-center gap-2 text-[var(--text-secondary)] cursor-pointer">
                 <input
                   type="checkbox"
                   defaultChecked
-                  className="rounded bg-slate-950 border-slate-700 text-blue-600 focus:ring-0"
+                  className="rounded bg-[var(--bg-surface-secondary)] border-[var(--border-default)] text-[var(--text-primary)] focus:ring-0 cursor-pointer"
                 />
                 Remember session
               </label>
               <Link
                 to="/forgot-password"
-                className="text-blue-400 hover:text-blue-300 transition"
+                className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition"
               >
                 Forgot password?
               </Link>
@@ -155,7 +166,7 @@ export const LoginPage: React.FC = () => {
             </Button>
           </form>
 
-          <div className="mt-5 text-center text-xs text-slate-400">
+          <div className="mt-5 text-center text-xs text-[var(--text-muted)]">
             Protected by CodePulse Enterprise Auth & SSO.
           </div>
         </div>
@@ -169,20 +180,20 @@ export const ForgotPasswordPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl">
-          <h2 className="text-xl font-bold text-slate-100 mb-1">Reset Password</h2>
-          <p className="text-xs text-slate-400 mb-6">
+        <div className="bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-2xl p-6 shadow-[var(--card-shadow)]">
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-1">Reset Password</h2>
+          <p className="text-xs text-[var(--text-secondary)] mb-6">
             Enter your registered email address and we'll send a password recovery token.
           </p>
 
           {submitted ? (
-            <div className="p-4 bg-emerald-950/60 border border-emerald-800/60 rounded-xl text-xs text-emerald-300">
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-xs text-emerald-600 dark:text-emerald-300">
               <p className="font-semibold mb-1">Reset link dispatched</p>
               <p>Check your email for the reset instructions. (Mock token: cp-reset-8849)</p>
               <div className="mt-4">
-                <Link to="/login" className="text-blue-400 hover:underline">
+                <Link to="/login" className="text-[var(--text-primary)] hover:underline font-semibold">
                   Return to Sign In
                 </Link>
               </div>
@@ -207,7 +218,7 @@ export const ForgotPasswordPage: React.FC = () => {
                 Send Recovery Link
               </Button>
               <div className="text-center">
-                <Link to="/login" className="text-xs text-slate-400 hover:text-slate-200">
+                <Link to="/login" className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
                   Cancel and return to Login
                 </Link>
               </div>
@@ -222,17 +233,17 @@ export const ForgotPasswordPage: React.FC = () => {
 export const ResetPasswordPage: React.FC = () => {
   const [done, setDone] = useState(false);
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl">
-          <h2 className="text-xl font-bold text-slate-100 mb-1">Set New Password</h2>
-          <p className="text-xs text-slate-400 mb-6">Create a strong password for your account.</p>
+        <div className="bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-2xl p-6 shadow-[var(--card-shadow)]">
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-1">Set New Password</h2>
+          <p className="text-xs text-[var(--text-secondary)] mb-6">Create a strong password for your account.</p>
           {done ? (
-            <div className="p-4 bg-emerald-950/60 border border-emerald-800/60 rounded-xl text-xs text-emerald-300">
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-xs text-emerald-600 dark:text-emerald-300">
               <p className="font-semibold mb-1">Password updated</p>
               <p>Your password has been changed successfully.</p>
               <div className="mt-4">
-                <Link to="/login" className="text-blue-400 hover:underline">
+                <Link to="/login" className="text-[var(--text-primary)] hover:underline font-semibold">
                   Sign In Now
                 </Link>
               </div>

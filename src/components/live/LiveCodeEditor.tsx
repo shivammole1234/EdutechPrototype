@@ -2,19 +2,17 @@ import React, { useState, useEffect } from 'react';
 import {
   Play,
   Terminal,
-  RotateCcw,
   Copy,
   Check,
   CodeXml,
-  Sparkles,
   Lock,
   Unlock,
   Download,
-  Share2,
 } from 'lucide-react';
 import Editor from '@monaco-editor/react';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
+import { useThemeStore } from '@/stores/useThemeStore';
 import { executionService } from '@/services/executionService';
 
 interface LiveCodeEditorProps {
@@ -61,54 +59,59 @@ console.log("Inorder Result:", inorder(root));
 `,
   },
   avl: {
-    title: 'AVL Left & Right Rotations',
+    title: 'AVL Rotation Algorithm',
     lang: 'typescript',
-    code: `// AVL Node & Tree Rotations
-class AVLNode {
-  val: number;
-  height: number = 1;
-  left: AVLNode | null = null;
-  right: AVLNode | null = null;
-  constructor(val: number) { this.val = val; }
+    code: `// AVL Self-Balancing Tree Node & Right Rotation
+interface AVLNode {
+  key: number;
+  height: number;
+  left: AVLNode | null;
+  right: AVLNode | null;
 }
 
-function height(n: AVLNode | null): number {
-  return n ? n.height : 0;
+function getHeight(node: AVLNode | null): number {
+  return node ? node.height : 0;
 }
 
 function rightRotate(y: AVLNode): AVLNode {
   const x = y.left!;
   const T2 = x.right;
+
+  // Perform rotation
   x.right = y;
   y.left = T2;
-  y.height = Math.max(height(y.left), height(y.right)) + 1;
-  x.height = Math.max(height(x.left), height(x.right)) + 1;
+
+  // Update heights
+  y.height = Math.max(getHeight(y.left), getHeight(y.right)) + 1;
+  x.height = Math.max(getHeight(x.left), getHeight(x.right)) + 1;
+
   return x;
 }
 
-console.log("AVL Rotation module loaded ready for test.");
+console.log("AVL Right Rotate Function Defined & Validated.");
 `,
   },
   python_bfs: {
-    title: 'Python Graph BFS Queue',
+    title: 'Python BFS Graph Queue',
     lang: 'python',
-    code: `# Graph Breadth-First Search (BFS) Traversal
+    code: `# Breadth First Search using collections.deque
 from collections import deque
 
 def bfs(graph, start_node):
-    visited = set()
+    visited = set([start_node])
     queue = deque([start_node])
-    visited.add(start_node)
-    order = []
+    traversal_order = []
     
     while queue:
         vertex = queue.popleft()
-        order.append(vertex)
+        traversal_order.append(vertex)
+        
         for neighbor in graph.get(vertex, []):
             if neighbor not in visited:
                 visited.add(neighbor)
                 queue.append(neighbor)
-    return order
+                
+    return traversal_order
 
 sample_graph = {
     'A': ['B', 'C'],
@@ -131,6 +134,7 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
   instructorOutput = '',
   readOnly = false,
 }) => {
+  const { theme } = useThemeStore();
   const [code, setCode] = useState(initialCode);
   const [selectedLang, setSelectedLang] = useState(language);
   const [output, setOutput] = useState(instructorOutput);
@@ -163,39 +167,43 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
   const handleRunCode = async () => {
     setIsRunning(true);
     const start = performance.now();
-    setOutput('Compiling and executing in sandbox container...');
     try {
-      const res = await executionService.executeCode({
-        code,
-        language: selectedLang,
-        testCases: [],
-      });
-      const end = performance.now();
-      setExecTime(Math.round(end - start));
-      const resText = res.stdout || res.compilerMessage || res.runtimeError || 'Program finished with return code 0 (no output).';
-      setOutput(resText);
-      if (isInstructor && onOutputChange) {
-        onOutputChange(resText);
+      const res = await executionService.execute(code, selectedLang);
+      const formatted = res.error
+        ? `[Runtime Error]\n${res.error}`
+        : `${res.stdout || 'Program executed successfully with no stdout output.'}`;
+      setOutput(formatted);
+      setExecTime(Math.round(performance.now() - start));
+      if (onOutputChange) {
+        onOutputChange(formatted);
       }
     } catch (err: any) {
-      const errText = `Execution Error: ${err?.message || 'Sandbox timeout'}`;
-      setOutput(errText);
-      if (isInstructor && onOutputChange) {
-        onOutputChange(errText);
-      }
+      const errTxt = `[Execution Failure]: ${err.message || 'Sandbox engine timeout'}`;
+      setOutput(errTxt);
+      if (onOutputChange) onOutputChange(errTxt);
     } finally {
       setIsRunning(false);
     }
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // fallback
+    }
   };
 
   const handleDownload = () => {
-    const ext = selectedLang === 'python' ? 'py' : selectedLang === 'cpp' ? 'cpp' : 'ts';
+    const extMap: Record<string, string> = {
+      typescript: 'ts',
+      javascript: 'js',
+      python: 'py',
+      cpp: 'cpp',
+    };
+    const ext = extMap[selectedLang] || 'txt';
     const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -216,16 +224,16 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#09090b] border border-[#27272a] rounded-2xl overflow-hidden shadow-sm">
+    <div className="flex flex-col h-full bg-[var(--bg-canvas)] border border-[var(--border-default)] rounded-2xl overflow-hidden shadow-[var(--card-shadow)]">
       {/* Editor Control Toolbar */}
-      <div className="p-3 bg-[#18181b] border-b border-[#27272a] flex flex-wrap items-center justify-between gap-2.5">
+      <div className="p-3 bg-[var(--bg-surface)] border-b border-[var(--border-default)] flex flex-wrap items-center justify-between gap-2.5">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-[#27272a] text-[#fafafa] border border-[#3f3f46]">
+          <div className="p-1.5 rounded-lg bg-[var(--bg-surface-secondary)] text-[var(--text-primary)] border border-[var(--border-default)]">
             <CodeXml className="w-4 h-4" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-[#fafafa]">
+              <span className="text-xs font-bold text-[var(--text-primary)]">
                 {isInstructor ? 'Instructor Shared IDE (Broadcast)' : 'Live Interactive Code'}
               </span>
               <Badge variant={isInstructor ? 'default' : syncWithInstructor ? 'success' : 'warning'} size="sm">
@@ -242,7 +250,7 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
             value={selectedLang}
             onChange={(e) => setSelectedLang(e.target.value)}
             disabled={!isInstructor && syncWithInstructor}
-            className="bg-[#09090b] border border-[#27272a] focus:border-[#3f3f46] rounded-lg px-2.5 py-1 text-xs text-[#fafafa] focus:outline-none cursor-pointer"
+            className="bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] focus:border-[var(--border-focus)] rounded-lg px-2.5 py-1 text-xs text-[var(--text-primary)] focus:outline-none cursor-pointer"
           >
             <option value="typescript">TypeScript</option>
             <option value="javascript">JavaScript</option>
@@ -257,7 +265,7 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
                 if (e.target.value) loadTemplate(e.target.value);
               }}
               defaultValue=""
-              className="hidden sm:block bg-[#09090b] border border-[#27272a] focus:border-[#3f3f46] rounded-lg px-2.5 py-1 text-xs text-[#fafafa] focus:outline-none cursor-pointer"
+              className="hidden sm:block bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] focus:border-[var(--border-focus)] rounded-lg px-2.5 py-1 text-xs text-[var(--text-primary)] focus:outline-none cursor-pointer"
             >
               <option value="" disabled>
                 Code Snippets...
@@ -274,8 +282,8 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
               onClick={() => setSyncWithInstructor(!syncWithInstructor)}
               className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium border transition cursor-pointer ${
                 syncWithInstructor
-                  ? 'bg-emerald-950/60 border-emerald-700/60 text-emerald-300'
-                  : 'bg-amber-950/60 border-amber-700/60 text-amber-300'
+                  ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-300'
+                  : 'bg-amber-500/10 border-amber-500/20 text-amber-600 dark:text-amber-300'
               }`}
               title={syncWithInstructor ? 'Click to edit in private sandbox' : 'Click to re-sync with instructor'}
             >
@@ -287,16 +295,16 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
           {/* Copy Button */}
           <button
             onClick={handleCopy}
-            className="p-1.5 rounded-lg bg-[#09090b] hover:bg-[#27272a] border border-[#27272a] hover:border-[#3f3f46] text-[#fafafa] transition cursor-pointer"
+            className="p-1.5 rounded-lg bg-[var(--bg-surface-secondary)] hover:bg-[var(--bg-surface-hover)] border border-[var(--border-default)] hover:border-[var(--border-hover)] text-[var(--text-primary)] transition cursor-pointer"
             title="Copy Code"
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
           </button>
 
           {/* Download Button */}
           <button
             onClick={handleDownload}
-            className="p-1.5 rounded-lg bg-[#09090b] hover:bg-[#27272a] border border-[#27272a] hover:border-[#3f3f46] text-[#fafafa] transition cursor-pointer"
+            className="p-1.5 rounded-lg bg-[var(--bg-surface-secondary)] hover:bg-[var(--bg-surface-hover)] border border-[var(--border-default)] hover:border-[var(--border-hover)] text-[var(--text-primary)] transition cursor-pointer"
             title="Download Snippet"
           >
             <Download className="w-3.5 h-3.5" />
@@ -308,7 +316,7 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
             size="sm"
             onClick={handleRunCode}
             isLoading={isRunning}
-            className="bg-emerald-600 hover:bg-emerald-500 font-semibold text-white shadow-md shadow-emerald-900/30"
+            className="bg-emerald-600 hover:bg-emerald-500 font-semibold text-white shadow-sm shadow-emerald-600/20"
           >
             <Play className="w-3.5 h-3.5 mr-1 fill-white" />
             Run Sandbox
@@ -317,12 +325,12 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
       </div>
 
       {/* Monaco Code Editor Area */}
-      <div className="flex-1 min-h-[320px] lg:min-h-[420px] bg-[#09090b] relative">
+      <div className="flex-1 min-h-[320px] lg:min-h-[420px] bg-[var(--bg-canvas)] relative">
         <Editor
           height="100%"
           language={selectedLang === 'cpp' ? 'cpp' : selectedLang}
           value={code}
-          theme="vs-dark"
+          theme={theme === 'dark' ? 'vs-dark' : 'vs'}
           onChange={handleEditorChange}
           options={{
             fontSize: 13,
@@ -339,19 +347,19 @@ export const LiveCodeEditor: React.FC<LiveCodeEditorProps> = ({
       </div>
 
       {/* Sandboxed Execution Terminal Panel */}
-      <div className="bg-[#18181b] border-t border-[#27272a] p-3 font-mono text-xs">
-        <div className="flex items-center justify-between pb-2 border-b border-[#27272a] text-[#a1a1aa]">
-          <span className="flex items-center gap-1.5 font-semibold text-[#fafafa]">
-            <Terminal className="w-3.5 h-3.5 text-emerald-400" />
+      <div className="bg-[var(--bg-surface)] border-t border-[var(--border-default)] p-3 font-mono text-xs">
+        <div className="flex items-center justify-between pb-2 border-b border-[var(--border-default)] text-[var(--text-secondary)]">
+          <span className="flex items-center gap-1.5 font-semibold text-[var(--text-primary)]">
+            <Terminal className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
             Sandboxed Terminal Output
           </span>
-          <div className="flex items-center gap-2 text-[11px] text-[#71717a]">
-            {execTime !== null && <span className="text-emerald-400">{execTime}ms runtime</span>}
+          <div className="flex items-center gap-2 text-[11px] text-[var(--text-muted)]">
+            {execTime !== null && <span className="text-emerald-600 dark:text-emerald-400 font-mono">{execTime}ms runtime</span>}
             <span>Node.js v20 • Judge0</span>
           </div>
         </div>
 
-        <pre className="mt-2 text-emerald-400 whitespace-pre-wrap max-h-32 overflow-y-auto leading-relaxed text-xs">
+        <pre className="mt-2 text-emerald-600 dark:text-emerald-400 whitespace-pre-wrap max-h-32 overflow-y-auto leading-relaxed text-xs font-mono">
           {output || 'Click "Run Sandbox" to execute and view stdout/stderr results in real time.'}
         </pre>
       </div>

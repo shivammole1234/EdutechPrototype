@@ -40,8 +40,8 @@ export const AdminReportsPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-100 tracking-tight">Academic & Compliance Reports</h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+          <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Academic & Compliance Reports</h2>
+          <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-0.5">
             Export accredited student gradebooks, proctoring audit trails, and execution logs.
           </p>
         </div>
@@ -55,12 +55,12 @@ export const AdminReportsPage: React.FC = () => {
         {reports.map((r, i) => (
           <Card key={i} className="p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-lg bg-purple-950/70 border border-purple-800/50 text-purple-400">
+              <div className="p-2.5 rounded-lg bg-[var(--primary)]/10 border border-[var(--primary)]/30 text-[var(--primary)]">
                 <FileText className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-sm font-semibold text-slate-100">{r.title}</h4>
-                <div className="flex items-center gap-3 text-xs text-slate-400 mt-0.5">
+                <h4 className="text-sm font-semibold text-[var(--text-primary)]">{r.title}</h4>
+                <div className="flex items-center gap-3 text-xs text-[var(--text-muted)] mt-0.5">
                   <Badge variant="default" size="sm">{r.category}</Badge>
                   <span>Format: {r.type}</span>
                   <span>Generated: {r.generated}</span>

@@ -103,7 +103,7 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
           <ArrowLeft className="w-4 h-4 mr-1.5" />
           Cancel Wizard
         </Button>
-        <span className="text-xs text-slate-400 font-mono">Step {currentStep} of 4</span>
+        <span className="text-xs text-[var(--text-muted)] font-mono">Step {currentStep} of 4</span>
       </div>
 
       {/* Stepper Header Indicator */}
@@ -111,10 +111,10 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
         <div
           className={`p-2.5 rounded-lg border transition ${
             currentStep === 1
-              ? 'bg-[#27272a] border-[#3f3f46] text-[#fafafa]'
+              ? 'bg-[var(--bg-surface)] border-[var(--border-hover)] text-[var(--text-primary)] shadow-xs'
               : currentStep > 1
-              ? 'bg-[#18181b] border-[#27272a] text-emerald-400'
-              : 'bg-[#09090b] border-[#27272a] text-[#71717a]'
+              ? 'bg-[var(--bg-muted)] border-[var(--border-default)] text-emerald-600 dark:text-emerald-400'
+              : 'bg-[var(--bg-muted)]/50 border-[var(--border-default)] text-[var(--text-muted)]'
           }`}
         >
           1. Test Details
@@ -122,10 +122,10 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
         <div
           className={`p-2.5 rounded-lg border transition ${
             currentStep === 2
-              ? 'bg-[#27272a] border-[#3f3f46] text-[#fafafa]'
+              ? 'bg-[var(--bg-surface)] border-[var(--border-hover)] text-[var(--text-primary)] shadow-xs'
               : currentStep > 2
-              ? 'bg-[#18181b] border-[#27272a] text-emerald-400'
-              : 'bg-[#09090b] border-[#27272a] text-[#71717a]'
+              ? 'bg-[var(--bg-muted)] border-[var(--border-default)] text-emerald-600 dark:text-emerald-400'
+              : 'bg-[var(--bg-muted)]/50 border-[var(--border-default)] text-[var(--text-muted)]'
           }`}
         >
           2. Questions ({selectedQuestionIds.length})
@@ -133,10 +133,10 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
         <div
           className={`p-2.5 rounded-lg border transition ${
             currentStep === 3
-              ? 'bg-[#27272a] border-[#3f3f46] text-[#fafafa]'
+              ? 'bg-[var(--bg-surface)] border-[var(--border-hover)] text-[var(--text-primary)] shadow-xs'
               : currentStep > 3
-              ? 'bg-[#18181b] border-[#27272a] text-emerald-400'
-              : 'bg-[#09090b] border-[#27272a] text-[#71717a]'
+              ? 'bg-[var(--bg-muted)] border-[var(--border-default)] text-emerald-600 dark:text-emerald-400'
+              : 'bg-[var(--bg-muted)]/50 border-[var(--border-default)] text-[var(--text-muted)]'
           }`}
         >
           3. Security & Rules
@@ -144,8 +144,8 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
         <div
           className={`p-2.5 rounded-lg border transition ${
             currentStep === 4
-              ? 'bg-[#27272a] border-[#3f3f46] text-[#fafafa]'
-              : 'bg-[#09090b] border-[#27272a] text-[#71717a]'
+              ? 'bg-[var(--bg-surface)] border-[var(--border-hover)] text-[var(--text-primary)] shadow-xs'
+              : 'bg-[var(--bg-muted)]/50 border-[var(--border-default)] text-[var(--text-muted)]'
           }`}
         >
           4. Review & Publish
@@ -164,7 +164,7 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
             required
           />
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
               Description & Student Instructions
             </label>
             <textarea
@@ -172,7 +172,7 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Instructions for students regarding timing, allowed languages, and submission rules..."
-              className="w-full bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-xs text-[#fafafa] focus:outline-none focus:border-[#3f3f46]"
+              className="w-full bg-[var(--bg-muted)] border border-[var(--border-default)] rounded-lg p-3 text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--border-hover)]"
             />
           </div>
 
@@ -184,13 +184,13 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
               onChange={(e) => setDurationMinutes(Number(e.target.value))}
             />
             <div className="space-y-1.5">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
                 Target Cohort
               </label>
               <select
                 value={batchId}
                 onChange={(e) => setBatchId(e.target.value)}
-                className="w-full bg-[#09090b] border border-[#27272a] rounded-lg px-3 py-2 text-sm text-[#fafafa]"
+                className="w-full bg-[var(--bg-muted)] border border-[var(--border-default)] rounded-lg px-3 py-2 text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--border-hover)]"
               >
                 <option value="batch_01">Full Stack & DSA Accelerator (Cohort 2025-A)</option>
                 <option value="batch_02">Python & Applied AI Engineering</option>
@@ -206,7 +206,7 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <CardTitle>Select Questions from Bank</CardTitle>
-              <p className="text-xs text-[#a1a1aa] mt-0.5">
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">
                 {selectedQuestionIds.length} Selected • {totalPoints} Total Points
               </p>
             </div>
@@ -221,8 +221,8 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
                   onClick={() => toggleSelectQuestion(q.id)}
                   className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
                     isSelected
-                      ? 'bg-[#27272a] border-[#3f3f46] shadow-xs'
-                      : 'bg-[#09090b] border-[#27272a] hover:border-[#3f3f46]'
+                      ? 'bg-[var(--bg-surface)] border-[var(--border-hover)] ring-1 ring-[var(--border-hover)] shadow-xs'
+                      : 'bg-[var(--bg-muted)] border-[var(--border-default)] hover:border-[var(--border-hover)]'
                   }`}
                 >
                   <div className="space-y-1">
@@ -239,20 +239,20 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
                       >
                         {q.difficulty}
                       </Badge>
-                      <h4 className="font-semibold text-sm text-[#fafafa]">{q.title}</h4>
+                      <h4 className="font-semibold text-sm text-[var(--text-primary)]">{q.title}</h4>
                     </div>
-                    <p className="text-xs text-[#a1a1aa]">
-                      Topic: <span className="text-[#fafafa]">{q.topic}</span> • {q.testCases.length} Test cases
+                    <p className="text-xs text-[var(--text-muted)]">
+                      Topic: <span className="text-[var(--text-primary)]">{q.topic}</span> • {q.testCases.length} Test cases
                     </p>
                   </div>
 
                   <div className="flex items-center gap-4">
-                    <span className="font-mono text-sm font-bold text-[#fafafa]">{q.points} PTS</span>
+                    <span className="font-mono text-sm font-bold text-[var(--text-primary)]">{q.points} PTS</span>
                     <div
                       className={`w-5 h-5 rounded-md flex items-center justify-center border ${
                         isSelected
-                          ? 'bg-[#fafafa] border-[#fafafa] text-[#09090b]'
-                          : 'border-[#27272a] bg-[#18181b]'
+                          ? 'bg-[var(--text-primary)] border-[var(--text-primary)] text-[var(--bg-canvas)]'
+                          : 'border-[var(--border-default)] bg-[var(--bg-surface)]'
                       }`}
                     >
                       {isSelected && <Check className="w-3.5 h-3.5" />}
@@ -271,49 +271,49 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
           <CardTitle>Proctoring & Anti-Cheat Controls</CardTitle>
 
           <div className="space-y-4 text-xs">
-            <div className="p-4 bg-[#09090b] border border-[#27272a] rounded-xl space-y-3">
+            <div className="p-4 bg-[var(--bg-muted)] border border-[var(--border-default)] rounded-xl space-y-3">
               <label className="flex items-center justify-between cursor-pointer">
                 <div>
-                  <p className="font-semibold text-[#fafafa] text-sm">Enforce Fullscreen Mode</p>
-                  <p className="text-[#a1a1aa]">Exiting fullscreen triggers a violation flag</p>
+                  <p className="font-semibold text-[var(--text-primary)] text-sm">Enforce Fullscreen Mode</p>
+                  <p className="text-[var(--text-muted)]">Exiting fullscreen triggers a violation flag</p>
                 </div>
                 <input
                   type="checkbox"
                   checked={enforceFullscreen}
                   onChange={(e) => setEnforceFullscreen(e.target.checked)}
-                  className="w-4 h-4 rounded bg-[#18181b] border-[#27272a] accent-neutral-200"
+                  className="w-4 h-4 rounded bg-[var(--bg-surface)] border-[var(--border-default)] accent-neutral-600"
                 />
               </label>
 
-              <label className="flex items-center justify-between cursor-pointer pt-3 border-t border-[#27272a]">
+              <label className="flex items-center justify-between cursor-pointer pt-3 border-t border-[var(--border-default)]">
                 <div>
-                  <p className="font-semibold text-[#fafafa] text-sm">Disable Clipboard (Copy/Paste)</p>
-                  <p className="text-[#a1a1aa]">Prevents pasting external code snippets</p>
+                  <p className="font-semibold text-[var(--text-primary)] text-sm">Disable Clipboard (Copy/Paste)</p>
+                  <p className="text-[var(--text-muted)]">Prevents pasting external code snippets</p>
                 </div>
                 <input
                   type="checkbox"
                   checked={disableCopyPaste}
                   onChange={(e) => setDisableCopyPaste(e.target.checked)}
-                  className="w-4 h-4 rounded bg-[#18181b] border-[#27272a] accent-neutral-200"
+                  className="w-4 h-4 rounded bg-[var(--bg-surface)] border-[var(--border-default)] accent-neutral-600"
                 />
               </label>
 
-              <label className="flex items-center justify-between cursor-pointer pt-3 border-t border-[#27272a]">
+              <label className="flex items-center justify-between cursor-pointer pt-3 border-t border-[var(--border-default)]">
                 <div>
-                  <p className="font-semibold text-[#fafafa] text-sm">Webcam & Proctor Snapshot</p>
-                  <p className="text-[#a1a1aa]">Periodic snapshot captures for faculty review</p>
+                  <p className="font-semibold text-[var(--text-primary)] text-sm">Webcam & Proctor Snapshot</p>
+                  <p className="text-[var(--text-muted)]">Periodic snapshot captures for faculty review</p>
                 </div>
                 <input
                   type="checkbox"
                   checked={enableWebcam}
                   onChange={(e) => setEnableWebcam(e.target.checked)}
-                  className="w-4 h-4 rounded bg-[#18181b] border-[#27272a] accent-neutral-200"
+                  className="w-4 h-4 rounded bg-[var(--bg-surface)] border-[var(--border-default)] accent-neutral-600"
                 />
               </label>
             </div>
 
-            <div className="p-4 bg-[#09090b] border border-[#27272a] rounded-xl space-y-2">
-              <p className="font-semibold text-[#fafafa]">Tab Switch Tolerance</p>
+            <div className="p-4 bg-[var(--bg-muted)] border border-[var(--border-default)] rounded-xl space-y-2">
+              <p className="font-semibold text-[var(--text-primary)]">Tab Switch Tolerance</p>
               <div className="flex items-center gap-4">
                 <input
                   type="range"
@@ -321,9 +321,9 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
                   max="10"
                   value={maxTabSwitches}
                   onChange={(e) => setMaxTabSwitches(Number(e.target.value))}
-                  className="flex-1 accent-neutral-200 cursor-pointer"
+                  className="flex-1 accent-neutral-600 cursor-pointer"
                 />
-                <span className="font-mono text-sm font-bold text-[#fafafa]">
+                <span className="font-mono text-sm font-bold text-[var(--text-primary)]">
                   {maxTabSwitches} Warnings Allowed
                 </span>
               </div>
@@ -337,26 +337,26 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
         <Card className="p-6 space-y-5">
           <CardTitle>Assessment Summary Review</CardTitle>
 
-          <div className="p-4 bg-[#09090b] border border-[#27272a] rounded-xl space-y-3 text-xs">
+          <div className="p-4 bg-[var(--bg-muted)] border border-[var(--border-default)] rounded-xl space-y-3 text-xs">
             <div className="flex justify-between">
-              <span className="text-[#a1a1aa]">Assessment Name:</span>
-              <span className="font-bold text-[#fafafa]">{title || 'Untitled Assessment'}</span>
+              <span className="text-[var(--text-muted)]">Assessment Name:</span>
+              <span className="font-bold text-[var(--text-primary)]">{title || 'Untitled Assessment'}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[#a1a1aa]">Duration:</span>
-              <span className="font-mono text-[#fafafa]">{durationMinutes} Minutes</span>
+              <span className="text-[var(--text-muted)]">Duration:</span>
+              <span className="font-mono text-[var(--text-primary)]">{durationMinutes} Minutes</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[#a1a1aa]">Questions Count:</span>
-              <span className="font-mono text-[#fafafa]">{selectedQuestionIds.length} Tasks</span>
+              <span className="text-[var(--text-muted)]">Questions Count:</span>
+              <span className="font-mono text-[var(--text-primary)]">{selectedQuestionIds.length} Tasks</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[#a1a1aa]">Total Score:</span>
-              <span className="font-mono font-bold text-[#fafafa]">{totalPoints} Points</span>
+              <span className="text-[var(--text-muted)]">Total Score:</span>
+              <span className="font-mono font-bold text-[var(--text-primary)]">{totalPoints} Points</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[#a1a1aa]">Proctoring:</span>
-              <span className="text-emerald-400 font-semibold">
+              <span className="text-[var(--text-muted)]">Proctoring:</span>
+              <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
                 {enableWebcam ? 'Webcam Snapshots' : ''} {enforceFullscreen ? '• Fullscreen Lock' : ''}
               </span>
             </div>
@@ -365,7 +365,7 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
       )}
 
       {/* Bottom Step Buttons */}
-      <div className="flex items-center justify-between pt-4 border-t border-slate-800">
+      <div className="flex items-center justify-between pt-4 border-t border-[var(--border-default)]">
         <Button
           variant="outline"
           disabled={currentStep === 1}
@@ -381,7 +381,7 @@ export const InstructorAssessmentBuilderPage: React.FC = () => {
             <ArrowRight className="w-4 h-4 ml-1.5" />
           </Button>
         ) : (
-          <Button variant="primary" onClick={handlePublish} className="bg-emerald-600 hover:bg-emerald-700">
+          <Button variant="primary" onClick={handlePublish} className="bg-emerald-600 hover:bg-emerald-700 text-white">
             <Check className="w-4 h-4 mr-1.5" />
             Publish & Launch Assessment
           </Button>

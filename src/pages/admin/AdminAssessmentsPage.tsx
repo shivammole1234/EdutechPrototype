@@ -18,8 +18,8 @@ export const AdminAssessmentsPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-100 tracking-tight">Organization Assessments</h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+          <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Organization Assessments</h2>
+          <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-0.5">
             Audit proctored examinations, question sets, and compliance policies.
           </p>
         </div>
@@ -42,32 +42,32 @@ export const AdminAssessmentsPage: React.FC = () => {
                 >
                   {as.status}
                 </Badge>
-                <span className="text-xs font-mono text-purple-400 font-bold">{as.totalPoints} PTS</span>
+                <span className="text-xs font-mono text-[var(--primary)] font-bold">{as.totalPoints} PTS</span>
               </div>
 
-              <h3 className="text-sm font-bold text-slate-100">{as.title}</h3>
-              <p className="text-xs text-slate-400 line-clamp-2">{as.description}</p>
+              <h3 className="text-sm font-bold text-[var(--text-primary)]">{as.title}</h3>
+              <p className="text-xs text-[var(--text-muted)] line-clamp-2">{as.description}</p>
             </div>
 
-            <div className="space-y-2 pt-3 border-t border-slate-800 text-xs">
-              <div className="flex justify-between text-slate-300">
-                <span className="text-slate-400">Duration:</span>
+            <div className="space-y-2 pt-3 border-t border-[var(--border-default)] text-xs">
+              <div className="flex justify-between text-[var(--text-secondary)]">
+                <span className="text-[var(--text-muted)]">Duration:</span>
                 <span className="font-mono">{as.durationMinutes} Minutes</span>
               </div>
-              <div className="flex justify-between text-slate-300">
-                <span className="text-slate-400">Questions:</span>
+              <div className="flex justify-between text-[var(--text-secondary)]">
+                <span className="text-[var(--text-muted)]">Questions:</span>
                 <span className="font-mono">{as.questionsCount} Coding Tasks</span>
               </div>
-              <div className="flex justify-between text-slate-300">
-                <span className="text-slate-400">Proctoring:</span>
-                <span className="text-emerald-400 font-semibold flex items-center gap-1">
+              <div className="flex justify-between text-[var(--text-secondary)]">
+                <span className="text-[var(--text-muted)]">Proctoring:</span>
+                <span className="text-emerald-500 dark:text-emerald-400 font-semibold flex items-center gap-1">
                   <Shield className="w-3 h-3" />
                   {as.settings.proctoring.enableWebcam ? 'Webcam + Fullscreen' : 'Standard'}
                 </span>
               </div>
-              <div className="flex justify-between text-slate-300">
-                <span className="text-slate-400">Submissions Logged:</span>
-                <span className="font-mono font-bold text-slate-200">{as.submissionsCount}</span>
+              <div className="flex justify-between text-[var(--text-secondary)]">
+                <span className="text-[var(--text-muted)]">Submissions Logged:</span>
+                <span className="font-mono font-bold text-[var(--text-primary)]">{as.submissionsCount}</span>
               </div>
             </div>
           </Card>

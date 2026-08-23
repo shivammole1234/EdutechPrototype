@@ -34,6 +34,7 @@ import { assessmentService } from '@/services/assessmentService';
 import { submissionService } from '@/services/submissionService';
 import { assignmentService } from '@/services/assignmentService';
 import { useLiveClassStore } from '@/stores/useLiveClassStore';
+import { useThemeStore } from '@/stores/useThemeStore';
 import { Assessment, Submission, Assignment } from '@/types';
 import { formatDate } from '@/lib/utils';
 
@@ -44,6 +45,8 @@ export const StudentDashboardPage: React.FC = () => {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const { getLiveClasses } = useLiveClassStore();
+  const { theme } = useThemeStore();
+  const isDark = theme === 'dark';
 
   const liveClasses = getLiveClasses();
   const activeClass = liveClasses[0];
@@ -76,34 +79,34 @@ export const StudentDashboardPage: React.FC = () => {
     <div className="space-y-8">
       {/* Live Class In Session Alert Banner */}
       {activeClass && (
-        <div className="p-4 sm:p-5 rounded-2xl bg-[#141417] border border-rose-900/40 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="p-4 sm:p-5 rounded-2xl bg-[var(--bg-surface)] border border-rose-500/30 shadow-[var(--card-shadow)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
             <div className="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center shrink-0">
-              <Radio className="w-5 h-5 text-rose-400/80" />
+              <Radio className="w-5 h-5 text-rose-600 dark:text-rose-400" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <Badge variant="danger" size="sm" className="bg-rose-950/50 text-rose-300/90 border-rose-900/40 font-mono text-[10px]">
+                <Badge variant="danger" size="sm" className="font-mono text-[10px]">
                   🔴 LIVE IN SESSION
                 </Badge>
-                <span className="text-xs text-slate-400 font-mono hidden sm:inline">
+                <span className="text-xs text-[var(--text-muted)] font-mono hidden sm:inline">
                   {activeClass.batchName.split('(')[0]}
                 </span>
               </div>
-              <h3 className="text-sm font-semibold text-slate-200 mt-0.5">
+              <h3 className="text-sm font-semibold text-[var(--text-primary)] mt-0.5">
                 {activeClass.title}
               </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Led by <span className="text-slate-300 font-medium">{activeClass.instructorName}</span> • {activeClass.participants.length} peers connected
+              <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+                Led by <span className="text-[var(--text-primary)] font-medium">{activeClass.instructorName}</span> • {activeClass.participants.length} peers connected
               </p>
             </div>
           </div>
 
           <Link to={`/student/live-class/${activeClass.id}`} className="shrink-0">
             <Button
-              variant="primary"
+              variant="danger"
               size="md"
-              className="w-full sm:w-auto bg-rose-600/90 hover:bg-rose-600 font-medium text-white shadow-none"
+              className="w-full sm:w-auto font-medium shadow-none"
             >
               <Play className="w-4 h-4 mr-2 fill-white" />
               Join Live Class
@@ -113,31 +116,31 @@ export const StudentDashboardPage: React.FC = () => {
       )}
 
       {/* Welcome Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-[#18181b] border border-[#27272a] rounded-2xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-2xl shadow-[var(--card-shadow)]">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Welcome Back</span>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-medium font-mono bg-zinc-800 text-zinc-300 border border-zinc-700/60">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">Welcome Back</span>
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-medium font-mono bg-[var(--bg-surface-secondary)] text-[var(--text-secondary)] border border-[var(--border-default)]">
               Rank #4 in Cohort
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-[#fafafa] tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] tracking-tight">
             Alex Turner • DSA Accelerator
           </h2>
-          <p className="text-xs sm:text-sm text-[#a1a1aa]">
-            You have <span className="text-slate-200 font-medium">1 Live Assessment</span> ready to take today.
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)]">
+            You have <span className="text-[var(--text-primary)] font-medium">1 Live Assessment</span> ready to take today.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <Link to="/student/classes">
-            <Button variant="outline" size="lg" className="border-zinc-700 bg-zinc-900 text-zinc-300 hover:bg-zinc-800">
-              <Video className="w-4 h-4 mr-2 text-zinc-400" />
+            <Button variant="outline" size="lg">
+              <Video className="w-4 h-4 mr-2 text-[var(--text-muted)]" />
               Live Classes Hub
             </Button>
           </Link>
           <Link to="/student/assessments/asm_01/question/q_01">
-            <Button variant="primary" size="lg" className="bg-blue-600/90 hover:bg-blue-600 text-white shadow-none">
+            <Button variant="primary" size="lg" className="shadow-none">
               <Play className="w-4 h-4 mr-2" />
               Enter Live Test IDE
             </Button>
@@ -152,7 +155,7 @@ export const StudentDashboardPage: React.FC = () => {
           value="142"
           change="+12 this week"
           changeType="positive"
-          icon={<Code2 className="w-4 h-4 text-emerald-400" />}
+          icon={<Code2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
           subtitle="Top 5% speed in batch"
         />
         <StatCard
@@ -160,7 +163,7 @@ export const StudentDashboardPage: React.FC = () => {
           value="92.4%"
           change="Grade: A"
           changeType="positive"
-          icon={<Award className="w-4 h-4 text-blue-400" />}
+          icon={<Award className="w-4 h-4 text-[var(--text-muted)]" />}
           subtitle="DSA & Algorithm Midterms"
         />
         <StatCard
@@ -168,7 +171,7 @@ export const StudentDashboardPage: React.FC = () => {
           value="14 Days"
           change="Personal Record"
           changeType="positive"
-          icon={<Flame className="w-4 h-4 text-orange-400 fill-orange-400" />}
+          icon={<Flame className="w-4 h-4 text-orange-500 fill-orange-500" />}
           subtitle="Daily coding habit"
         />
         <StatCard
@@ -176,7 +179,7 @@ export const StudentDashboardPage: React.FC = () => {
           value="88.6%"
           change="1st attempt"
           changeType="positive"
-          icon={<CheckCircle2 className="w-4 h-4 text-purple-400" />}
+          icon={<CheckCircle2 className="w-4 h-4 text-purple-600 dark:text-purple-400" />}
           subtitle="Judge0 test cases"
         />
       </div>
@@ -187,7 +190,7 @@ export const StudentDashboardPage: React.FC = () => {
           <CardHeader>
             <div>
               <CardTitle>Weekly Coding Velocity & Accuracy</CardTitle>
-              <p className="text-xs text-[#a1a1aa] mt-0.5">Problems solved and benchmark score</p>
+              <p className="text-xs text-[var(--text-secondary)] mt-0.5">Problems solved and benchmark score</p>
             </div>
             <Badge variant="success" size="sm">
               <TrendingUp className="w-3 h-3 mr-1" />
@@ -199,22 +202,27 @@ export const StudentDashboardPage: React.FC = () => {
               <AreaChart data={progressData}>
                 <defs>
                   <linearGradient id="studentGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.35} />
-                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.0} />
+                    <stop offset="5%" stopColor={isDark ? '#fafafa' : '#18181b'} stopOpacity={0.25} />
+                    <stop offset="95%" stopColor={isDark ? '#fafafa' : '#18181b'} stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#27272a" opacity={0.6} />
+                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#27272a' : '#e4e4e7'} opacity={0.6} />
                 <XAxis dataKey="day" stroke="#71717a" fontSize={11} />
                 <YAxis stroke="#71717a" fontSize={11} domain={[0, 10]} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#18181b', borderColor: '#27272a', borderRadius: '12px' }}
-                  itemStyle={{ color: '#fafafa', fontSize: '12px' }}
+                  contentStyle={{
+                    backgroundColor: isDark ? '#18181b' : '#ffffff',
+                    borderColor: isDark ? '#27272a' : '#e4e4e7',
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                  }}
+                  itemStyle={{ color: isDark ? '#fafafa' : '#18181b', fontSize: '12px' }}
                 />
                 <Area
                   type="monotone"
                   dataKey="problems"
                   name="Problems Solved"
-                  stroke="#3b82f6"
+                  stroke={isDark ? '#fafafa' : '#18181b'}
                   strokeWidth={2}
                   fillOpacity={1}
                   fill="url(#studentGrad)"
@@ -229,9 +237,9 @@ export const StudentDashboardPage: React.FC = () => {
           <CardHeader>
             <div>
               <CardTitle>Assessments</CardTitle>
-              <p className="text-xs text-[#a1a1aa] mt-0.5">Active & upcoming exams</p>
+              <p className="text-xs text-[var(--text-secondary)] mt-0.5">Active & upcoming exams</p>
             </div>
-            <Link to="/student/assessments" className="text-xs text-blue-400 hover:underline flex items-center font-medium">
+            <Link to="/student/assessments" className="text-xs text-[var(--text-primary)] hover:underline flex items-center font-medium">
               All <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </CardHeader>
@@ -240,10 +248,10 @@ export const StudentDashboardPage: React.FC = () => {
             {assessments.map((as) => (
               <div
                 key={as.id}
-                className="p-3.5 bg-[#18181b] border border-[#27272a] rounded-xl space-y-2"
+                className="p-3.5 bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-xl space-y-2"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-xs text-[#fafafa]">{as.title}</span>
+                  <span className="font-semibold text-xs text-[var(--text-primary)]">{as.title}</span>
                   <Badge
                     variant={
                       as.status === 'IN_PROGRESS'
@@ -257,7 +265,7 @@ export const StudentDashboardPage: React.FC = () => {
                     {as.status}
                   </Badge>
                 </div>
-                <p className="text-[11px] text-[#a1a1aa]">
+                <p className="text-[11px] text-[var(--text-secondary)]">
                   {as.durationMinutes} mins • {as.questionsCount} Coding Tasks • {as.totalPoints} PTS
                 </p>
                 <Link to={`/student/assessments/${as.id}/question/q_01`} className="block mt-1">
@@ -278,9 +286,9 @@ export const StudentDashboardPage: React.FC = () => {
           <CardHeader>
             <div>
               <CardTitle>Recent Code Executions</CardTitle>
-              <p className="text-xs text-[#a1a1aa] mt-0.5">Verified outputs on Judge0 sandbox</p>
+              <p className="text-xs text-[var(--text-secondary)] mt-0.5">Verified outputs on Judge0 sandbox</p>
             </div>
-            <Link to="/student/submissions" className="text-xs text-blue-400 hover:underline flex items-center font-medium">
+            <Link to="/student/submissions" className="text-xs text-[var(--text-primary)] hover:underline flex items-center font-medium">
               History <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </CardHeader>
@@ -289,22 +297,22 @@ export const StudentDashboardPage: React.FC = () => {
               <Link
                 key={sub.id}
                 to={`/student/submissions/${sub.id}`}
-                className="p-3 bg-[#18181b] hover:bg-[#27272a] border border-[#27272a] hover:border-[#3f3f46] rounded-xl flex items-center justify-between transition block"
+                className="p-3 bg-[var(--bg-surface-secondary)] hover:bg-[var(--bg-surface-hover)] border border-[var(--border-default)] hover:border-[var(--border-hover)] rounded-xl flex items-center justify-between transition block"
               >
                 <div className="space-y-0.5">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-xs text-[#fafafa]">{sub.questionTitle}</span>
+                    <span className="font-semibold text-xs text-[var(--text-primary)]">{sub.questionTitle}</span>
                     <Badge variant={sub.status === 'ACCEPTED' ? 'success' : 'danger'} size="sm">
                       {sub.status}
                     </Badge>
                   </div>
-                  <p className="text-[11px] text-[#a1a1aa]">
+                  <p className="text-[11px] text-[var(--text-secondary)]">
                     {sub.testsPassed} / {sub.totalTests} tests passed • {sub.runtimeMs}ms • {sub.language}
                   </p>
                 </div>
                 <div className="text-right">
-                  <span className="font-mono font-bold text-xs text-emerald-400">{sub.score} PTS</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-[#71717a] ml-auto mt-1" />
+                  <span className="font-mono font-bold text-xs text-emerald-600 dark:text-emerald-400">{sub.score} PTS</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-[var(--text-muted)] ml-auto mt-1" />
                 </div>
               </Link>
             ))}
@@ -316,9 +324,9 @@ export const StudentDashboardPage: React.FC = () => {
           <CardHeader>
             <div>
               <CardTitle>Course Assignments</CardTitle>
-              <p className="text-xs text-[#a1a1aa] mt-0.5">Lab deadlines and homework</p>
+              <p className="text-xs text-[var(--text-secondary)] mt-0.5">Lab deadlines and homework</p>
             </div>
-            <Link to="/student/assignments" className="text-xs text-blue-400 hover:underline flex items-center font-medium">
+            <Link to="/student/assignments" className="text-xs text-[var(--text-primary)] hover:underline flex items-center font-medium">
               All <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </CardHeader>
@@ -326,11 +334,11 @@ export const StudentDashboardPage: React.FC = () => {
             {assignments.map((ag) => (
               <div
                 key={ag.id}
-                className="p-3.5 bg-[#18181b] border border-[#27272a] rounded-xl flex items-center justify-between"
+                className="p-3.5 bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-xl flex items-center justify-between"
               >
                 <div>
-                  <h4 className="font-semibold text-xs text-[#fafafa]">{ag.title}</h4>
-                  <p className="text-[11px] text-[#a1a1aa] mt-0.5">
+                  <h4 className="font-semibold text-xs text-[var(--text-primary)]">{ag.title}</h4>
+                  <p className="text-[11px] text-[var(--text-secondary)] mt-0.5">
                     Due: {formatDate(ag.dueDate)} • {ag.totalPoints} Points
                   </p>
                 </div>

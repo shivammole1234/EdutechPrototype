@@ -11,13 +11,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', isLoading, disabled, children, ...props }, ref) => {
     const variants = {
       primary:
-        'bg-[#fafafa] hover:bg-[#e4e4e7] text-[#09090b] font-semibold shadow-sm active:scale-[0.98]',
+        'bg-[var(--btn-primary-bg)] hover:bg-[var(--btn-primary-hover)] text-[var(--btn-primary-text)] font-semibold shadow-sm active:scale-[0.98]',
       secondary:
-        'bg-[#27272a] hover:bg-[#3f3f46] text-[#fafafa] border border-[#3f3f46] active:scale-[0.98]',
+        'bg-[var(--btn-secondary-bg)] hover:bg-[var(--btn-secondary-hover)] text-[var(--btn-secondary-text)] border border-[var(--btn-secondary-border)] active:scale-[0.98]',
       outline:
-        'border border-[#27272a] hover:border-[#3f3f46] bg-[#18181b]/60 hover:bg-[#27272a] text-[#fafafa] active:scale-[0.98]',
+        'border border-[var(--border-default)] hover:border-[var(--border-hover)] bg-[var(--bg-surface)] hover:bg-[var(--bg-surface-hover)] text-[var(--text-primary)] active:scale-[0.98]',
       ghost:
-        'bg-transparent hover:bg-[#18181b] text-[#a1a1aa] hover:text-[#fafafa] active:scale-[0.98]',
+        'bg-transparent hover:bg-[var(--bg-surface-secondary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] active:scale-[0.98]',
       danger:
         'bg-rose-600 hover:bg-rose-500 text-white shadow-sm shadow-rose-600/20 active:scale-[0.98]',
       success:
@@ -36,7 +36,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || isLoading}
         className={cn(
-          'inline-flex items-center justify-center font-medium transition-all duration-150 cursor-pointer disabled:opacity-50 disabled:pointer-events-none select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52525b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090b]',
+          'inline-flex items-center justify-center font-medium transition-all duration-150 cursor-pointer disabled:opacity-50 disabled:pointer-events-none select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-canvas)]',
           variants[variant],
           sizes[size],
           className

@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
+import { useThemeStore } from '@/stores/useThemeStore';
 import { LiveWhiteboardStroke } from '@/types';
 
 interface LiveWhiteboardProps {
@@ -21,7 +22,7 @@ interface LiveWhiteboardProps {
   onClear?: () => void;
 }
 
-const COLORS = [
+const DARK_COLORS = [
   { name: 'White', value: '#ffffff' },
   { name: 'Blue', value: '#60a5fa' },
   { name: 'Emerald', value: '#34d399' },
@@ -30,32 +31,46 @@ const COLORS = [
   { name: 'Purple', value: '#c084fc' },
 ];
 
+const LIGHT_COLORS = [
+  { name: 'Black', value: '#18181b' },
+  { name: 'Blue', value: '#2563eb' },
+  { name: 'Emerald', value: '#059669' },
+  { name: 'Amber', value: '#d97706' },
+  { name: 'Rose', value: '#e11d48' },
+  { name: 'Purple', value: '#7c3aed' },
+];
+
 export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
   isInstructor,
   strokes,
   onAddStroke,
   onClear,
 }) => {
+  const { theme } = useThemeStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [tool, setTool] = useState<'pen' | 'highlighter' | 'eraser'>('pen');
-  const [selectedColor, setSelectedColor] = useState('#60a5fa');
+  const [selectedColor, setSelectedColor] = useState(theme === 'dark' ? '#60a5fa' : '#2563eb');
   const [strokeWidth, setStrokeWidth] = useState(3);
   const [isDrawing, setIsDrawing] = useState(false);
   const currentPointsRef = useRef<{ x: number; y: number }[]>([]);
 
-  // Redraw all strokes whenever strokes array updates
+  const colors = theme === 'dark' ? DARK_COLORS : LIGHT_COLORS;
+  const canvasBg = theme === 'dark' ? '#09090b' : '#fafafa';
+  const gridColor = theme === 'dark' ? '#18181b' : '#f4f4f5';
+
+  // Redraw all strokes whenever strokes array updates or theme changes
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Clear and fill dark canvas background
-    ctx.fillStyle = '#09090b';
+    // Clear and fill canvas background
+    ctx.fillStyle = canvasBg;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Draw grid background lines
-    ctx.strokeStyle = '#18181b';
+    ctx.strokeStyle = gridColor;
     ctx.lineWidth = 1;
     const gridSize = 30;
     for (let x = 0; x < canvas.width; x += gridSize) {
@@ -75,7 +90,11 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
     strokes.forEach((stroke) => {
       if (stroke.points.length < 2) return;
       ctx.beginPath();
-      ctx.strokeStyle = stroke.color;
+      let color = stroke.color;
+      if (color === '#09090b' || color === '#fafafa') {
+        color = canvasBg;
+      }
+      ctx.strokeStyle = color;
       ctx.lineWidth = stroke.width;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
@@ -92,7 +111,7 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
       ctx.stroke();
       ctx.globalAlpha = 1.0;
     });
-  }, [strokes]);
+  }, [strokes, theme, canvasBg, gridColor]);
 
   // Adjust canvas resolution on mount / resize
   useEffect(() => {
@@ -135,7 +154,7 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
     const pts = currentPointsRef.current;
     if (pts.length >= 2) {
       ctx.beginPath();
-      ctx.strokeStyle = tool === 'eraser' ? '#09090b' : selectedColor;
+      ctx.strokeStyle = tool === 'eraser' ? canvasBg : selectedColor;
       ctx.lineWidth = tool === 'eraser' ? strokeWidth * 4 : strokeWidth;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
@@ -157,7 +176,7 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
     if (currentPointsRef.current.length > 1 && onAddStroke) {
       onAddStroke({
         points: [...currentPointsRef.current],
-        color: tool === 'eraser' ? '#09090b' : selectedColor,
+        color: tool === 'eraser' ? canvasBg : selectedColor,
         width: tool === 'eraser' ? strokeWidth * 4 : strokeWidth,
         tool,
       });
@@ -176,25 +195,25 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#09090b] border border-[#27272a] rounded-2xl overflow-hidden shadow-sm">
+    <div className="flex flex-col h-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-2xl overflow-hidden shadow-sm">
       {/* Whiteboard Toolbar */}
-      <div className="p-3 bg-[#18181b] border-b border-[#27272a] flex flex-wrap items-center justify-between gap-3">
+      <div className="p-3 bg-[var(--bg-surface)] border-b border-[var(--border-default)] flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <Badge variant="default" size="sm">
             {isInstructor ? 'Interactive Canvas (Host Broadcast)' : 'Live Faculty Whiteboard'}
           </Badge>
-          <span className="text-xs text-[#a1a1aa] font-mono hidden sm:inline">Diagrams & Architecture</span>
+          <span className="text-xs text-[var(--text-muted)] font-mono hidden sm:inline">Diagrams & Architecture</span>
         </div>
 
         {/* Tools */}
         {isInstructor && (
           <div className="flex items-center gap-2">
             {/* Tool Selection */}
-            <div className="flex items-center bg-[#09090b] border border-[#27272a] rounded-lg p-0.5">
+            <div className="flex items-center bg-[var(--bg-muted)] border border-[var(--border-default)] rounded-lg p-0.5">
               <button
                 onClick={() => setTool('pen')}
                 className={`p-1.5 rounded-md transition cursor-pointer ${
-                  tool === 'pen' ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46]' : 'text-[#a1a1aa] hover:text-[#fafafa]'
+                  tool === 'pen' ? 'bg-[var(--bg-surface)] text-[var(--text-primary)] border border-[var(--border-default)] shadow-xs' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                 }`}
                 title="Pen"
               >
@@ -203,7 +222,7 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
               <button
                 onClick={() => setTool('highlighter')}
                 className={`p-1.5 rounded-md transition cursor-pointer ${
-                  tool === 'highlighter' ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46]' : 'text-[#a1a1aa] hover:text-[#fafafa]'
+                  tool === 'highlighter' ? 'bg-[var(--bg-surface)] text-[var(--text-primary)] border border-[var(--border-default)] shadow-xs' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                 }`}
                 title="Highlighter"
               >
@@ -212,7 +231,7 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
               <button
                 onClick={() => setTool('eraser')}
                 className={`p-1.5 rounded-md transition cursor-pointer ${
-                  tool === 'eraser' ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46]' : 'text-[#a1a1aa] hover:text-[#fafafa]'
+                  tool === 'eraser' ? 'bg-[var(--bg-surface)] text-[var(--text-primary)] border border-[var(--border-default)] shadow-xs' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                 }`}
                 title="Eraser"
               >
@@ -222,14 +241,14 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
 
             {/* Color Palette */}
             {tool !== 'eraser' && (
-              <div className="flex items-center gap-1.5 px-2 py-1 bg-[#09090b] border border-[#27272a] rounded-lg">
-                {COLORS.map((c) => (
+              <div className="flex items-center gap-1.5 px-2 py-1 bg-[var(--bg-muted)] border border-[var(--border-default)] rounded-lg">
+                {colors.map((c) => (
                   <button
                     key={c.value}
                     onClick={() => setSelectedColor(c.value)}
                     style={{ backgroundColor: c.value }}
                     className={`w-4 h-4 rounded-full transition-transform cursor-pointer ${
-                      selectedColor === c.value ? 'scale-125 ring-2 ring-[#fafafa]' : 'opacity-70 hover:opacity-100'
+                      selectedColor === c.value ? 'scale-125 ring-2 ring-[var(--text-primary)]' : 'opacity-70 hover:opacity-100'
                     }`}
                     title={c.name}
                   />
@@ -241,7 +260,7 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
             {onClear && (
               <button
                 onClick={onClear}
-                className="p-1.5 rounded-lg bg-[#09090b] hover:bg-rose-950/60 text-[#a1a1aa] hover:text-rose-400 border border-[#27272a] hover:border-rose-700 transition cursor-pointer"
+                className="p-1.5 rounded-lg bg-[var(--bg-muted)] hover:bg-rose-950/60 text-[var(--text-muted)] hover:text-rose-500 border border-[var(--border-default)] hover:border-rose-500/50 transition cursor-pointer"
                 title="Clear Canvas"
               >
                 <Trash2 className="w-3.5 h-3.5" />
@@ -251,7 +270,7 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
         )}
 
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={exportCanvas} className="bg-[#09090b] border-[#27272a] hover:border-[#3f3f46] text-[#fafafa] text-xs">
+          <Button variant="outline" size="sm" onClick={exportCanvas} className="bg-[var(--bg-muted)] border-[var(--border-default)] hover:border-[var(--border-hover)] text-[var(--text-primary)] text-xs">
             <Download className="w-3.5 h-3.5 mr-1" />
             Export Diagram
           </Button>
@@ -259,7 +278,7 @@ export const LiveWhiteboard: React.FC<LiveWhiteboardProps> = ({
       </div>
 
       {/* Canvas Viewport */}
-      <div className="flex-1 relative bg-[#09090b] min-h-[380px] lg:min-h-[440px]">
+      <div className="flex-1 relative bg-[var(--bg-canvas)] min-h-[380px] lg:min-h-[440px]">
         <canvas
           ref={canvasRef}
           onMouseDown={startDrawing}

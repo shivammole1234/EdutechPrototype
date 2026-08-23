@@ -20,9 +20,26 @@ export interface CodeExecutionResponse {
   stdout?: string;
   compilerMessage?: string;
   runtimeError?: string;
+  error?: string;
 }
 
 export const executionService = {
+  async execute(
+    code: string,
+    language: string,
+    testCases: TestCase[] = []
+  ): Promise<CodeExecutionResponse> {
+    return this.executeCode({ code, language, testCases });
+  },
+
+  async executeWithTestCases(
+    code: string,
+    language: string,
+    testCases: TestCase[] = []
+  ): Promise<CodeExecutionResponse> {
+    return this.executeCode({ code, language, testCases });
+  },
+
   async executeCode(
     request: CodeExecutionRequest,
     onStateChange?: (state: 'IDLE' | 'QUEUED' | 'RUNNING' | 'COMPLETED') => void
@@ -33,7 +50,7 @@ export const executionService = {
     onStateChange?.('RUNNING');
     await new Promise((r) => setTimeout(r, 650));
 
-    const { code, language, testCases } = request;
+    const { code, language, testCases = [] } = request;
 
     // Check basic syntax/compilation issues
     if (!code || code.trim().length === 0) {

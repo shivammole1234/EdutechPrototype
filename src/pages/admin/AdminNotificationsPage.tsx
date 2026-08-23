@@ -41,8 +41,8 @@ export const AdminNotificationsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-slate-100 tracking-tight">System Broadcast Center</h2>
-        <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+        <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">System Broadcast Center</h2>
+        <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-0.5">
           Push platform alerts, maintenance banners, and cohort announcements.
         </p>
       </div>
@@ -52,7 +52,7 @@ export const AdminNotificationsPage: React.FC = () => {
         <Card className="lg:col-span-1 p-5 space-y-4">
           <CardHeader className="mb-2">
             <CardTitle className="flex items-center gap-2">
-              <Megaphone className="w-4 h-4 text-purple-400" />
+              <Megaphone className="w-4 h-4 text-[var(--primary)]" />
               New Broadcast
             </CardTitle>
           </CardHeader>
@@ -67,13 +67,13 @@ export const AdminNotificationsPage: React.FC = () => {
             />
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-1.5">
                 Target Audience
               </label>
               <select
                 value={targetRole}
                 onChange={(e) => setTargetRole(e.target.value as any)}
-                className="w-full bg-slate-950 border border-slate-700/80 rounded-lg px-3 py-2 text-xs text-slate-200"
+                className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-lg px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--border-hover)]"
               >
                 <option value="ALL">All Users (Students + Instructors)</option>
                 <option value="STUDENT">Students Only</option>
@@ -82,13 +82,13 @@ export const AdminNotificationsPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-1.5">
                 Notification Type
               </label>
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value as any)}
-                className="w-full bg-slate-950 border border-slate-700/80 rounded-lg px-3 py-2 text-xs text-slate-200"
+                className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-lg px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--border-hover)]"
               >
                 <option value="INFO">Informational (Blue)</option>
                 <option value="WARNING">Maintenance / Warning (Amber)</option>
@@ -97,12 +97,12 @@ export const AdminNotificationsPage: React.FC = () => {
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
                 Message Body
               </label>
               <textarea
                 rows={4}
-                className="w-full bg-slate-950 border border-slate-700/80 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-purple-500"
+                className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-lg px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--primary)]"
                 placeholder="Details of the announcement..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
@@ -126,7 +126,7 @@ export const AdminNotificationsPage: React.FC = () => {
             {notifications.map((n) => (
               <div
                 key={n.id}
-                className="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-1.5"
+                className="p-4 bg-[var(--bg-muted)]/50 border border-[var(--border-default)] rounded-xl space-y-1.5"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -142,12 +142,12 @@ export const AdminNotificationsPage: React.FC = () => {
                     >
                       {n.type}
                     </Badge>
-                    <h4 className="font-semibold text-sm text-slate-100">{n.title}</h4>
+                    <h4 className="font-semibold text-sm text-[var(--text-primary)]">{n.title}</h4>
                   </div>
-                  <span className="text-[11px] text-slate-400 font-mono">{formatDate(n.createdAt)}</span>
+                  <span className="text-[11px] text-[var(--text-muted)] font-mono">{formatDate(n.createdAt)}</span>
                 </div>
-                <p className="text-xs text-slate-300">{n.message}</p>
-                <div className="text-[10px] text-purple-400 font-mono">Target: {n.role}</div>
+                <p className="text-xs text-[var(--text-secondary)]">{n.message}</p>
+                <div className="text-[10px] text-[var(--primary)] font-mono">Target: {n.role}</div>
               </div>
             ))}
           </div>
@@ -161,15 +161,15 @@ export const AdminSettingsPage: React.FC = () => {
   return (
     <div className="space-y-6 max-w-3xl">
       <div>
-        <h2 className="text-xl font-bold text-slate-100 tracking-tight">Organization & Sandbox Settings</h2>
-        <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+        <h2 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Organization & Sandbox Settings</h2>
+        <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-0.5">
           Compiler resource allocations, auto-grading sandboxes, and authentication SSO.
         </p>
       </div>
 
       <Card className="p-6 space-y-6">
         <div className="space-y-4">
-          <h3 className="text-sm font-bold text-slate-100">Judge0 Isolated Sandbox Limits</h3>
+          <h3 className="text-sm font-bold text-[var(--text-primary)]">Judge0 Isolated Sandbox Limits</h3>
           <div className="grid grid-cols-2 gap-4 text-xs">
             <Input label="Max CPU Time Limit (Sec)" defaultValue="5" />
             <Input label="Max Memory Limit (MB)" defaultValue="256" />
@@ -178,25 +178,25 @@ export const AdminSettingsPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="pt-4 border-t border-slate-800 space-y-4">
-          <h3 className="text-sm font-bold text-slate-100">Anti-Cheating & Proctoring Defaults</h3>
-          <div className="space-y-2 text-xs text-slate-300">
+        <div className="pt-4 border-t border-[var(--border-default)] space-y-4">
+          <h3 className="text-sm font-bold text-[var(--text-primary)]">Anti-Cheating & Proctoring Defaults</h3>
+          <div className="space-y-2 text-xs text-[var(--text-secondary)]">
             <label className="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" defaultChecked className="rounded bg-slate-950 border-slate-700" />
+              <input type="checkbox" defaultChecked className="rounded accent-purple-500" />
               Enable tab switch telemetry & warning strikes by default
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" defaultChecked className="rounded bg-slate-950 border-slate-700" />
+              <input type="checkbox" defaultChecked className="rounded accent-purple-500" />
               Enforce fullscreen lockdown on all graded tests
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" defaultChecked className="rounded bg-slate-950 border-slate-700" />
+              <input type="checkbox" defaultChecked className="rounded accent-purple-500" />
               Disable copy/paste from external clipboards in Monaco IDE
             </label>
           </div>
         </div>
 
-        <div className="pt-4 border-t border-slate-800 flex justify-end">
+        <div className="pt-4 border-t border-[var(--border-default)] flex justify-end">
           <Button variant="primary" onClick={() => alert('Settings updated successfully!')}>
             Save Enterprise Policy
           </Button>

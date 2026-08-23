@@ -105,7 +105,7 @@ export const InstructorStudentsPage: React.FC = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-400">System Design & Databases:</span>
-                <span className="font-mono text-blue-400 font-bold">88% Mastery</span>
+                <span className="font-mono text-purple-400 font-bold">88% Mastery</span>
               </div>
             </div>
 
@@ -197,7 +197,7 @@ const InstructorQuestionList: React.FC = () => {
                 >
                   {q.difficulty}
                 </Badge>
-                <span className="font-mono text-blue-400 text-xs font-bold">{q.points} PTS</span>
+                <span className="font-mono text-[#fafafa] text-xs font-bold">{q.points} PTS</span>
               </div>
               <h3 className="font-bold text-slate-100 text-sm">{q.title}</h3>
               <p className="text-xs text-slate-400 line-clamp-2">{q.description}</p>

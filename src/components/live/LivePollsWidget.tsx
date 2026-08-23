@@ -62,16 +62,16 @@ export const LivePollsWidget: React.FC<LivePollsWidgetProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#18181b] border border-[#27272a] rounded-2xl overflow-hidden shadow-sm">
+    <div className="flex flex-col h-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-2xl overflow-hidden shadow-sm">
       {/* Poll Header */}
-      <div className="p-3 bg-[#18181b] border-b border-[#27272a] flex items-center justify-between">
+      <div className="p-3 bg-[var(--bg-surface)] border-b border-[var(--border-default)] flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-[#27272a] text-[#fafafa] border border-[#3f3f46]">
+          <div className="p-1.5 rounded-lg bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-default)]">
             <BarChart2 className="w-4 h-4" />
           </div>
           <div>
-            <h4 className="text-xs font-bold text-[#fafafa]">Live Knowledge Check & Polls</h4>
-            <p className="text-[10px] text-[#a1a1aa]">Interactive class comprehension checks</p>
+            <h4 className="text-xs font-bold text-[var(--text-primary)]">Live Knowledge Check & Polls</h4>
+            <p className="text-[10px] text-[var(--text-muted)]">Interactive class comprehension checks</p>
           </div>
         </div>
 
@@ -94,21 +94,21 @@ export const LivePollsWidget: React.FC<LivePollsWidgetProps> = ({
         {showCreateModal && (
           <form
             onSubmit={handleCreateSubmit}
-            className="p-4 bg-[#09090b] border border-[#3f3f46] rounded-xl space-y-3 animate-in fade-in duration-200"
+            className="p-4 bg-[var(--bg-muted)] border border-[var(--border-default)] rounded-xl space-y-3 animate-in fade-in duration-200"
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-[#fafafa]">Create Live Concept Check</span>
+              <span className="text-xs font-bold text-[var(--text-primary)]">Create Live Concept Check</span>
               <button
                 type="button"
                 onClick={() => setShowCreateModal(false)}
-                className="text-xs text-[#a1a1aa] hover:text-[#fafafa]"
+                className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)]"
               >
                 Cancel
               </button>
             </div>
 
             <div>
-              <label className="text-[11px] text-[#fafafa] font-semibold block mb-1">
+              <label className="text-[11px] text-[var(--text-primary)] font-semibold block mb-1">
                 Question / Algorithm Riddle
               </label>
               <input
@@ -116,13 +116,13 @@ export const LivePollsWidget: React.FC<LivePollsWidgetProps> = ({
                 value={newQuestion}
                 onChange={(e) => setNewQuestion(e.target.value)}
                 placeholder="e.g. What is the average search complexity in an AVL Tree?"
-                className="w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-1.5 text-xs text-[#fafafa] focus:outline-none focus:border-[#3f3f46]"
+                className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-lg px-3 py-1.5 text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--border-hover)]"
                 required
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[11px] text-[#fafafa] font-semibold block">Options (Min 2)</label>
+              <label className="text-[11px] text-[var(--text-primary)] font-semibold block">Options (Min 2)</label>
               {options.map((opt, idx) => (
                 <div key={idx} className="flex items-center gap-2">
                   <input
@@ -131,14 +131,14 @@ export const LivePollsWidget: React.FC<LivePollsWidgetProps> = ({
                     checked={correctIndex === idx}
                     onChange={() => setCorrectIndex(idx)}
                     title="Mark as correct answer (optional)"
-                    className="accent-neutral-200 cursor-pointer"
+                    className="accent-emerald-600 cursor-pointer"
                   />
                   <input
                     type="text"
                     value={opt}
                     onChange={(e) => handleOptionTextChange(idx, e.target.value)}
                     placeholder={`Option ${idx + 1}`}
-                    className="flex-1 bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-1 text-xs text-[#fafafa] focus:outline-none focus:border-[#3f3f46]"
+                    className="flex-1 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-lg px-3 py-1 text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--border-hover)]"
                   />
                 </div>
               ))}
@@ -153,16 +153,16 @@ export const LivePollsWidget: React.FC<LivePollsWidgetProps> = ({
         {/* Display Current Poll */}
         {activePoll ? (
           <div className="space-y-3">
-            <div className="p-3 bg-[#09090b] border border-[#27272a] rounded-xl space-y-2">
+            <div className="p-3 bg-[var(--bg-muted)] border border-[var(--border-default)] rounded-xl space-y-2">
               <div className="flex items-center justify-between">
                 <Badge variant={activePoll.status === 'ACTIVE' ? 'success' : 'default'} size="sm">
                   {activePoll.status === 'ACTIVE' ? 'Live Quiz in Progress' : 'Closed Poll'}
                 </Badge>
-                <span className="text-[10px] text-[#a1a1aa] font-mono">
+                <span className="text-[10px] text-[var(--text-muted)] font-mono">
                   {activePoll.totalVotes} Total Votes
                 </span>
               </div>
-              <h5 className="text-sm font-bold text-[#fafafa]">{activePoll.question}</h5>
+              <h5 className="text-sm font-bold text-[var(--text-primary)]">{activePoll.question}</h5>
             </div>
 
             {/* Options Voting / Results */}
@@ -185,8 +185,8 @@ export const LivePollsWidget: React.FC<LivePollsWidgetProps> = ({
                     }}
                     className={`relative overflow-hidden p-3 rounded-xl border transition cursor-pointer ${
                       isUserSelected
-                        ? 'border-[#3f3f46] bg-[#27272a]'
-                        : 'border-[#27272a] bg-[#09090b] hover:border-[#3f3f46]'
+                        ? 'border-indigo-500/50 bg-[var(--bg-muted)]'
+                        : 'border-[var(--border-default)] bg-[var(--bg-muted)]/50 hover:border-[var(--border-hover)]'
                     }`}
                   >
                     {/* Background fill bar representing percentage */}
@@ -194,28 +194,28 @@ export const LivePollsWidget: React.FC<LivePollsWidgetProps> = ({
                       className={`absolute top-0 bottom-0 left-0 transition-all duration-500 ${
                         isCorrect && activePoll.userVotedOptionId
                           ? 'bg-emerald-500/20'
-                          : 'bg-[#27272a]'
+                          : 'bg-[var(--border-default)]/50'
                       }`}
                       style={{ width: `${percentage}%` }}
                     />
 
                     <div className="relative z-10 flex items-center justify-between gap-3 text-xs">
                       <div className="flex items-center gap-2">
-                        <span className="font-semibold text-[#fafafa]">{option.text}</span>
+                        <span className="font-semibold text-[var(--text-primary)]">{option.text}</span>
                         {isUserSelected && (
-                          <Badge variant="outline" size="sm" className="bg-[#18181b] border-[#3f3f46] text-[#fafafa]">
+                          <Badge variant="outline" size="sm" className="bg-[var(--bg-surface)] border-[var(--border-default)] text-[var(--text-primary)]">
                             Your Vote
                           </Badge>
                         )}
                         {isCorrect && activePoll.userVotedOptionId && (
-                          <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 font-mono">
-                            <CheckCircle2 className="w-3 h-3 text-emerald-400" /> Correct
+                          <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-500 dark:text-emerald-400 font-mono">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-500 dark:text-emerald-400" /> Correct
                           </span>
                         )}
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[#fafafa] font-bold">{percentage}%</span>
-                        <span className="text-[10px] text-[#71717a] font-mono">({option.votes})</span>
+                        <span className="font-mono text-[var(--text-primary)] font-bold">{percentage}%</span>
+                        <span className="text-[10px] text-[var(--text-muted)] font-mono">({option.votes})</span>
                       </div>
                     </div>
                   </div>
@@ -229,17 +229,17 @@ export const LivePollsWidget: React.FC<LivePollsWidgetProps> = ({
                 variant="outline"
                 size="sm"
                 onClick={() => onClosePoll(activePoll.id)}
-                className="w-full bg-[#09090b] border-[#27272a] text-xs text-[#fafafa] hover:border-[#3f3f46]"
+                className="w-full bg-[var(--bg-muted)] border-[var(--border-default)] text-xs text-[var(--text-primary)] hover:border-[var(--border-hover)]"
               >
                 Close Poll & Lock Results
               </Button>
             )}
           </div>
         ) : (
-          <div className="h-48 flex flex-col items-center justify-center text-center p-4 text-[#71717a] text-xs">
-            <HelpCircle className="w-8 h-8 mb-2 opacity-30 text-[#a1a1aa]" />
-            <p className="font-semibold text-[#a1a1aa]">No active polls right now</p>
-            <p className="text-[11px] mt-0.5 text-[#71717a]">The instructor will launch interactive quiz questions during lecture.</p>
+          <div className="h-48 flex flex-col items-center justify-center text-center p-4 text-[var(--text-muted)] text-xs">
+            <HelpCircle className="w-8 h-8 mb-2 opacity-30 text-[var(--text-muted)]" />
+            <p className="font-semibold text-[var(--text-secondary)]">No active polls right now</p>
+            <p className="text-[11px] mt-0.5 text-[var(--text-muted)]">The instructor will launch interactive quiz questions during lecture.</p>
           </div>
         )}
       </div>

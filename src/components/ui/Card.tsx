@@ -9,8 +9,8 @@ export const Card: React.FC<CardProps> = ({ className, hoverable, children, ...p
   return (
     <div
       className={cn(
-        'bg-[#18181b] border border-[#27272a] rounded-2xl p-6 shadow-sm text-[#fafafa] transition-all duration-200',
-        hoverable && 'hover:border-[#3f3f46] hover:bg-[#18181b]/90',
+        'bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-2xl p-6 shadow-[var(--card-shadow)] text-[var(--text-primary)] transition-all duration-200',
+        hoverable && 'hover:border-[var(--border-hover)] hover:bg-[var(--bg-surface-hover)]',
         className
       )}
       {...props}
@@ -38,7 +38,7 @@ export const CardTitle: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({
   ...props
 }) => {
   return (
-    <h3 className={cn('text-sm font-bold uppercase tracking-widest text-[#71717a]', className)} {...props}>
+    <h3 className={cn('text-sm font-bold uppercase tracking-widest text-[var(--text-muted)]', className)} {...props}>
       {children}
     </h3>
   );

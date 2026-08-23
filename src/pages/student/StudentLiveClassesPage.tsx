@@ -36,15 +36,15 @@ export const StudentLiveClassesPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400">Cohort 2025-A</span>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">Cohort 2025-A</span>
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono bg-[var(--bg-surface-secondary)] text-[var(--text-primary)] border border-[var(--border-default)]">
               DSA & Full-Stack Systems
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">
+          <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] tracking-tight mt-1">
             Live Coding Classes & Lectures
           </h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-0.5">
             Join interactive coding lectures with Dr. Elena Rostova, live Monaco editor sync, terminal sandbox & Q&A.
           </p>
         </div>
@@ -52,11 +52,11 @@ export const StudentLiveClassesPage: React.FC = () => {
         {activeClass && (
           <Link to={`/student/live-class/${activeClass.id}`}>
             <Button
-              variant="primary"
+              variant="danger"
               size="lg"
-              className="bg-rose-600 hover:bg-rose-500 shadow-lg shadow-rose-950/50 animate-pulse text-white font-bold"
+              className="shadow-sm font-bold"
             >
-              <Radio className="w-4 h-4 mr-2 text-rose-200" />
+              <Radio className="w-4 h-4 mr-2" />
               Join Live Class in Session
             </Button>
           </Link>
@@ -65,42 +65,42 @@ export const StudentLiveClassesPage: React.FC = () => {
 
       {/* Featured Live Class Banner Card (if active) */}
       {activeClass && (
-        <div className="relative overflow-hidden rounded-2xl bg-[#18181b] border border-[#27272a] p-6 sm:p-8 shadow-sm">
+        <div className="relative overflow-hidden rounded-2xl bg-[var(--bg-surface)] border border-rose-500/30 p-6 sm:p-8 shadow-[var(--card-shadow)]">
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-3 max-w-2xl">
               <div className="flex items-center gap-2.5">
-                <Badge variant="danger" size="sm" className="bg-rose-950/90 text-rose-300 border-rose-800 font-mono">
+                <Badge variant="danger" size="sm" className="font-mono">
                   <span className="w-2 h-2 rounded-full bg-rose-400 animate-ping mr-1.5" />
                   LIVE NOW STREAMING
                 </Badge>
-                <span className="text-xs font-mono text-[#a1a1aa]">DSA 2025-A Cohort</span>
+                <span className="text-xs font-mono text-[var(--text-muted)]">DSA 2025-A Cohort</span>
               </div>
 
-              <h3 className="text-xl sm:text-2xl font-bold text-[#fafafa] tracking-tight leading-tight">
+              <h3 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] tracking-tight leading-tight">
                 {activeClass.title}
               </h3>
 
-              <p className="text-xs sm:text-sm text-[#a1a1aa] leading-relaxed">
+              <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
                 {activeClass.description}
               </p>
 
-              <div className="flex flex-wrap items-center gap-4 text-xs text-[#a1a1aa] pt-1">
+              <div className="flex flex-wrap items-center gap-4 text-xs text-[var(--text-secondary)] pt-1">
                 <div className="flex items-center gap-2">
                   <img
                     src={activeClass.instructorAvatar}
                     alt={activeClass.instructorName}
-                    className="w-6 h-6 rounded-full object-cover border border-[#27272a]"
+                    className="w-6 h-6 rounded-full object-cover border border-[var(--border-default)]"
                   />
-                  <span className="font-semibold text-[#fafafa]">{activeClass.instructorName}</span>
+                  <span className="font-semibold text-[var(--text-primary)]">{activeClass.instructorName}</span>
                 </div>
                 <span>•</span>
-                <span className="flex items-center gap-1 font-mono text-emerald-400">
+                <span className="flex items-center gap-1 font-mono text-emerald-600 dark:text-emerald-400">
                   <Users className="w-3.5 h-3.5" />
                   {activeClass.participants.length} Students Connected
                 </span>
                 <span>•</span>
-                <span className="flex items-center gap-1 font-mono text-[#fafafa]">
-                  <Clock className="w-3.5 h-3.5 text-[#fafafa]" />
+                <span className="flex items-center gap-1 font-mono text-[var(--text-primary)]">
+                  <Clock className="w-3.5 h-3.5 text-[var(--text-muted)]" />
                   {activeClass.durationMinutes} mins
                 </span>
               </div>
@@ -117,7 +117,7 @@ export const StudentLiveClassesPage: React.FC = () => {
                   Enter Interactive Classroom
                 </Button>
               </Link>
-              <p className="text-[11px] text-center text-[#71717a] font-mono">
+              <p className="text-[11px] text-center text-[var(--text-muted)] font-mono">
                 Microphone & shared IDE enabled
               </p>
             </div>
@@ -126,13 +126,13 @@ export const StudentLiveClassesPage: React.FC = () => {
       )}
 
       {/* Tabs Row */}
-      <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
+      <div className="flex items-center gap-2 border-b border-[var(--border-default)] pb-3">
         <button
           onClick={() => setActiveTab('all')}
           className={`px-4 py-2 rounded-xl text-xs font-semibold transition cursor-pointer ${
             activeTab === 'all'
-              ? 'bg-slate-800 text-white'
-              : 'text-slate-400 hover:text-slate-200'
+              ? 'bg-[var(--bg-surface-secondary)] text-[var(--text-primary)] border border-[var(--border-default)]'
+              : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
           }`}
         >
           All Sessions ({classes.length})
@@ -141,22 +141,22 @@ export const StudentLiveClassesPage: React.FC = () => {
           onClick={() => setActiveTab('live')}
           className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer ${
             activeTab === 'live'
-              ? 'bg-slate-800 text-white'
-              : 'text-slate-400 hover:text-slate-200'
+              ? 'bg-[var(--bg-surface-secondary)] text-[var(--text-primary)] border border-[var(--border-default)]'
+              : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
           }`}
         >
-          <Radio className="w-3 h-3 text-rose-400" />
+          <Radio className="w-3 h-3 text-rose-500" />
           Active & Upcoming ({liveClasses.length + scheduledClasses.length})
         </button>
         <button
           onClick={() => setActiveTab('recordings')}
           className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer ${
             activeTab === 'recordings'
-              ? 'bg-slate-800 text-white'
-              : 'text-slate-400 hover:text-slate-200'
+              ? 'bg-[var(--bg-surface-secondary)] text-[var(--text-primary)] border border-[var(--border-default)]'
+              : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
           }`}
         >
-          <BookOpen className="w-3 h-3 text-blue-400" />
+          <BookOpen className="w-3 h-3 text-[var(--text-muted)]" />
           Class Recordings ({endedClasses.length})
         </button>
       </div>
@@ -176,10 +176,10 @@ export const StudentLiveClassesPage: React.FC = () => {
             return (
               <Card
                 key={cls.id}
-                className={`p-5 flex flex-col justify-between space-y-4 border transition-all ${
+                className={`p-5 flex flex-col justify-between space-y-4 transition-all ${
                   isLive
-                    ? 'border-blue-700/80 bg-slate-900/90 shadow-xl shadow-blue-950/20'
-                    : 'border-slate-800 bg-slate-900/50 hover:border-slate-700'
+                    ? 'border-rose-500/40 bg-[var(--bg-surface)]'
+                    : 'bg-[var(--bg-surface)]'
                 }`}
               >
                 <div className="space-y-3">
@@ -190,7 +190,7 @@ export const StudentLiveClassesPage: React.FC = () => {
                     >
                       {isLive ? (
                         <span className="flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-ping" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping" />
                           LIVE NOW
                         </span>
                       ) : isScheduled ? (
@@ -200,14 +200,14 @@ export const StudentLiveClassesPage: React.FC = () => {
                       )}
                     </Badge>
 
-                    <span className="text-[11px] text-slate-400 font-mono">
+                    <span className="text-[11px] text-[var(--text-muted)] font-mono">
                       {cls.scheduledTime}
                     </span>
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-bold text-slate-100 leading-snug">{cls.title}</h4>
-                    <p className="text-xs text-slate-400 line-clamp-2 mt-1 leading-relaxed">
+                    <h4 className="text-sm font-bold text-[var(--text-primary)] leading-snug">{cls.title}</h4>
+                    <p className="text-xs text-[var(--text-secondary)] line-clamp-2 mt-1 leading-relaxed">
                       {cls.description}
                     </p>
                   </div>
@@ -216,7 +216,7 @@ export const StudentLiveClassesPage: React.FC = () => {
                     {cls.tags.map((t) => (
                       <span
                         key={t}
-                        className="px-2 py-0.5 rounded-md bg-slate-950 border border-slate-800 text-[10px] text-slate-400 font-mono"
+                        className="px-2 py-0.5 rounded-md bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] text-[10px] text-[var(--text-secondary)] font-mono"
                       >
                         #{t}
                       </span>
@@ -224,22 +224,22 @@ export const StudentLiveClassesPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="space-y-3 pt-3 border-t border-slate-800/80">
-                  <div className="flex items-center justify-between text-xs text-slate-400">
+                <div className="space-y-3 pt-3 border-t border-[var(--border-default)]">
+                  <div className="flex items-center justify-between text-xs text-[var(--text-secondary)]">
                     <div className="flex items-center gap-2">
                       <img
                         src={cls.instructorAvatar}
                         alt={cls.instructorName}
                         className="w-5 h-5 rounded-full object-cover"
                       />
-                      <span className="text-slate-300 truncate max-w-[130px]">{cls.instructorName}</span>
+                      <span className="text-[var(--text-primary)] truncate max-w-[130px] font-medium">{cls.instructorName}</span>
                     </div>
                     <span className="font-mono text-[11px]">{cls.durationMinutes} Mins</span>
                   </div>
 
                   {isLive ? (
                     <Link to={`/student/live-class/${cls.id}`} className="block">
-                      <Button variant="primary" size="sm" className="w-full bg-blue-600 hover:bg-blue-500 font-bold">
+                      <Button variant="primary" size="sm" className="w-full font-bold">
                         <Play className="w-3.5 h-3.5 mr-1 fill-white" />
                         Join Live Class
                       </Button>
@@ -249,9 +249,9 @@ export const StudentLiveClassesPage: React.FC = () => {
                       variant="outline"
                       size="sm"
                       onClick={() => alert(`Reminder set for "${cls.title}" on ${cls.scheduledDate} at ${cls.scheduledTime}`)}
-                      className="w-full bg-slate-950 border-slate-800 text-slate-300 hover:text-white text-xs"
+                      className="w-full text-xs"
                     >
-                      <Calendar className="w-3.5 h-3.5 mr-1 text-blue-400" />
+                      <Calendar className="w-3.5 h-3.5 mr-1 text-[var(--text-muted)]" />
                       Set Class Reminder
                     </Button>
                   ) : (
@@ -260,9 +260,9 @@ export const StudentLiveClassesPage: React.FC = () => {
                         variant="outline"
                         size="sm"
                         onClick={() => alert('Opening video lecture recording stream...')}
-                        className="flex-1 bg-slate-950 border-slate-800 text-slate-300 text-xs"
+                        className="flex-1 text-xs"
                       >
-                        <Video className="w-3.5 h-3.5 mr-1 text-emerald-400" />
+                        <Video className="w-3.5 h-3.5 mr-1 text-emerald-600 dark:text-emerald-400" />
                         Recording
                       </Button>
                       <Button
@@ -277,7 +277,7 @@ export const StudentLiveClassesPage: React.FC = () => {
                           a.click();
                           URL.revokeObjectURL(url);
                         }}
-                        className="p-2 text-slate-400 hover:text-slate-200"
+                        className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                         title="Download Lecture Code"
                       >
                         <Download className="w-3.5 h-3.5" />

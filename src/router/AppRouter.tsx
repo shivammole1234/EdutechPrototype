@@ -49,6 +49,7 @@ import {
   InstructorSettingsPage,
 } from '@/pages/instructor/InstructorLiveSessionsPage';
 import { InstructorLiveClassroomPage } from '@/pages/instructor/InstructorLiveClassroomPage';
+import { InstructorInterviewsPage } from '@/pages/instructor/InstructorInterviewsPage';
 
 // Student Pages
 import { StudentDashboardPage, StudentClassesPage } from '@/pages/student/StudentDashboardPage';
@@ -134,6 +135,8 @@ export const AppRouter: React.FC = () => {
           <Route path="assessments/:id/monitor" element={<InstructorAssessmentMonitorPage />} />
           <Route path="assignments" element={<InstructorAssignmentsPage />} />
           <Route path="attendance" element={<InstructorAttendancePage />} />
+          <Route path="interviews" element={<InstructorInterviewsPage />} />
+          <Route path="interviews/:id" element={<InstructorInterviewsPage />} />
           <Route path="live-sessions" element={<InstructorLiveSessionsPage />} />
           <Route path="live-classroom" element={<InstructorLiveClassroomPage />} />
           <Route path="live-classroom/:id" element={<InstructorLiveClassroomPage />} />

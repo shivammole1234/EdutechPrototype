@@ -27,7 +27,7 @@ export const Tabs: React.FC<TabsProps> = ({
     return (
       <div
         className={cn(
-          'inline-flex items-center p-1 bg-[#18181b] border border-[#27272a] rounded-xl',
+          'inline-flex items-center p-1 bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-xl',
           className
         )}
       >
@@ -40,8 +40,8 @@ export const Tabs: React.FC<TabsProps> = ({
               className={cn(
                 'flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all duration-150 cursor-pointer whitespace-nowrap',
                 isActive
-                  ? 'bg-[#27272a] text-[#fafafa] shadow-xs'
-                  : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#27272a]/50'
+                  ? 'bg-[var(--bg-surface)] text-[var(--text-primary)] shadow-xs'
+                  : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)]/50'
               )}
             >
               {tab.icon}
@@ -50,7 +50,7 @@ export const Tabs: React.FC<TabsProps> = ({
                 <span
                   className={cn(
                     'px-1.5 py-0.2 rounded-full text-[10px] font-mono',
-                    isActive ? 'bg-[#3f3f46] text-[#fafafa]' : 'bg-[#27272a] text-[#a1a1aa]'
+                    isActive ? 'bg-[var(--border-default)] text-[var(--text-primary)]' : 'bg-[var(--bg-surface-secondary)] text-[var(--text-secondary)]'
                   )}
                 >
                   {tab.count}
@@ -75,14 +75,14 @@ export const Tabs: React.FC<TabsProps> = ({
               className={cn(
                 'flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all duration-150 cursor-pointer whitespace-nowrap border',
                 isActive
-                  ? 'bg-[#27272a] text-[#fafafa] border-[#3f3f46]'
-                  : 'bg-[#18181b] border-[#27272a] text-[#a1a1aa] hover:text-[#fafafa] hover:border-[#3f3f46]'
+                  ? 'bg-[var(--bg-surface-secondary)] text-[var(--text-primary)] border-[var(--border-hover)]'
+                  : 'bg-[var(--bg-surface)] border-[var(--border-default)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-hover)]'
               )}
             >
               {tab.icon}
               <span>{tab.label}</span>
               {typeof tab.count === 'number' && (
-                <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-[#27272a] text-[#fafafa] font-mono">
+                <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-[var(--bg-surface-secondary)] text-[var(--text-primary)] font-mono">
                   {tab.count}
                 </span>
               )}
@@ -95,7 +95,7 @@ export const Tabs: React.FC<TabsProps> = ({
 
   // Default underline
   return (
-    <div className={cn('border-b border-[#27272a] flex items-center gap-6', className)}>
+    <div className={cn('border-b border-[var(--border-default)] flex items-center gap-6', className)}>
       {tabs.map((tab) => {
         const isActive = tab.id === activeTab;
         return (
@@ -105,8 +105,8 @@ export const Tabs: React.FC<TabsProps> = ({
             className={cn(
               'flex items-center gap-2 pb-3 text-xs font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer border-b-2 -mb-px whitespace-nowrap',
               isActive
-                ? 'border-[#fafafa] text-[#fafafa] font-bold'
-                : 'border-transparent text-[#71717a] hover:text-[#a1a1aa]'
+                ? 'border-[var(--text-primary)] text-[var(--text-primary)] font-bold'
+                : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
             )}
           >
             {tab.icon}
@@ -115,7 +115,7 @@ export const Tabs: React.FC<TabsProps> = ({
               <span
                 className={cn(
                   'px-1.5 py-0.5 rounded-full text-[10px] font-mono',
-                  isActive ? 'bg-[#27272a] text-[#fafafa]' : 'bg-[#27272a] text-[#71717a]'
+                  isActive ? 'bg-[var(--bg-surface-secondary)] text-[var(--text-primary)]' : 'bg-[var(--bg-surface-secondary)] text-[var(--text-muted)]'
                 )}
               >
                 {tab.count}

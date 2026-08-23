@@ -4,14 +4,10 @@ import {
   Users,
   GraduationCap,
   Layers,
-  FileCode2,
   TrendingUp,
   ArrowUpRight,
   Plus,
-  Clock,
   CheckCircle2,
-  AlertTriangle,
-  Server,
   Activity,
 } from 'lucide-react';
 import {
@@ -32,17 +28,19 @@ import { StatCard } from '@/components/ui/StatCard';
 import { Card, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
+import { useThemeStore } from '@/stores/useThemeStore';
 import { analyticsService, AdminAnalytics } from '@/services/analyticsService';
 import { batchService } from '@/services/batchService';
 import { assessmentService } from '@/services/assessmentService';
 import { Batch, Assessment } from '@/types';
-import { formatDate } from '@/lib/utils';
 
 export const AdminDashboardPage: React.FC = () => {
   const [analytics, setAnalytics] = useState<AdminAnalytics | null>(null);
   const [batches, setBatches] = useState<Batch[]>([]);
   const [assessments, setAssessments] = useState<Assessment[]>([]);
   const [loading, setLoading] = useState(true);
+  const { theme } = useThemeStore();
+  const isDark = theme === 'dark';
 
   useEffect(() => {
     async function load() {
@@ -65,27 +63,29 @@ export const AdminDashboardPage: React.FC = () => {
   if (loading || !analytics) {
     return (
       <div className="space-y-6 animate-pulse">
-        <div className="h-8 w-64 bg-slate-800 rounded-md" />
+        <div className="h-8 w-64 bg-[var(--bg-surface-secondary)] rounded-md" />
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-28 bg-slate-900 border border-slate-800 rounded-xl" />
+            <div key={i} className="h-28 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-xl" />
           ))}
         </div>
       </div>
     );
   }
 
-  const COLORS = ['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B', '#64748B'];
+  const COLORS = isDark
+    ? ['#fafafa', '#a1a1aa', '#71717a', '#52525b', '#3f3f46']
+    : ['#18181b', '#52525b', '#71717a', '#a1a1aa', '#d4d4d8'];
 
   return (
     <div className="space-y-8">
       {/* Top Banner / Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] tracking-tight">
             Enterprise Command Center
           </h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-1">
             System overview, student cohort progression, and code execution telemetry.
           </p>
         </div>
@@ -112,7 +112,7 @@ export const AdminDashboardPage: React.FC = () => {
           value={analytics.totalStudents}
           change="+18% this month"
           changeType="positive"
-          icon={<GraduationCap className="w-5 h-5 text-purple-400" />}
+          icon={<GraduationCap className="w-5 h-5 text-purple-600 dark:text-purple-400" />}
           subtitle="Enrolled across 6 cohorts"
         />
         <StatCard
@@ -120,7 +120,7 @@ export const AdminDashboardPage: React.FC = () => {
           value={analytics.totalInstructors}
           change="3 Lead Faculty"
           changeType="neutral"
-          icon={<Users className="w-5 h-5 text-[#fafafa]" />}
+          icon={<Users className="w-5 h-5 text-[var(--text-primary)]" />}
           subtitle="100% active this week"
         />
         <StatCard
@@ -128,7 +128,7 @@ export const AdminDashboardPage: React.FC = () => {
           value={analytics.activeBatches}
           change="2 Upcoming"
           changeType="neutral"
-          icon={<Layers className="w-5 h-5 text-emerald-400" />}
+          icon={<Layers className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />}
           subtitle="Avg completion: 68%"
         />
         <StatCard
@@ -136,7 +136,7 @@ export const AdminDashboardPage: React.FC = () => {
           value={`${analytics.platformPassRate}%`}
           change="+3.4% YoY"
           changeType="positive"
-          icon={<CheckCircle2 className="w-5 h-5 text-amber-400" />}
+          icon={<CheckCircle2 className="w-5 h-5 text-amber-600 dark:text-amber-400" />}
           subtitle="3,840 submissions verified"
         />
       </div>
@@ -148,7 +148,7 @@ export const AdminDashboardPage: React.FC = () => {
           <CardHeader>
             <div>
               <CardTitle>Student Growth & Enrollment Trend</CardTitle>
-              <p className="text-xs text-slate-400 mt-0.5">Cumulative enrolled engineers</p>
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">Cumulative enrolled engineers</p>
             </div>
             <Badge variant="purple" size="sm">
               <TrendingUp className="w-3 h-3 mr-1" />
@@ -160,21 +160,26 @@ export const AdminDashboardPage: React.FC = () => {
               <AreaChart data={analytics.studentGrowth}>
                 <defs>
                   <linearGradient id="growthGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0.0} />
+                    <stop offset="5%" stopColor={isDark ? '#fafafa' : '#18181b'} stopOpacity={0.2} />
+                    <stop offset="95%" stopColor={isDark ? '#fafafa' : '#18181b'} stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.3} />
-                <XAxis dataKey="month" stroke="#64748B" fontSize={11} />
-                <YAxis stroke="#64748B" fontSize={11} />
+                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#27272a' : '#e4e4e7'} />
+                <XAxis dataKey="month" stroke="#71717a" fontSize={11} />
+                <YAxis stroke="#71717a" fontSize={11} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0F172A', borderColor: '#334155', borderRadius: '8px' }}
-                  itemStyle={{ color: '#E2E8F0', fontSize: '12px' }}
+                  contentStyle={{
+                    backgroundColor: isDark ? '#18181b' : '#ffffff',
+                    borderColor: isDark ? '#27272a' : '#e4e4e7',
+                    borderRadius: '8px',
+                    color: isDark ? '#fafafa' : '#18181b',
+                  }}
+                  itemStyle={{ color: isDark ? '#fafafa' : '#18181b', fontSize: '12px' }}
                 />
                 <Area
                   type="monotone"
                   dataKey="students"
-                  stroke="#8B5CF6"
+                  stroke={isDark ? '#fafafa' : '#18181b'}
                   strokeWidth={2}
                   fillOpacity={1}
                   fill="url(#growthGrad)"
@@ -189,7 +194,7 @@ export const AdminDashboardPage: React.FC = () => {
           <CardHeader>
             <div>
               <CardTitle>Language Breakdown</CardTitle>
-              <p className="text-xs text-slate-400 mt-0.5">Submissions by compiler</p>
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">Submissions by compiler</p>
             </div>
           </CardHeader>
           <div className="h-44 w-full flex items-center justify-center">
@@ -209,8 +214,13 @@ export const AdminDashboardPage: React.FC = () => {
                   ))}
                 </Pie>
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0F172A', borderColor: '#334155', borderRadius: '8px' }}
-                  itemStyle={{ color: '#E2E8F0', fontSize: '12px' }}
+                  contentStyle={{
+                    backgroundColor: isDark ? '#18181b' : '#ffffff',
+                    borderColor: isDark ? '#27272a' : '#e4e4e7',
+                    borderRadius: '8px',
+                    color: isDark ? '#fafafa' : '#18181b',
+                  }}
+                  itemStyle={{ color: isDark ? '#fafafa' : '#18181b', fontSize: '12px' }}
                 />
               </PieChart>
             </ResponsiveContainer>
@@ -220,9 +230,9 @@ export const AdminDashboardPage: React.FC = () => {
               <div key={item.language} className="flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: COLORS[idx % COLORS.length] }} />
-                  <span className="text-slate-300">{item.language}</span>
+                  <span className="text-[var(--text-primary)]">{item.language}</span>
                 </div>
-                <span className="text-slate-400 font-mono">{item.percentage}% ({item.count})</span>
+                <span className="text-[var(--text-secondary)] font-mono">{item.percentage}% ({item.count})</span>
               </div>
             ))}
           </div>
@@ -235,13 +245,13 @@ export const AdminDashboardPage: React.FC = () => {
           <CardHeader>
             <div>
               <CardTitle>Daily Code Submissions</CardTitle>
-              <p className="text-xs text-slate-400 mt-0.5">Accepted vs. Failed test execution runs</p>
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">Accepted vs. Failed test execution runs</p>
             </div>
             <div className="flex items-center gap-3 text-xs">
-              <span className="flex items-center gap-1.5 text-emerald-400">
+              <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
                 <span className="w-2.5 h-2.5 rounded-sm bg-emerald-500" /> Accepted
               </span>
-              <span className="flex items-center gap-1.5 text-rose-400">
+              <span className="flex items-center gap-1.5 text-rose-600 dark:text-rose-400">
                 <span className="w-2.5 h-2.5 rounded-sm bg-rose-500" /> Failed / Error
               </span>
             </div>
@@ -249,15 +259,20 @@ export const AdminDashboardPage: React.FC = () => {
           <div className="h-60 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={analytics.submissionTrend}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.3} />
-                <XAxis dataKey="date" stroke="#64748B" fontSize={11} />
-                <YAxis stroke="#64748B" fontSize={11} />
+                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#27272a' : '#e4e4e7'} />
+                <XAxis dataKey="date" stroke="#71717a" fontSize={11} />
+                <YAxis stroke="#71717a" fontSize={11} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0F172A', borderColor: '#334155', borderRadius: '8px' }}
-                  itemStyle={{ color: '#E2E8F0', fontSize: '12px' }}
+                  contentStyle={{
+                    backgroundColor: isDark ? '#18181b' : '#ffffff',
+                    borderColor: isDark ? '#27272a' : '#e4e4e7',
+                    borderRadius: '8px',
+                    color: isDark ? '#fafafa' : '#18181b',
+                  }}
+                  itemStyle={{ color: isDark ? '#fafafa' : '#18181b', fontSize: '12px' }}
                 />
-                <Bar dataKey="accepted" fill="#10B981" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="failed" fill="#F43F5E" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="accepted" fill="#10b981" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="failed" fill="#f43f5e" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -268,7 +283,7 @@ export const AdminDashboardPage: React.FC = () => {
           <CardHeader>
             <div>
               <CardTitle>Sandbox Health</CardTitle>
-              <p className="text-xs text-slate-400 mt-0.5">Execution node telemetry</p>
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">Execution node telemetry</p>
             </div>
             <Badge variant="success" size="sm">
               <Activity className="w-3 h-3 mr-1" />
@@ -276,38 +291,38 @@ export const AdminDashboardPage: React.FC = () => {
             </Badge>
           </CardHeader>
           <div className="space-y-4 text-xs">
-            <div className="p-3 bg-slate-950/70 border border-slate-800 rounded-lg space-y-2">
+            <div className="p-3 bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-lg space-y-2">
               <div className="flex justify-between">
-                <span className="text-slate-400">Judge0 Cluster:</span>
-                <span className="font-mono text-emerald-400 font-semibold">4/4 Nodes Online</span>
+                <span className="text-[var(--text-secondary)]">Judge0 Cluster:</span>
+                <span className="font-mono text-emerald-600 dark:text-emerald-400 font-semibold">4/4 Nodes Online</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Queue Latency:</span>
-                <span className="font-mono text-slate-200">28ms avg</span>
+                <span className="text-[var(--text-secondary)]">Queue Latency:</span>
+                <span className="font-mono text-[var(--text-primary)]">28ms avg</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Memory Pressure:</span>
-                <span className="font-mono text-slate-200">34.2%</span>
+                <span className="text-[var(--text-secondary)]">Memory Pressure:</span>
+                <span className="font-mono text-[var(--text-primary)]">34.2%</span>
               </div>
             </div>
 
             <div className="space-y-2">
-              <div className="flex justify-between text-slate-300">
+              <div className="flex justify-between text-[var(--text-primary)]">
                 <span>CPU Utilization</span>
-                <span className="font-mono text-slate-400">22%</span>
+                <span className="font-mono text-[var(--text-secondary)]">22%</span>
               </div>
-              <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                <div className="bg-[#fafafa] h-1.5 rounded-full" style={{ width: '22%' }} />
+              <div className="w-full bg-[var(--bg-surface-secondary)] rounded-full h-1.5 overflow-hidden">
+                <div className="bg-[var(--text-primary)] h-1.5 rounded-full" style={{ width: '22%' }} />
               </div>
             </div>
 
             <div className="space-y-2">
-              <div className="flex justify-between text-slate-300">
+              <div className="flex justify-between text-[var(--text-primary)]">
                 <span>Docker Sandbox Pool</span>
-                <span className="font-mono text-slate-400">48 / 64 warm</span>
+                <span className="font-mono text-[var(--text-secondary)]">48 / 64 warm</span>
               </div>
-              <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                <div className="bg-purple-500 h-1.5 rounded-full" style={{ width: '75%' }} />
+              <div className="w-full bg-[var(--bg-surface-secondary)] rounded-full h-1.5 overflow-hidden">
+                <div className="bg-purple-600 dark:bg-purple-400 h-1.5 rounded-full" style={{ width: '75%' }} />
               </div>
             </div>
           </div>
@@ -321,9 +336,9 @@ export const AdminDashboardPage: React.FC = () => {
           <CardHeader>
             <div>
               <CardTitle>Active Cohorts</CardTitle>
-              <p className="text-xs text-slate-400 mt-0.5">Currently running curricula</p>
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">Currently running curricula</p>
             </div>
-            <Link to="/admin/batches" className="text-xs text-purple-400 hover:underline flex items-center">
+            <Link to="/admin/batches" className="text-xs text-[var(--text-primary)] hover:underline flex items-center">
               View all <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </CardHeader>
@@ -331,21 +346,21 @@ export const AdminDashboardPage: React.FC = () => {
             {batches.map((batch) => (
               <div
                 key={batch.id}
-                className="p-3.5 bg-slate-950/60 border border-slate-800 rounded-xl flex items-center justify-between"
+                className="p-3.5 bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-xl flex items-center justify-between"
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <h4 className="text-xs sm:text-sm font-semibold text-slate-100">{batch.name}</h4>
+                    <h4 className="text-xs sm:text-sm font-semibold text-[var(--text-primary)]">{batch.name}</h4>
                     <Badge variant="purple" size="sm">{batch.code}</Badge>
                   </div>
-                  <p className="text-xs text-slate-400">
-                    Lead: <span className="text-slate-300">{batch.instructorName}</span> • {batch.studentCount} Students
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    Lead: <span className="text-[var(--text-primary)]">{batch.instructorName}</span> • {batch.studentCount} Students
                   </p>
                 </div>
                 <div className="text-right">
-                  <span className="text-xs font-bold text-slate-200">{batch.progress}%</span>
-                  <div className="w-20 bg-slate-800 rounded-full h-1.5 mt-1 overflow-hidden">
-                    <div className="bg-purple-500 h-1.5 rounded-full" style={{ width: `${batch.progress}%` }} />
+                  <span className="text-xs font-bold text-[var(--text-primary)]">{batch.progress}%</span>
+                  <div className="w-20 bg-[var(--border-default)] rounded-full h-1.5 mt-1 overflow-hidden">
+                    <div className="bg-[var(--text-primary)] h-1.5 rounded-full" style={{ width: `${batch.progress}%` }} />
                   </div>
                 </div>
               </div>
@@ -358,9 +373,9 @@ export const AdminDashboardPage: React.FC = () => {
           <CardHeader>
             <div>
               <CardTitle>Assessments Overview</CardTitle>
-              <p className="text-xs text-slate-400 mt-0.5">Scheduled and live testing</p>
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">Scheduled and live testing</p>
             </div>
-            <Link to="/admin/assessments" className="text-xs text-purple-400 hover:underline flex items-center">
+            <Link to="/admin/assessments" className="text-xs text-[var(--text-primary)] hover:underline flex items-center">
               View all <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </CardHeader>
@@ -368,11 +383,11 @@ export const AdminDashboardPage: React.FC = () => {
             {assessments.map((as) => (
               <div
                 key={as.id}
-                className="p-3.5 bg-slate-950/60 border border-slate-800 rounded-xl flex items-center justify-between"
+                className="p-3.5 bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-xl flex items-center justify-between"
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <h4 className="text-xs sm:text-sm font-semibold text-slate-100">{as.title}</h4>
+                    <h4 className="text-xs sm:text-sm font-semibold text-[var(--text-primary)]">{as.title}</h4>
                     <Badge
                       variant={
                         as.status === 'IN_PROGRESS'
@@ -386,7 +401,7 @@ export const AdminDashboardPage: React.FC = () => {
                       {as.status}
                     </Badge>
                   </div>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-[var(--text-secondary)]">
                     {as.questionsCount} Questions • {as.durationMinutes} Mins • {as.submissionsCount} Submissions
                   </p>
                 </div>

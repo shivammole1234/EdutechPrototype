@@ -109,13 +109,13 @@ export const CreateStudentBatchModal: React.FC<CreateStudentBatchModalProps> = (
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div className="space-y-1.5">
-            <label className="block text-xs font-bold uppercase tracking-wider text-[#71717a]">
+            <label className="block text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
               Class Timing Section
             </label>
             <select
               value={section}
               onChange={(e) => setSection(e.target.value)}
-              className="w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3.5 py-2 text-xs text-[#fafafa] focus:outline-none focus:border-[#3f3f46] focus:ring-1 focus:ring-[#3f3f46]"
+              className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-lg px-3.5 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--border-hover)]"
             >
               <option value="Morning Track (9:00 AM - 12:00 PM)">Morning Track (9:00 AM - 12:00 PM)</option>
               <option value="Afternoon Sprint (1:00 PM - 4:00 PM)">Afternoon Sprint (1:00 PM - 4:00 PM)</option>
@@ -135,13 +135,13 @@ export const CreateStudentBatchModal: React.FC<CreateStudentBatchModalProps> = (
         </div>
 
         <div className="space-y-1.5">
-          <label className="block text-xs font-bold uppercase tracking-wider text-[#71717a]">
+          <label className="block text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
             Attach to Academic Cohort (Optional)
           </label>
           <select
             value={cohortId}
             onChange={(e) => setCohortId(e.target.value)}
-            className="w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3.5 py-2 text-xs text-[#fafafa] focus:outline-none focus:border-[#3f3f46] focus:ring-1 focus:ring-[#3f3f46]"
+            className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-lg px-3.5 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--border-hover)]"
           >
             <option value="">-- Leave as Unassigned Batch --</option>
             {cohorts.map((c) => (
@@ -153,7 +153,7 @@ export const CreateStudentBatchModal: React.FC<CreateStudentBatchModalProps> = (
         </div>
 
         <div className="space-y-1.5">
-          <label className="block text-xs font-bold uppercase tracking-wider text-[#71717a]">
+          <label className="block text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
             Batch Tags
           </label>
           <div className="flex gap-2 mb-2">
@@ -176,13 +176,13 @@ export const CreateStudentBatchModal: React.FC<CreateStudentBatchModalProps> = (
             {tags.map((t, i) => (
               <span
                 key={i}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs bg-[#09090b] border border-[#27272a] text-[#fafafa]"
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] text-[var(--text-primary)]"
               >
                 {t}
                 <button
                   type="button"
                   onClick={() => handleRemoveTag(i)}
-                  className="text-[#71717a] hover:text-rose-400"
+                  className="text-[var(--text-muted)] hover:text-rose-500 cursor-pointer"
                 >
                   <X className="w-3 h-3" />
                 </button>
@@ -192,7 +192,7 @@ export const CreateStudentBatchModal: React.FC<CreateStudentBatchModalProps> = (
         </div>
 
         <div className="space-y-1.5">
-          <label className="block text-xs font-bold uppercase tracking-wider text-[#71717a]">
+          <label className="block text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
             Batch Notes & Goals
           </label>
           <textarea
@@ -200,11 +200,11 @@ export const CreateStudentBatchModal: React.FC<CreateStudentBatchModalProps> = (
             placeholder="Special instructions or student prerequisites for this batch section..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3.5 py-2 text-xs text-[#fafafa] placeholder-[#71717a] focus:outline-none focus:border-[#3f3f46] focus:ring-1 focus:ring-[#3f3f46]"
+            className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-lg px-3.5 py-2 text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--border-hover)]"
           />
         </div>
 
-        <div className="pt-3 flex justify-end gap-2 border-t border-[#27272a]">
+        <div className="pt-3 flex justify-end gap-2 border-t border-[var(--border-default)]">
           <Button type="button" variant="outline" size="sm" onClick={onClose}>
             Cancel
           </Button>

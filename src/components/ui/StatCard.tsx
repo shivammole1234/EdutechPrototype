@@ -23,31 +23,31 @@ export const StatCard: React.FC<StatCardProps> = ({
   return (
     <div
       className={cn(
-        'bg-[#18181b] border border-[#27272a] rounded-2xl p-6 shadow-sm relative overflow-hidden transition-all duration-200 hover:border-[#3f3f46]',
+        'bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-2xl p-6 shadow-[var(--card-shadow)] relative overflow-hidden transition-all duration-200 hover:border-[var(--border-hover)]',
         className
       )}
     >
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-xs uppercase text-[#71717a] font-bold tracking-wider">{title}</p>
+          <p className="text-xs uppercase text-[var(--text-muted)] font-bold tracking-wider">{title}</p>
           <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-mono font-bold tracking-tight text-[#fafafa]">{value}</span>
+            <span className="text-2xl sm:text-3xl font-mono font-bold tracking-tight text-[var(--text-primary)]">{value}</span>
             {change && (
               <span
                 className={cn(
                   'text-[11px] font-medium px-2 py-0.5 rounded-md font-mono',
-                  changeType === 'positive' && 'text-emerald-400/90 bg-emerald-950/40 border border-emerald-800/40',
-                  changeType === 'negative' && 'text-rose-400/90 bg-rose-950/40 border border-rose-800/40',
-                  changeType === 'neutral' && 'text-zinc-400 bg-zinc-800/60 border border-zinc-700/50'
+                  changeType === 'positive' && 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20',
+                  changeType === 'negative' && 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border border-rose-500/20',
+                  changeType === 'neutral' && 'text-[var(--text-secondary)] bg-[var(--bg-surface-secondary)] border border-[var(--border-default)]'
                 )}
               >
                 {change}
               </span>
             )}
           </div>
-          {subtitle && <p className="text-xs text-[#a1a1aa] mt-2">{subtitle}</p>}
+          {subtitle && <p className="text-xs text-[var(--text-secondary)] mt-2">{subtitle}</p>}
         </div>
-        <div className="p-2.5 bg-[#121215] border border-[#27272a] rounded-xl text-zinc-400">
+        <div className="p-2.5 bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] rounded-xl text-[var(--text-secondary)]">
           {icon}
         </div>
       </div>

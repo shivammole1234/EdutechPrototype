@@ -96,8 +96,8 @@ export const StudentLiveClassroomPage: React.FC = () => {
   if (!room || !user) {
     return (
       <div className="p-8 text-center space-y-4">
-        <h2 className="text-xl font-bold text-slate-100">Live Classroom Not Found</h2>
-        <p className="text-xs text-slate-400">There is currently no live broadcast in session for this batch.</p>
+        <h2 className="text-xl font-bold text-[var(--text-primary)]">Live Classroom Not Found</h2>
+        <p className="text-xs text-[var(--text-muted)]">There is currently no live broadcast in session for this batch.</p>
         <Link to="/student/classes">
           <Button variant="primary" size="sm">
             Back to My Classes
@@ -110,11 +110,11 @@ export const StudentLiveClassroomPage: React.FC = () => {
   return (
     <div className="space-y-4 min-h-screen pb-12">
       {/* Top Header Bar */}
-      <div className="p-3 bg-[#18181b] border border-[#27272a] rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-sm">
+      <div className="p-3 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-sm">
         <div className="flex items-center gap-3">
           <Link
             to="/student/classes"
-            className="p-1.5 rounded-lg bg-[#27272a] hover:bg-[#3f3f46] text-[#fafafa] transition"
+            className="p-1.5 rounded-lg bg-[var(--bg-muted)] hover:bg-[var(--border-default)] text-[var(--text-primary)] transition"
             title="Back to Classes"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -126,21 +126,21 @@ export const StudentLiveClassroomPage: React.FC = () => {
                 <Radio className="w-3 h-3 mr-1 animate-ping text-rose-400" />
                 LIVE CLASS
               </Badge>
-              <h2 className="text-sm sm:text-base font-bold text-[#fafafa] truncate max-w-sm sm:max-w-md">
+              <h2 className="text-sm sm:text-base font-bold text-[var(--text-primary)] truncate max-w-sm sm:max-w-md">
                 {room.title}
               </h2>
             </div>
-            <p className="text-[11px] text-[#a1a1aa] mt-0.5">
-              Led by <span className="text-[#fafafa] font-semibold">{room.instructorName}</span> • {room.batchName}
+            <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
+              Led by <span className="text-[var(--text-primary)] font-semibold">{room.instructorName}</span> • {room.batchName}
             </p>
           </div>
         </div>
 
         {/* Right Controls */}
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[#09090b] border border-[#27272a] rounded-xl text-xs font-mono">
-            <Clock className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="text-[#fafafa] font-bold">{formatTimer(sessionSeconds)}</span>
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[var(--bg-muted)] border border-[var(--border-default)] rounded-xl text-xs font-mono">
+            <Clock className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
+            <span className="text-[var(--text-primary)] font-bold">{formatTimer(sessionSeconds)}</span>
           </div>
 
           <Button
@@ -150,7 +150,7 @@ export const StudentLiveClassroomPage: React.FC = () => {
             className={`text-xs ${
               isHandRaised
                 ? 'bg-amber-600 hover:bg-amber-500 text-white'
-                : 'bg-[#27272a] border-[#3f3f46] text-[#fafafa] hover:bg-[#3f3f46]'
+                : 'bg-[var(--bg-muted)] border-[var(--border-default)] text-[var(--text-primary)] hover:bg-[var(--border-default)]'
             }`}
           >
             <Hand className={`w-3.5 h-3.5 mr-1 ${isHandRaised ? 'animate-bounce' : ''}`} />
@@ -161,7 +161,7 @@ export const StudentLiveClassroomPage: React.FC = () => {
             variant="outline"
             size="sm"
             onClick={handleLeaveClass}
-            className="bg-[#27272a] hover:bg-rose-950/60 border-[#3f3f46] hover:border-rose-700 text-[#fafafa] hover:text-rose-300 text-xs"
+            className="bg-[var(--bg-muted)] hover:bg-rose-950/60 border-[var(--border-default)] hover:border-rose-700 text-[var(--text-primary)] hover:text-rose-300 text-xs"
           >
             <LogOut className="w-3.5 h-3.5 mr-1" />
             Leave Class
@@ -186,14 +186,14 @@ export const StudentLiveClassroomPage: React.FC = () => {
           />
 
           {/* Workspace Tab Switcher Bar */}
-          <div className="flex items-center justify-between p-2 bg-[#18181b] border border-[#27272a] rounded-xl overflow-x-auto gap-2">
+          <div className="flex items-center justify-between p-2 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-xl overflow-x-auto gap-2">
             <div className="flex items-center gap-1.5 shrink-0">
               <button
                 onClick={() => setActiveMainTab('editor')}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer shrink-0 ${
                   activeMainTab === 'editor'
-                    ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46] shadow-xs'
-                    : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#27272a]'
+                    ? 'bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-default)] shadow-xs'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)]'
                 }`}
               >
                 <CodeXml className="w-3.5 h-3.5" />
@@ -204,8 +204,8 @@ export const StudentLiveClassroomPage: React.FC = () => {
                 onClick={() => setActiveMainTab('whiteboard')}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer shrink-0 ${
                   activeMainTab === 'whiteboard'
-                    ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46] shadow-xs'
-                    : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#27272a]'
+                    ? 'bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-default)] shadow-xs'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)]'
                 }`}
               >
                 <Pencil className="w-3.5 h-3.5" />
@@ -216,8 +216,8 @@ export const StudentLiveClassroomPage: React.FC = () => {
                 onClick={() => setActiveMainTab('notes')}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer shrink-0 ${
                   activeMainTab === 'notes'
-                    ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46] shadow-xs'
-                    : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#27272a]'
+                    ? 'bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-default)] shadow-xs'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)]'
                 }`}
               >
                 <FileText className="w-3.5 h-3.5" />
@@ -225,8 +225,8 @@ export const StudentLiveClassroomPage: React.FC = () => {
               </button>
             </div>
 
-            <span className="text-[11px] text-emerald-400 font-mono hidden md:flex items-center gap-1 shrink-0">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse inline-block" />
+            <span className="text-[11px] text-emerald-500 dark:text-emerald-400 font-mono hidden md:flex items-center gap-1 shrink-0">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse inline-block" />
               Real-Time Code Sync
             </span>
           </div>
@@ -262,13 +262,13 @@ export const StudentLiveClassroomPage: React.FC = () => {
         {/* Right Column: Chat, Polls, and Student Roster */}
         <div className="lg:col-span-4 flex flex-col space-y-4 min-h-[600px]">
           {/* Side Tab Switcher */}
-          <div className="grid grid-cols-3 gap-1 p-1 bg-[#18181b] border border-[#27272a] rounded-xl">
+          <div className="grid grid-cols-3 gap-1 p-1 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-xl">
             <button
               onClick={() => setActiveSideTab('chat')}
               className={`py-1.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer ${
                 activeSideTab === 'chat'
-                  ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46] shadow-xs'
-                  : 'text-[#a1a1aa] hover:text-[#fafafa]'
+                  ? 'bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-default)] shadow-xs'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
             >
               <MessageSquare className="w-3.5 h-3.5" />
@@ -279,8 +279,8 @@ export const StudentLiveClassroomPage: React.FC = () => {
               onClick={() => setActiveSideTab('polls')}
               className={`py-1.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer ${
                 activeSideTab === 'polls'
-                  ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46] shadow-xs'
-                  : 'text-[#a1a1aa] hover:text-[#fafafa]'
+                  ? 'bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-default)] shadow-xs'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
             >
               <BarChart2 className="w-3.5 h-3.5" />
@@ -291,8 +291,8 @@ export const StudentLiveClassroomPage: React.FC = () => {
               onClick={() => setActiveSideTab('roster')}
               className={`py-1.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer ${
                 activeSideTab === 'roster'
-                  ? 'bg-[#27272a] text-[#fafafa] border border-[#3f3f46] shadow-xs'
-                  : 'text-[#a1a1aa] hover:text-[#fafafa]'
+                  ? 'bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-default)] shadow-xs'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
             >
               <Users className="w-3.5 h-3.5" />
