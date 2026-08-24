@@ -4,9 +4,23 @@ import { useAuthStore } from '@/store/authStore';
 import { RoleGuard } from '@/components/auth/RoleGuard';
 
 // Layouts
+import { UniversityLayout } from '@/layouts/UniversityLayout';
+import { CoordinatorLayout } from '@/layouts/CoordinatorLayout';
 import { AdminLayout } from '@/layouts/AdminLayout';
 import { InstructorLayout } from '@/layouts/InstructorLayout';
 import { StudentLayout } from '@/layouts/StudentLayout';
+
+// University Pages
+import { UniversityDashboardPage } from '@/pages/university/UniversityDashboardPage';
+import { UniversityCollegesPage } from '@/pages/university/UniversityCollegesPage';
+import { UniversityCollegeDetailPage } from '@/pages/university/UniversityCollegeDetailPage';
+import { UniversityDepartmentsPage } from '@/pages/university/UniversityDepartmentsPage';
+import { UniversityUsersPage } from '@/pages/university/UniversityUsersPage';
+import { UniversityAssessmentsPage } from '@/pages/university/UniversityAssessmentsPage';
+import { UniversityAnalyticsPage } from '@/pages/university/UniversityAnalyticsPage';
+import { UniversityReportsPage } from '@/pages/university/UniversityReportsPage';
+import { UniversityNotificationsPage } from '@/pages/university/UniversityNotificationsPage';
+import { UniversitySettingsPage } from '@/pages/university/UniversitySettingsPage';
 
 // Auth Pages
 import { LoginPage, ForgotPasswordPage, ResetPasswordPage } from '@/pages/auth/LoginPage';
@@ -75,7 +89,10 @@ export const AppRouter: React.FC = () => {
 
   const getDefaultRoute = () => {
     if (!user) return '/login';
-    if (user.role === 'ADMIN') return '/admin/dashboard';
+    if (user.role === 'UNIVERSITY_ADMIN') return '/university/dashboard';
+    if (user.role === 'COLLEGE' || user.role === 'DEPARTMENT_COORDINATOR' || user.role === 'ADMIN') {
+      return '/coordinator/dashboard';
+    }
     if (user.role === 'INSTRUCTOR') return '/instructor/dashboard';
     return '/student/dashboard';
   };
@@ -91,16 +108,62 @@ export const AppRouter: React.FC = () => {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-        {/* Admin Portal Routes */}
+        {/* University Admin Portal Routes */}
         <Route
-          path="/admin"
+          path="/university"
           element={
-            <RoleGuard allowedRoles={['ADMIN']}>
-              <AdminLayout />
+            <RoleGuard allowedRoles={['UNIVERSITY_ADMIN']}>
+              <UniversityLayout />
             </RoleGuard>
           }
         >
-          <Route index element={<Navigate to="/admin/dashboard" replace />} />
+          <Route index element={<Navigate to="/university/dashboard" replace />} />
+          <Route path="dashboard" element={<UniversityDashboardPage />} />
+          <Route path="colleges" element={<UniversityCollegesPage />} />
+          <Route path="colleges/:collegeId" element={<UniversityCollegeDetailPage />} />
+          <Route path="departments" element={<UniversityDepartmentsPage />} />
+          <Route path="users" element={<UniversityUsersPage />} />
+          <Route path="assessments" element={<UniversityAssessmentsPage />} />
+          <Route path="analytics" element={<UniversityAnalyticsPage />} />
+          <Route path="reports" element={<UniversityReportsPage />} />
+          <Route path="notifications" element={<UniversityNotificationsPage />} />
+          <Route path="settings" element={<UniversitySettingsPage />} />
+        </Route>
+
+        {/* Department Co-ordinator Portal Routes */}
+        <Route
+          path="/coordinator"
+          element={
+            <RoleGuard allowedRoles={['DEPARTMENT_COORDINATOR', 'ADMIN', 'COLLEGE']}>
+              <CoordinatorLayout />
+            </RoleGuard>
+          }
+        >
+          <Route index element={<Navigate to="/coordinator/dashboard" replace />} />
+          <Route path="dashboard" element={<AdminDashboardPage />} />
+          <Route path="users/students" element={<AdminStudentsPage />} />
+          <Route path="users/instructors" element={<AdminInstructorsPage />} />
+          <Route path="students" element={<AdminStudentsPage />} />
+          <Route path="instructors" element={<AdminInstructorsPage />} />
+          <Route path="batches" element={<AdminBatchesPage />} />
+          <Route path="assessments" element={<AdminAssessmentsPage />} />
+          <Route path="questions" element={<AdminQuestionsPage />} />
+          <Route path="analytics" element={<AdminAnalyticsPage />} />
+          <Route path="reports" element={<AdminReportsPage />} />
+          <Route path="notifications" element={<AdminNotificationsPage />} />
+          <Route path="settings" element={<AdminSettingsPage />} />
+        </Route>
+
+        {/* Legacy /admin Portal Routes (Forwarding to same views) */}
+        <Route
+          path="/admin"
+          element={
+            <RoleGuard allowedRoles={['ADMIN', 'DEPARTMENT_COORDINATOR', 'COLLEGE', 'UNIVERSITY_ADMIN']}>
+              <CoordinatorLayout />
+            </RoleGuard>
+          }
+        >
+          <Route index element={<Navigate to="/coordinator/dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashboardPage />} />
           <Route path="users/students" element={<AdminStudentsPage />} />
           <Route path="users/instructors" element={<AdminInstructorsPage />} />

@@ -9,9 +9,14 @@ export const ForbiddenPage: React.FC = () => {
   const { user } = useAuthStore();
 
   const handleGoDashboard = () => {
-    if (user?.role === 'ADMIN') navigate('/admin/dashboard');
-    else if (user?.role === 'INSTRUCTOR') navigate('/instructor/dashboard');
-    else navigate('/student/dashboard');
+    if (user?.role === 'UNIVERSITY_ADMIN') navigate('/university/dashboard');
+    else if (user?.role === 'COLLEGE' || user?.role === 'DEPARTMENT_COORDINATOR' || user?.role === 'ADMIN') {
+      navigate('/coordinator/dashboard');
+    } else if (user?.role === 'INSTRUCTOR') {
+      navigate('/instructor/dashboard');
+    } else {
+      navigate('/student/dashboard');
+    }
   };
 
   return (
@@ -56,9 +61,14 @@ export const NotFoundPage: React.FC = () => {
   const { user } = useAuthStore();
 
   const handleGoDashboard = () => {
-    if (user?.role === 'ADMIN') navigate('/admin/dashboard');
-    else if (user?.role === 'INSTRUCTOR') navigate('/instructor/dashboard');
-    else navigate('/student/dashboard');
+    if (user?.role === 'UNIVERSITY_ADMIN') navigate('/university/dashboard');
+    else if (user?.role === 'COLLEGE' || user?.role === 'DEPARTMENT_COORDINATOR' || user?.role === 'ADMIN') {
+      navigate('/coordinator/dashboard');
+    } else if (user?.role === 'INSTRUCTOR') {
+      navigate('/instructor/dashboard');
+    } else {
+      navigate('/student/dashboard');
+    }
   };
 
   return (

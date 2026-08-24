@@ -1,6 +1,6 @@
 {
   "name": "CodePulse Academy & Assessment Platform",
-  "description": "Enterprise coding education, live assessment engine, and LMS platform with dedicated Admin, Instructor, and Student portals.",
+  "description": "Enterprise multi-campus academic LMS and sandbox platform with 5-tier hierarchy: University Admin, College, Department Co-ordinator, Instructor, and Student.",
   "requestFramePermissions": ["camera", "microphone"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

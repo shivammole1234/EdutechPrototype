@@ -1,4 +1,76 @@
-export type UserRole = 'ADMIN' | 'INSTRUCTOR' | 'STUDENT';
+export type UserRole =
+  | 'UNIVERSITY_ADMIN'
+  | 'COLLEGE'
+  | 'DEPARTMENT_COORDINATOR'
+  | 'INSTRUCTOR'
+  | 'STUDENT'
+  | 'ADMIN'; // backward compatibility alias
+
+export interface University {
+  id: string; // e.g. "univ_001"
+  name: string; // e.g. "Apex Technical University System"
+  code: string; // e.g. "ATU"
+  domain: string;
+  logo?: string;
+  establishedYear: number;
+  chancellorName: string;
+  location: string;
+  totalCollegesCount: number;
+  totalStudentsCount: number;
+  totalFacultyCount: number;
+  totalCoordinatorsCount: number;
+  totalAssessmentsCount: number;
+  status: 'ACTIVE' | 'INACTIVE';
+  createdAt: string;
+}
+
+export interface College {
+  id: string; // e.g. "college_001"
+  universityId: string; // "univ_001"
+  universityName?: string;
+  name: string; // e.g. "Apex College of Engineering & Technology"
+  code: string; // e.g. "ACET"
+  slug?: string;
+  logo?: string;
+  campusLocation: string;
+  deanName: string;
+  deanEmail: string;
+  departmentsCount: number;
+  departments: string[];
+  coordinatorsCount: number;
+  instructorsCount: number;
+  studentsCount: number;
+  batchesCount: number;
+  assessmentsCount: number;
+  avgPerformanceScore: number;
+  status: 'ACTIVE' | 'INACTIVE' | 'PENDING';
+  establishedYear?: number;
+  contactEmail: string;
+  contactPhone: string;
+  website?: string;
+  createdAt: string;
+}
+
+export interface Department {
+  id: string; // e.g. "dept_cse_01"
+  collegeId: string; // "college_001"
+  collegeName: string;
+  universityId: string; // "univ_001"
+  name: string; // "Computer Science & Engineering"
+  code: string; // "CSE"
+  headOfDepartment: string;
+  hodEmail: string;
+  coordinatorName: string;
+  coordinatorEmail: string;
+  facultyCount: number;
+  studentCount: number;
+  batchesCount: number;
+  activeAssessmentsCount: number;
+  avgPassRate: number;
+  status: 'ACTIVE' | 'INACTIVE';
+  description?: string;
+  createdAt: string;
+}
 
 export interface User {
   id: string;
@@ -6,6 +78,13 @@ export interface User {
   email: string;
   role: UserRole;
   avatar: string;
+  universityId?: string;
+  universityName?: string;
+  collegeId?: string;
+  collegeName?: string;
+  collegeCode?: string;
+  departmentId?: string;
+  departmentName?: string;
   organizationId?: string;
   organizationName?: string;
   status: 'ACTIVE' | 'INACTIVE' | 'PENDING';

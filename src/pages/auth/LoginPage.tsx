@@ -1,7 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { CodeXml, Shield, GraduationCap, Code2, ArrowRight, Lock, Mail, Sun, Moon } from 'lucide-react';
-import { useAuthStore, MOCK_USERS } from '@/stores/useAuthStore';
+import {
+  CodeXml,
+  Building2,
+  School,
+  Network,
+  GraduationCap,
+  Code2,
+  ArrowRight,
+  Lock,
+  Mail,
+  Sun,
+  Moon,
+} from 'lucide-react';
+import { useAuthStore, MOCK_USERS, ALL_DEMO_ACCOUNTS } from '@/stores/useAuthStore';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { UserRole } from '@/types';
 import { Button } from '@/components/ui/Button';
@@ -11,19 +23,26 @@ export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const { login } = useAuthStore();
   const { theme, toggleTheme } = useThemeStore();
-  const [email, setEmail] = useState('alex.turner@student.codepulse.io');
+  const [email, setEmail] = useState('alex.turner@student.eng.codepulse.edu');
   const [password, setPassword] = useState('••••••••••••');
   const [selectedRole, setSelectedRole] = useState<UserRole>('STUDENT');
   const [isLoading, setIsLoading] = useState(false);
+
+  const routeForUser = (role: UserRole) => {
+    if (role === 'UNIVERSITY_ADMIN') return '/university/dashboard';
+    if (role === 'DEPARTMENT_COORDINATOR' || role === 'ADMIN' || role === 'COLLEGE') {
+      return '/coordinator/dashboard';
+    }
+    if (role === 'INSTRUCTOR') return '/instructor/dashboard';
+    return '/student/dashboard';
+  };
 
   const handleLogin = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setIsLoading(true);
     try {
       const user = await login(selectedRole, email);
-      if (user.role === 'ADMIN') navigate('/admin/dashboard');
-      else if (user.role === 'INSTRUCTOR') navigate('/instructor/dashboard');
-      else navigate('/student/dashboard');
+      navigate(routeForUser(user.role));
     } finally {
       setIsLoading(false);
     }
@@ -31,13 +50,12 @@ export const LoginPage: React.FC = () => {
 
   const handleQuickDemoLogin = async (role: UserRole) => {
     setSelectedRole(role);
-    setEmail(MOCK_USERS[role].email);
+    const demoUser = MOCK_USERS[role] || ALL_DEMO_ACCOUNTS[8];
+    setEmail(demoUser.email);
     setIsLoading(true);
     try {
-      const user = await login(role, MOCK_USERS[role].email);
-      if (user.role === 'ADMIN') navigate('/admin/dashboard');
-      else if (user.role === 'INSTRUCTOR') navigate('/instructor/dashboard');
-      else navigate('/student/dashboard');
+      const user = await login(role, demoUser.email);
+      navigate(routeForUser(user.role));
     } finally {
       setIsLoading(false);
     }
@@ -65,55 +83,81 @@ export const LoginPage: React.FC = () => {
           CodePulse Academy
         </h2>
         <p className="mt-1.5 text-xs sm:text-sm text-[var(--text-secondary)]">
-          Coding Education & Assessment Platform
+          University & Multi-Campus Academic LMS & Assessment Engine
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0 z-10">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg px-4 sm:px-0 z-10">
         {/* Quick Demo Switcher Card */}
         <div className="bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-2xl p-6 shadow-[var(--card-shadow)]">
           <div className="mb-5">
             <p className="text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2.5">
-              Select Demo Role to Login:
+              Select Demo Role to Instant Login:
             </p>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               <button
                 type="button"
-                onClick={() => handleQuickDemoLogin('STUDENT')}
-                className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border text-xs font-semibold transition cursor-pointer ${
-                  selectedRole === 'STUDENT'
-                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-300 ring-1 ring-emerald-500/30'
+                onClick={() => handleQuickDemoLogin('UNIVERSITY_ADMIN')}
+                className={`flex flex-col items-center gap-1 p-2.5 rounded-xl border text-xs font-semibold transition cursor-pointer ${
+                  selectedRole === 'UNIVERSITY_ADMIN'
+                    ? 'bg-amber-500/10 border-amber-500/30 text-amber-600 dark:text-amber-300 ring-1 ring-amber-500/30'
                     : 'bg-[var(--bg-surface-secondary)] border-[var(--border-default)] text-[var(--text-secondary)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]'
                 }`}
               >
-                <Code2 className="w-5 h-5 text-emerald-500" />
-                <span>Student</span>
+                <Building2 className="w-4 h-4 text-amber-500" />
+                <span>Univ Admin</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleQuickDemoLogin('COLLEGE')}
+                className={`flex flex-col items-center gap-1 p-2.5 rounded-xl border text-xs font-semibold transition cursor-pointer ${
+                  selectedRole === 'COLLEGE'
+                    ? 'bg-indigo-500/10 border-indigo-500/30 text-indigo-600 dark:text-indigo-300 ring-1 ring-indigo-500/30'
+                    : 'bg-[var(--bg-surface-secondary)] border-[var(--border-default)] text-[var(--text-secondary)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]'
+                }`}
+              >
+                <School className="w-4 h-4 text-indigo-500" />
+                <span>College Dean</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleQuickDemoLogin('DEPARTMENT_COORDINATOR')}
+                className={`flex flex-col items-center gap-1 p-2.5 rounded-xl border text-xs font-semibold transition cursor-pointer ${
+                  selectedRole === 'DEPARTMENT_COORDINATOR' || selectedRole === 'ADMIN'
+                    ? 'bg-purple-500/10 border-purple-500/30 text-purple-600 dark:text-purple-300 ring-1 ring-purple-500/30'
+                    : 'bg-[var(--bg-surface-secondary)] border-[var(--border-default)] text-[var(--text-secondary)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]'
+                }`}
+              >
+                <Network className="w-4 h-4 text-purple-500" />
+                <span>Coordinator</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => handleQuickDemoLogin('INSTRUCTOR')}
-                className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border text-xs font-semibold transition cursor-pointer ${
+                className={`flex flex-col items-center gap-1 p-2.5 rounded-xl border text-xs font-semibold transition cursor-pointer ${
                   selectedRole === 'INSTRUCTOR'
-                    ? 'bg-[var(--bg-surface)] border-[var(--border-focus)] text-[var(--text-primary)] ring-1 ring-[var(--border-focus)]'
+                    ? 'bg-blue-500/10 border-blue-500/30 text-blue-600 dark:text-blue-300 ring-1 ring-blue-500/30'
                     : 'bg-[var(--bg-surface-secondary)] border-[var(--border-default)] text-[var(--text-secondary)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]'
                 }`}
               >
-                <GraduationCap className="w-5 h-5 text-[var(--text-secondary)]" />
+                <GraduationCap className="w-4 h-4 text-blue-500" />
                 <span>Instructor</span>
               </button>
 
               <button
                 type="button"
-                onClick={() => handleQuickDemoLogin('ADMIN')}
-                className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border text-xs font-semibold transition cursor-pointer ${
-                  selectedRole === 'ADMIN'
-                    ? 'bg-purple-500/10 border-purple-500/30 text-purple-600 dark:text-purple-300 ring-1 ring-purple-500/30'
+                onClick={() => handleQuickDemoLogin('STUDENT')}
+                className={`col-span-2 sm:col-span-2 flex flex-col items-center gap-1 p-2.5 rounded-xl border text-xs font-semibold transition cursor-pointer ${
+                  selectedRole === 'STUDENT'
+                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-300 ring-1 ring-emerald-500/30'
                     : 'bg-[var(--bg-surface-secondary)] border-[var(--border-default)] text-[var(--text-secondary)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]'
                 }`}
               >
-                <Shield className="w-5 h-5 text-purple-500" />
-                <span>Admin</span>
+                <Code2 className="w-4 h-4 text-emerald-500" />
+                <span>Student Portal</span>
               </button>
             </div>
           </div>
@@ -161,13 +205,13 @@ export const LoginPage: React.FC = () => {
               isLoading={isLoading}
               className="w-full mt-2"
             >
-              Sign In to {selectedRole} Portal
+              Sign In to Portal
               <ArrowRight className="w-4 h-4 ml-1.5" />
             </Button>
           </form>
 
           <div className="mt-5 text-center text-xs text-[var(--text-muted)]">
-            Protected by CodePulse Enterprise Auth & SSO.
+            Protected by CodePulse Multi-Campus SSO & Hierarchy RBAC.
           </div>
         </div>
       </div>
