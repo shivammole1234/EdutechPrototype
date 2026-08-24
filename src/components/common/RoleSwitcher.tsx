@@ -199,7 +199,7 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ title, onMenuToggle, isSid
           {onMenuToggle && (
             <button
               onClick={onMenuToggle}
-              className="md:hidden p-2 rounded-lg bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] hover:border-[var(--border-hover)] text-[var(--text-primary)] transition-colors cursor-pointer flex items-center justify-center min-w-[40px] min-h-[40px] shrink-0"
+              className="lg:hidden p-2 rounded-lg bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] hover:border-[var(--border-hover)] text-[var(--text-primary)] transition-colors cursor-pointer flex items-center justify-center min-w-[40px] min-h-[40px] shrink-0"
               aria-label={isSidebarOpen ? 'Close navigation sidebar' : 'Open navigation sidebar'}
               title={isSidebarOpen ? 'Close Navigation' : 'Open Navigation'}
             >

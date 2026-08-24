@@ -67,11 +67,11 @@ export const UniversityLayout: React.FC = () => {
     );
 
   return (
-    <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] flex flex-col md:flex-row relative">
-      {/* Mobile Backdrop Overlay */}
+    <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] flex flex-col lg:flex-row relative">
+      {/* Mobile & Tablet Backdrop Overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-xs z-40 md:hidden transition-opacity"
+          className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-xs z-40 lg:hidden transition-opacity"
           onClick={() => setSidebarOpen(false)}
           aria-hidden="true"
         />
@@ -80,11 +80,11 @@ export const UniversityLayout: React.FC = () => {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] md:w-64 bg-[var(--bg-surface)] border-r border-[var(--border-default)] flex flex-col transition-transform duration-300 ease-in-out md:sticky md:top-0 md:h-screen md:shrink-0 md:translate-x-0 shadow-2xl md:shadow-none',
+          'fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] lg:w-64 bg-[var(--bg-surface)] border-r border-[var(--border-default)] flex flex-col transition-transform duration-300 ease-in-out lg:sticky lg:top-0 lg:h-screen lg:shrink-0 lg:translate-x-0 shadow-2xl lg:shadow-none',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
-        {/* Brand & Mobile Close Button */}
+        {/* Brand & Mobile/Tablet Close Button */}
         <div className="h-16 px-4 sm:px-6 border-b border-[var(--border-default)] flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-amber-500 rounded-md flex items-center justify-center font-bold text-black shadow-sm">
@@ -100,7 +100,7 @@ export const UniversityLayout: React.FC = () => {
 
           <button
             onClick={() => setSidebarOpen(false)}
-            className="md:hidden p-2 rounded-lg bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] hover:border-[var(--border-hover)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition cursor-pointer min-w-[36px] min-h-[36px] flex items-center justify-center"
+            className="lg:hidden p-2 rounded-lg bg-[var(--bg-surface-secondary)] border border-[var(--border-default)] hover:border-[var(--border-hover)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition cursor-pointer min-w-[36px] min-h-[36px] flex items-center justify-center"
             aria-label="Close sidebar"
           >
             <X className="w-4 h-4" />
